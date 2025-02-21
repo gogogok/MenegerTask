@@ -1,0 +1,12 @@
+/Users/darazdanok/Desktop/Sharps/Projects/Project4_Zhdanok/MenuLib/bin/Debug/net8.0/MenuLib.deps.json
+/Users/darazdanok/Desktop/Sharps/Projects/Project4_Zhdanok/MenuLib/bin/Debug/net8.0/MenuLib.dll
+/Users/darazdanok/Desktop/Sharps/Projects/Project4_Zhdanok/MenuLib/bin/Debug/net8.0/MenuLib.pdb
+/Users/darazdanok/Desktop/Sharps/Projects/Project4_Zhdanok/MenuLib/obj/Debug/net8.0/MenuLib.GeneratedMSBuildEditorConfig.editorconfig
+/Users/darazdanok/Desktop/Sharps/Projects/Project4_Zhdanok/MenuLib/obj/Debug/net8.0/MenuLib.AssemblyInfoInputs.cache
+/Users/darazdanok/Desktop/Sharps/Projects/Project4_Zhdanok/MenuLib/obj/Debug/net8.0/MenuLib.AssemblyInfo.cs
+/Users/darazdanok/Desktop/Sharps/Projects/Project4_Zhdanok/MenuLib/obj/Debug/net8.0/MenuLib.csproj.CoreCompileInputs.cache
+/Users/darazdanok/Desktop/Sharps/Projects/Project4_Zhdanok/MenuLib/obj/Debug/net8.0/MenuLib.sourcelink.json
+/Users/darazdanok/Desktop/Sharps/Projects/Project4_Zhdanok/MenuLib/obj/Debug/net8.0/MenuLib.dll
+/Users/darazdanok/Desktop/Sharps/Projects/Project4_Zhdanok/MenuLib/obj/Debug/net8.0/refint/MenuLib.dll
+/Users/darazdanok/Desktop/Sharps/Projects/Project4_Zhdanok/MenuLib/obj/Debug/net8.0/MenuLib.pdb
+/Users/darazdanok/Desktop/Sharps/Projects/Project4_Zhdanok/MenuLib/obj/Debug/net8.0/ref/MenuLib.dll

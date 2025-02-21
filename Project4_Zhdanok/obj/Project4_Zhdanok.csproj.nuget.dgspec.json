@@ -1,0 +1,199 @@
+{
+  "format": 1,
+  "restore": {
+    "/Users/darazdanok/Desktop/Sharps/Projects/Project4_Zhdanok/Project4_Zhdanok/Project4_Zhdanok.csproj": {}
+  },
+  "projects": {
+    "/Users/darazdanok/Desktop/Sharps/Projects/Project4_Zhdanok/LibWorkWithFiles/LibWorkWithFiles.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/darazdanok/Desktop/Sharps/Projects/Project4_Zhdanok/LibWorkWithFiles/LibWorkWithFiles.csproj",
+        "projectName": "LibWorkWithFiles",
+        "projectPath": "/Users/darazdanok/Desktop/Sharps/Projects/Project4_Zhdanok/LibWorkWithFiles/LibWorkWithFiles.csproj",
+        "packagesPath": "/Users/darazdanok/.nuget/packages/",
+        "outputPath": "/Users/darazdanok/Desktop/Sharps/Projects/Project4_Zhdanok/LibWorkWithFiles/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/darazdanok/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "CsvHelper": {
+              "target": "Package",
+              "version": "[33.0.1, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.3, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.401/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/darazdanok/Desktop/Sharps/Projects/Project4_Zhdanok/MenuLib/MenuLib.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/darazdanok/Desktop/Sharps/Projects/Project4_Zhdanok/MenuLib/MenuLib.csproj",
+        "projectName": "MenuLib",
+        "projectPath": "/Users/darazdanok/Desktop/Sharps/Projects/Project4_Zhdanok/MenuLib/MenuLib.csproj",
+        "packagesPath": "/Users/darazdanok/.nuget/packages/",
+        "outputPath": "/Users/darazdanok/Desktop/Sharps/Projects/Project4_Zhdanok/MenuLib/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/darazdanok/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.401/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/darazdanok/Desktop/Sharps/Projects/Project4_Zhdanok/Project4_Zhdanok/Project4_Zhdanok.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/darazdanok/Desktop/Sharps/Projects/Project4_Zhdanok/Project4_Zhdanok/Project4_Zhdanok.csproj",
+        "projectName": "Project4_Zhdanok",
+        "projectPath": "/Users/darazdanok/Desktop/Sharps/Projects/Project4_Zhdanok/Project4_Zhdanok/Project4_Zhdanok.csproj",
+        "packagesPath": "/Users/darazdanok/.nuget/packages/",
+        "outputPath": "/Users/darazdanok/Desktop/Sharps/Projects/Project4_Zhdanok/Project4_Zhdanok/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/darazdanok/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "/Users/darazdanok/Desktop/Sharps/Projects/Project4_Zhdanok/LibWorkWithFiles/LibWorkWithFiles.csproj": {
+                "projectPath": "/Users/darazdanok/Desktop/Sharps/Projects/Project4_Zhdanok/LibWorkWithFiles/LibWorkWithFiles.csproj"
+              },
+              "/Users/darazdanok/Desktop/Sharps/Projects/Project4_Zhdanok/MenuLib/MenuLib.csproj": {
+                "projectPath": "/Users/darazdanok/Desktop/Sharps/Projects/Project4_Zhdanok/MenuLib/MenuLib.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.401/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

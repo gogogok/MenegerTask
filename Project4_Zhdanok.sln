@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Project4_Zhdanok", "Project4_Zhdanok\Project4_Zhdanok.csproj", "{01779824-83FE-4ACF-8971-91552F63ACA7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MenuLib", "MenuLib\MenuLib.csproj", "{D93629A6-74F1-49AA-8FB8-4442AD433B25}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibWorkWithFiles", "LibWorkWithFiles\LibWorkWithFiles.csproj", "{8FC42A34-8717-42E6-B4F7-D1EDBEB5B765}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{01779824-83FE-4ACF-8971-91552F63ACA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01779824-83FE-4ACF-8971-91552F63ACA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01779824-83FE-4ACF-8971-91552F63ACA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01779824-83FE-4ACF-8971-91552F63ACA7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D93629A6-74F1-49AA-8FB8-4442AD433B25}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D93629A6-74F1-49AA-8FB8-4442AD433B25}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D93629A6-74F1-49AA-8FB8-4442AD433B25}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D93629A6-74F1-49AA-8FB8-4442AD433B25}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8FC42A34-8717-42E6-B4F7-D1EDBEB5B765}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8FC42A34-8717-42E6-B4F7-D1EDBEB5B765}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8FC42A34-8717-42E6-B4F7-D1EDBEB5B765}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8FC42A34-8717-42E6-B4F7-D1EDBEB5B765}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
