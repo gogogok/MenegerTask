@@ -1,7 +1,7 @@
 [
 	{
 		"ID": 1,
-		"Status": "IN_PROGRESS",
+		"Status": "TODO",
 		"Priority": "Высокий",
 		"Desc": "Написать отчет по проекту"
 	},
@@ -26,8 +26,8 @@
 	{
 		"ID": 5,
 		"Status": "TODO",
-		"Priority": "Высокий",
-		"Desc": "fdghgff"
+		"Priority": "Средний",
+		"Desc": "захватить Беларусь"
 	},
 	{
 		"ID": 6,

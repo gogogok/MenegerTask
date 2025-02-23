@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Project4_Zhdanok")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ba0f7bb1ebd0b34ad8e6d978b20555928aa1c6e7")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a86da8d549d23fbc1a4a177d6d99fb01c6173cdf")]
 [assembly: System.Reflection.AssemblyProductAttribute("Project4_Zhdanok")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Project4_Zhdanok")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

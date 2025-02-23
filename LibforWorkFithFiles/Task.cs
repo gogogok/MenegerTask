@@ -9,7 +9,7 @@ public enum Statuses
     Done
 }
 
-public enum Priority
+public enum Prioritys
 {
     High,
     Medium,
@@ -26,7 +26,7 @@ public class Task
     /// <summary>
     /// Приоритет задачи
     /// </summary>
-    private Priority _priority;
+    private Prioritys _priority;
 
     /// <summary>
     /// Статус задачи
@@ -97,17 +97,17 @@ public class Task
     {
         get
         {
-            if (_priority == LibWorkWithFiles.Priority.Low)
+            if (_priority == Prioritys.Low)
             {
                 return "Низкий";
             }
 
-            if (_priority == LibWorkWithFiles.Priority.Medium)
+            if (_priority == Prioritys.Medium)
             {
                 return "Средний";
             }
 
-            if (_priority == LibWorkWithFiles.Priority.High)
+            if (_priority == Prioritys.High)
             {
                 return "Высокий";
             }
@@ -119,15 +119,15 @@ public class Task
             //выбрасывается исключение, если такого приоритета не существует
             if (value == "Низкий")
             {
-                _priority = LibWorkWithFiles.Priority.Low;
+                _priority = Prioritys.Low;
             }
             else if (value == "Средний")
             {
-                _priority = LibWorkWithFiles.Priority.Medium;
+                _priority = Prioritys.Medium;
             }
             else if (value == "Высокий")
             {
-                _priority = LibWorkWithFiles.Priority.High;
+                _priority = Prioritys.High;
             }
             else
             {
@@ -218,5 +218,13 @@ public class Task
 
        str.AppendLine("--------------------");
        return str.ToString();
+    }
+
+    public int PriorytiImportance(string pr)
+    {
+        if(pr =="Высокий") return (int)Prioritys.High;
+        if(pr == "Средний") return (int)Prioritys.Medium;
+        if(pr == "Низкий") return (int)Prioritys.Low;
+        return 4;
     }
 }
