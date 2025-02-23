@@ -7,7 +7,10 @@ public enum Texts
 {
     ChooseFileExport,
     Description,
-    ChoosePoint
+    ChoosePoint,
+    ChoosePriority,
+    ChooseStatus,
+    ChooseShow
 }
 
 /// <summary>
@@ -34,6 +37,15 @@ public static class Frame
                 return str;
             case Texts.ChoosePoint:
                 str  = ["Меню ", "Выберите пункт меню", " ", "1. Ввести данные через файл", "2. Просмотреть все задачи", "3. Добавить новую задачу ", "4. Изменить статус задачи", "5. Удалить задачу по ID",  "6. Выйти из программы", " "];
+                return str;
+            case Texts.ChoosePriority:
+                str = ["Выберите приоритет", "", "1.Высокий ", "2. Средний", "3.Низкий"," "];
+                return str;
+            case Texts.ChooseStatus:
+                str = ["Выберите статус", " ","1. TODO", "2.IN_PROGRESS", "3. DONE"," "];
+                return str;
+            case Texts.ChooseShow:
+                str = ["Выберите, как вывести данные","","1. В консоль", "2. В виде таблицы "," "];
                 return str;
         }
         return null;
@@ -95,11 +107,11 @@ public static class Frame
                     lenOfPole--;
                 }
 
-                if (data[i] != "Выберите пункт меню ")
+                if (data[i] != "Выберите пункт меню")
                 {
                     Console.WriteLine($"\u2551{prob}{data[i]}{prob}\u2551");
                 }
-                else
+                else //изменение цвета выбора пункта меню в рамке
                 {
                     Console.Write("\u2551");
                     Console.ForegroundColor = ConsoleColor.Magenta;
@@ -112,7 +124,12 @@ public static class Frame
 
     }
 
-    internal static int CountLength(string[] data)
+    /// <summary>
+    /// Метод для подсчёта самой длинной строки
+    /// </summary>
+    /// <param name="data">Массив строк, из которых будет выбрана самая длинная</param>
+    /// <returns>Максимальную длину строки</returns>
+    private static int CountLength(string[] data)
     {
         int maxSize = 0;
         for (int i = 0; i < data.Length; i++)

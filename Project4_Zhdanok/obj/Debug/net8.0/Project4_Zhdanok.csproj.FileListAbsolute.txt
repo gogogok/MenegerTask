@@ -17,7 +17,8 @@
 /Users/darazdanok/Desktop/Sharps/Projects/Project4_Zhdanok/Project4_Zhdanok/obj/Debug/net8.0/Project4_Zhdanok.pdb
 /Users/darazdanok/Desktop/Sharps/Projects/Project4_Zhdanok/Project4_Zhdanok/obj/Debug/net8.0/Project4_Zhdanok.genruntimeconfig.cache
 /Users/darazdanok/Desktop/Sharps/Projects/Project4_Zhdanok/Project4_Zhdanok/obj/Debug/net8.0/ref/Project4_Zhdanok.dll
-/Users/darazdanok/Desktop/Sharps/Projects/Project4_Zhdanok/Project4_Zhdanok/bin/Debug/net8.0/LibWorkWithFiles.dll
-/Users/darazdanok/Desktop/Sharps/Projects/Project4_Zhdanok/Project4_Zhdanok/bin/Debug/net8.0/LibWorkWithFiles.pdb
 /Users/darazdanok/Desktop/Sharps/Projects/Project4_Zhdanok/Project4_Zhdanok/bin/Debug/net8.0/CsvHelper.dll
 /Users/darazdanok/Desktop/Sharps/Projects/Project4_Zhdanok/Project4_Zhdanok/bin/Debug/net8.0/Newtonsoft.Json.dll
+/Users/darazdanok/Desktop/Sharps/Projects/Project4_Zhdanok/Project4_Zhdanok/bin/Debug/net8.0/LibforWorkFithFiles.dll
+/Users/darazdanok/Desktop/Sharps/Projects/Project4_Zhdanok/Project4_Zhdanok/bin/Debug/net8.0/LibforWorkFithFiles.pdb
+/Users/darazdanok/Desktop/Sharps/Projects/Project4_Zhdanok/Project4_Zhdanok/bin/Debug/net8.0/Spectre.Console.dll

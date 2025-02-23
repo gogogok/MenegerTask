@@ -10,3 +10,4 @@
 /Users/darazdanok/Desktop/Sharps/Projects/Project4_Zhdanok/MenuLib/obj/Debug/net8.0/refint/MenuLib.dll
 /Users/darazdanok/Desktop/Sharps/Projects/Project4_Zhdanok/MenuLib/obj/Debug/net8.0/MenuLib.pdb
 /Users/darazdanok/Desktop/Sharps/Projects/Project4_Zhdanok/MenuLib/obj/Debug/net8.0/ref/MenuLib.dll
+/Users/darazdanok/Desktop/Sharps/Projects/Project4_Zhdanok/MenuLib/obj/Debug/net8.0/MenuLib.csproj.AssemblyReference.cache

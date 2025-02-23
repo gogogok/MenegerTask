@@ -1,0 +1,16 @@
+/Users/darazdanok/Desktop/Sharps/Projects/Project4_Zhdanok/LibforWorkFithFiles/bin/Debug/net8.0/LibforWorkFithFiles.deps.json
+/Users/darazdanok/Desktop/Sharps/Projects/Project4_Zhdanok/LibforWorkFithFiles/bin/Debug/net8.0/LibforWorkFithFiles.dll
+/Users/darazdanok/Desktop/Sharps/Projects/Project4_Zhdanok/LibforWorkFithFiles/bin/Debug/net8.0/LibforWorkFithFiles.pdb
+/Users/darazdanok/Desktop/Sharps/Projects/Project4_Zhdanok/LibforWorkFithFiles/bin/Debug/net8.0/MenuLib.dll
+/Users/darazdanok/Desktop/Sharps/Projects/Project4_Zhdanok/LibforWorkFithFiles/bin/Debug/net8.0/MenuLib.pdb
+/Users/darazdanok/Desktop/Sharps/Projects/Project4_Zhdanok/LibforWorkFithFiles/obj/Debug/net8.0/LibforWorkFithFiles.csproj.AssemblyReference.cache
+/Users/darazdanok/Desktop/Sharps/Projects/Project4_Zhdanok/LibforWorkFithFiles/obj/Debug/net8.0/LibforWorkFithFiles.GeneratedMSBuildEditorConfig.editorconfig
+/Users/darazdanok/Desktop/Sharps/Projects/Project4_Zhdanok/LibforWorkFithFiles/obj/Debug/net8.0/LibforWorkFithFiles.AssemblyInfoInputs.cache
+/Users/darazdanok/Desktop/Sharps/Projects/Project4_Zhdanok/LibforWorkFithFiles/obj/Debug/net8.0/LibforWorkFithFiles.AssemblyInfo.cs
+/Users/darazdanok/Desktop/Sharps/Projects/Project4_Zhdanok/LibforWorkFithFiles/obj/Debug/net8.0/LibforWorkFithFiles.csproj.CoreCompileInputs.cache
+/Users/darazdanok/Desktop/Sharps/Projects/Project4_Zhdanok/LibforWorkFithFiles/obj/Debug/net8.0/LibforWorkFithFiles.sourcelink.json
+/Users/darazdanok/Desktop/Sharps/Projects/Project4_Zhdanok/LibforWorkFithFiles/obj/Debug/net8.0/LibforWo.2BE8A637.Up2Date
+/Users/darazdanok/Desktop/Sharps/Projects/Project4_Zhdanok/LibforWorkFithFiles/obj/Debug/net8.0/LibforWorkFithFiles.dll
+/Users/darazdanok/Desktop/Sharps/Projects/Project4_Zhdanok/LibforWorkFithFiles/obj/Debug/net8.0/refint/LibforWorkFithFiles.dll
+/Users/darazdanok/Desktop/Sharps/Projects/Project4_Zhdanok/LibforWorkFithFiles/obj/Debug/net8.0/LibforWorkFithFiles.pdb
+/Users/darazdanok/Desktop/Sharps/Projects/Project4_Zhdanok/LibforWorkFithFiles/obj/Debug/net8.0/ref/LibforWorkFithFiles.dll

@@ -4,7 +4,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Project4_Zhdanok", "Project
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MenuLib", "MenuLib\MenuLib.csproj", "{D93629A6-74F1-49AA-8FB8-4442AD433B25}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibWorkWithFiles", "LibWorkWithFiles\LibWorkWithFiles.csproj", "{8FC42A34-8717-42E6-B4F7-D1EDBEB5B765}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibforWorkFithFiles", "LibforWorkFithFiles\LibforWorkFithFiles.csproj", "{8FC42A34-8717-42E6-B4F7-D1EDBEB5B765}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
