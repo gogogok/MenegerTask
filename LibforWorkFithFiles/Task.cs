@@ -37,10 +37,7 @@ public class Task
     /// Описание задачи
     /// </summary>
     private string? _description;
-
-    /// <summary>
-    /// Аксесcор к _id
-    /// </summary>
+    
     public int ID
     {
         get { return _id; }
@@ -158,6 +155,25 @@ public class Task
         }
     }
 
+    private DateTime _createdAt = DateTime.Now;
+    public DateTime GetCreatedAt()
+    {
+        return _createdAt;
+    }
+
+    private DateTime _updatedAt;
+
+    public DateTime GetUpdatedAt()
+    {
+        return _updatedAt;
+    }
+
+    public void SetUpdatedAt(DateTime dateTime)
+    {
+        _updatedAt = dateTime;
+    }
+    
+
     /// <summary>
     /// Конструктор для создания задачи в коде
     /// </summary>
@@ -165,20 +181,22 @@ public class Task
     /// <param name="status">Статус задчи</param>
     /// <param name="priority">Приоритет задачи</param>
     /// <param name="description">Описание задачи</param>
-    public Task(int id, string status, string priority, string description)
+    public Task(int id, string status, string priority, string description, DateTime updatedAt)
     {
         ID = id;
         Priority = priority;
         Status = status;
         Desc = description;
+        SetUpdatedAt(updatedAt);
     }
+    
 
     /// <summary>
     /// Конструктор без параметров для корректной работы деселиризаторов
     /// </summary>
     public Task()
     {
-
+        SetUpdatedAt(DateTime.Now);
     }
 
     /// <summary>
@@ -192,6 +210,12 @@ public class Task
        str.AppendLine($"Статус: {Status}");
        str.AppendLine($"Приоритет: {Priority}");
        str.AppendLine($"Описание: {Desc}");
+       str.AppendLine($"Дата и время создания: {GetCreatedAt()}");
+       if (GetCreatedAt().Second != GetUpdatedAt().Second)
+       {
+           str.AppendLine($"Дата последнего редактирования: {GetUpdatedAt()}");
+       }
+
        str.AppendLine("--------------------");
        return str.ToString();
     }

@@ -72,6 +72,7 @@ public static class ChangeStatusTask
             if (tasks[i].ID == id)
             {
                 tasks[i].Status = status;
+                tasks[i].SetUpdatedAt(DateTime.Now);
             }
         }
         WriteToFile.WriteBackToFile(ref path, tasks);

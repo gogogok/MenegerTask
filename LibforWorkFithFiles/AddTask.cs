@@ -56,9 +56,9 @@ public static class AddTask
                             priority = "Низкий";
                             break;
                     }
-                } while (key1.Key != ConsoleKey.D1 & key1.Key != ConsoleKey.D2 & key1.Key != ConsoleKey.D3);
+                } while (key1.Key != ConsoleKey.D1 && key1.Key != ConsoleKey.D2 && key1.Key != ConsoleKey.D3);
                 
-                return new Task(UniqueId(tasks), "TODO", priority,desc); //возвращение новой задачи
+                return new Task(UniqueId(tasks), "TODO", priority,desc,DateTime.Now); //возвращение новой задачи
             }
             else
             {

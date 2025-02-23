@@ -30,8 +30,6 @@ public static  class ImportFiles
                 {
                     case ".csv":
                         List<Task> resultTasks = new List<Task>();
-                        try
-                        {
                             using (StreamReader reader = new StreamReader(path))
                             {
                                 using (CsvReader csv = new CsvReader(reader, CultureInfo.InvariantCulture))
@@ -45,12 +43,13 @@ public static  class ImportFiles
                                 }
                             }
                             return resultTasks;
-                        }
-                        catch (CsvHelperException)
-                        {
-                            Console.WriteLine("CSV файл не корректен. Попробуйте другой файл.");
-                            notExist = true;
-                        }
+                        
+                        
+                       // catch (CsvHelperException)
+                        //{
+                        Console.WriteLine("CSV файл не корректен. Попробуйте другой файл.");
+                        notExist = true;
+                        //}
                         break;
 
                     case ".json":
@@ -94,7 +93,7 @@ public static  class ImportFiles
                                     Task task = new Task(result,
                                         afterReg.Groups[2].ToString().Replace("[", "").Replace("]", ""),
                                         afterReg.Groups[3].ToString().Replace("[", "").Replace("]", ""),
-                                        afterReg.Groups[4].ToString().Replace("[", "").Replace("]", ""));
+                                        afterReg.Groups[4].ToString().Replace("[", "").Replace("]", ""),DateTime.Now);
                                     resultTasks2.Add(task);
                                     //Console.WriteLine(task);
                                 }
