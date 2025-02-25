@@ -13,37 +13,7 @@ public static class DeleteTask
     public static void Delete(ref string path, List<Task> tasks)
     {
         Console.WriteLine("Введите ID задачи, которую желаете удалить");
-        int id;
-        while (true)
-        {
-            try
-            {
-                id = int.Parse(Console.ReadLine());
-                bool isId = false;
-                for (int i = 0; i < tasks.Count; i++)
-                {
-                    if (tasks[i].ID == id)
-                    {
-                        isId = true;
-                    }
-                }
-
-                if (!isId)
-                {
-                    throw new IndexOutOfRangeException();
-                }
-                break;
-            }
-            catch (FormatException)
-            {
-                Console.WriteLine("Число не было введено. Повторите ввод");
-            }
-            catch (IndexOutOfRangeException)
-            {
-                Console.WriteLine("Задачи с таким ID не существует. Повторите ввод");
-            }
-        }
-        
+        int id = MethodsFindAndCheck.CheckId(tasks);
         //нахождение задачи по ID и её удаление
         for (int i = 0; i < tasks.Count; i++)
         {

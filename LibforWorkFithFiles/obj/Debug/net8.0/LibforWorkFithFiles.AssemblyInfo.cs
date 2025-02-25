@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("LibforWorkFithFiles")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a86da8d549d23fbc1a4a177d6d99fb01c6173cdf")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bf282c030724e7a4e88af421ece2ae86cfbca84a")]
 [assembly: System.Reflection.AssemblyProductAttribute("LibforWorkFithFiles")]
 [assembly: System.Reflection.AssemblyTitleAttribute("LibforWorkFithFiles")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

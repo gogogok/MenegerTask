@@ -74,15 +74,26 @@ internal class Program
                         DeleteTask.Delete(ref pathToFile, tasks);
                     }
                     break;
-                //для выхода из программы
+                //добавление зависимости
                 case '6':
+                    if (tasks.Count == 0)
+                    {
+                        Console.WriteLine("Задачи не найдены");
+                    }
+                    else
+                    {
+                        Dependence.ChooseDepAction(tasks);
+                    }
+                    break;
+                //для выхода из программы
+                case '7':
                     break;
                 //при не выборе ни одного из пунктов
                 default:
                     Console.WriteLine("Введите один из пунктов меню");
                     break;
             }
-        } while (menuKey.Key != ConsoleKey.D6);
+        } while (menuKey.Key != ConsoleKey.D7);
         
     }
 }

@@ -38,6 +38,20 @@ public class Task
     /// </summary>
     private string? _description;
     
+    /// <summary>
+    /// ID задач, зависимых от этой задачи
+    /// </summary>
+    private List<int> _dependenciesIdFromThis = new List<int>();
+    
+    /// <summary>
+    /// ID задач, от которых зависит эта задача
+    /// </summary>
+    private List<int> _dependenciesIdThisDep = new List<int>();
+    
+    private DateTime _deadLine;
+    
+    //private List<int> _dependenciesId;
+    
     public int ID
     {
         get { return _id; }
@@ -172,7 +186,52 @@ public class Task
     {
         _updatedAt = dateTime;
     }
+
+    public void AddDependency(int dependencyId)
+    {
+       _dependenciesIdFromThis.Add(dependencyId);
+    }
+
+    /// <summary>
+    /// Удаление задачи, зависящей от данной
+    /// </summary>
+    /// <param name="dependencyId">ID задачи, которая зависит от данной</param>
+    public void DeleteDependencyFromThis(int dependencyId)
+    {
+        _dependenciesIdFromThis.Remove(dependencyId);
+    }
     
+    /// <summary>
+    /// Удаление задачи, от которой зависит данная
+    /// </summary>
+    /// <param name="dependencyId">ID задачи, от которой зависит данная</param>
+    public void DeleteDependencyThisFrom(int dependencyId)
+    {
+        _dependenciesIdThisDep.Remove(dependencyId);
+    }
+    /// <summary>
+    /// ID задач, зависящих от этой задачи
+    /// </summary>
+    /// <returns>Список ID</returns>
+    public List<int> GetDependency()
+    {
+        return _dependenciesIdFromThis;
+    }
+    /// <summary>
+    /// ID задач, от которых зависит эта задача
+    /// </summary>
+    /// <returns>Список ID</returns>
+    public List<int> GetDependencyThisFrom()
+    {
+        return _dependenciesIdThisDep;
+    }
+
+    public void SetDependenciesIdThisFrom(int taskID)
+    {
+        _dependenciesIdThisDep.Add(taskID);
+    }
+    
+
 
     /// <summary>
     /// Конструктор для создания задачи в коде

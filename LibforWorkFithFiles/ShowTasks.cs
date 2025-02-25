@@ -4,6 +4,9 @@ using Spectre.Console;
 
 namespace LibWorkWithFiles;
 
+/// <summary>
+/// Класс для вывода информации
+/// </summary>
 public static class ShowTasks
 {
 
