@@ -13,7 +13,7 @@ public static class Dependence
     /// Выбор пункта меню зависимостей
     /// </summary>
     /// <param name="tasks">Список задач</param>
-    public static void ChooseDepAction(List<Task> tasks)
+    public static void ChooseDepAction(List<Tasks> tasks)
     {
         ConsoleKeyInfo key;
         do
@@ -41,13 +41,13 @@ public static class Dependence
     /// Метод, выводящий таблицу в зависимостями
     /// </summary>
     /// <param name="tasks">Список задач.</param>
-    private static void TableDependency(List<Task> tasks)
+    private static void TableDependency(List<Tasks> tasks)
     {
         Console.Clear();
         var table = new Table();
         table.AddColumn(new TableColumn("Задача").Centered());
         table.AddColumn(new TableColumn("Задачи, зависящие от этой").Centered());
-        foreach (Task task in tasks)
+        foreach (Tasks task in tasks)
         {
             if (task.GetDependency().Count != 0)
             {
@@ -67,7 +67,7 @@ public static class Dependence
     /// Метод для создания новой зависимости
     /// </summary>
     /// <param name="tasks">Список задач</param>
-    private static void NewDependence(List<Task> tasks)
+    private static void NewDependence(List<Tasks> tasks)
     {
         Console.ForegroundColor = ConsoleColor.DarkYellow;
         Console.Write("Введите ID задачи, которая должна ");
@@ -92,13 +92,23 @@ public static class Dependence
         int idSecond = MethodsFindAndCheck.CheckId(tasks);
         try
         {
-            Task task2 = MethodsFindAndCheck.FindById(idSecond, tasks);
-            Task task1 = MethodsFindAndCheck.FindById(idFirst, tasks);
-            MethodsFindAndCheck.CheckDependency(task1, task2); //проверка корректности добавления зависимости
+            Tasks task2 = MethodsFindAndCheck.FindById(idSecond, tasks);
+            Tasks task1 = MethodsFindAndCheck.FindById(idFirst, tasks);
+            MethodsFindAndCheck.CheckDependencyNotCircled(task1, task2); //проверка корректности добавления зависимости
+            //добавляем задачи в зависимости для дальнейшей проверки на цикличность
             task2.AddDependency(idFirst);
             task1.SetDependenciesIdThisFrom(idSecond);
+            if (MethodsFindAndCheck.IsCircled(idFirst, tasks))
+            {
+                //если зависимость циклична, она удаляется и выбрасывается исключение
+                task1.DeleteDependencyThisFrom(idSecond);
+                task2.DeleteDependencyFromThis(idFirst);
+                throw new TimeoutException();
+            }
             Console.Clear();
             Console.WriteLine($"Добавлена зависимость: {idFirst} от {idSecond} ");
+            task1.SetUpdatedAt(DateTime.Now);
+            task2.SetUpdatedAt(DateTime.Now);
         }
         catch (ArgumentException)
         {
@@ -111,7 +121,11 @@ public static class Dependence
 
     }
 
-    private static void DeleteDependency(List<Task> tasks)
+    /// <summary>
+    /// Метод для удаления зависимостей
+    /// </summary>
+    /// <param name="tasks">Список задач</param>
+    private static void DeleteDependency(List<Tasks> tasks)
     {
         Console.Clear();
         Console.ForegroundColor = ConsoleColor.DarkYellow;
@@ -124,7 +138,7 @@ public static class Dependence
         
         //ID задачи, у которой должна быть удалена зависимость
         int idFirst= MethodsFindAndCheck.CheckId(tasks);
-        Task task1 = MethodsFindAndCheck.FindById(idFirst, tasks);
+        Tasks task1 = MethodsFindAndCheck.FindById(idFirst, tasks);
         
         Console.ForegroundColor = ConsoleColor.DarkYellow;
         Console.Write("Введите ID задачи, которую нужно  ");
@@ -134,7 +148,7 @@ public static class Dependence
         
         //ID задачи, которую нужно освободить от зависимости
         int idSecond = MethodsFindAndCheck.CheckId(tasks);
-        Task task2 = MethodsFindAndCheck.FindById(idSecond, tasks);
+        Tasks task2 = MethodsFindAndCheck.FindById(idSecond, tasks);
 
         bool isInDep = false;
         foreach (int dep1 in task2.GetDependencyThisFrom())
@@ -149,6 +163,8 @@ public static class Dependence
         {
             task1.DeleteDependencyFromThis(idSecond);
             task2.DeleteDependencyThisFrom(idFirst);
+            task1.SetUpdatedAt(DateTime.Now);
+            task2.SetUpdatedAt(DateTime.Now);
             Console.WriteLine("Зависимость удалена");
         }
         else

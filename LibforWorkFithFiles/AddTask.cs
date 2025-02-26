@@ -13,7 +13,7 @@ public static class AddTask
     /// <param name="tasks">Список, к которому будет добавлена задача</param>
     /// <param name="path">Ссылка на файл, куда будет записана новая задача</param>
     /// <returns>Новую задачу</returns>
-    public static Task AddTasks(List<Task> tasks,string path)
+    public static Tasks AddTasks(List<Tasks> tasks,string path)
     {
         Console.WriteLine("Добавление задачи");
         Console.WriteLine("Введите название задачи:");
@@ -25,7 +25,7 @@ public static class AddTask
             {
                 if (tasks.Count != 0)
                 {
-                    foreach (Task task in tasks)
+                    foreach (Tasks task in tasks)
                     {
                         if (task.Desc == desc)
                         {
@@ -58,7 +58,7 @@ public static class AddTask
                     }
                 } while (key1.Key != ConsoleKey.D1 && key1.Key != ConsoleKey.D2 && key1.Key != ConsoleKey.D3);
                 
-                return new Task(UniqueId(tasks), "TODO", priority,desc,DateTime.Now); //возвращение новой задачи
+                return new Tasks(UniqueId(tasks), "TODO", priority,desc,DateTime.Now); //возвращение новой задачи
             }
             else
             {
@@ -73,12 +73,12 @@ public static class AddTask
     /// </summary>
     /// <param name="tasks">Список задач</param>
     /// <returns>Уникальный ID</returns>
-    private static int UniqueId(List<Task> tasks)
+    private static int UniqueId(List<Tasks> tasks)
     {
         int ind1 = 0;
         if (tasks.Count != 0) 
         {
-            foreach (Task task in tasks)
+            foreach (Tasks task in tasks)
             {
                 ind1++;
                 int ind2 = task.ID;

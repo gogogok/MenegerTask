@@ -10,7 +10,7 @@ public static class DeleteTask
     /// </summary>
     /// <param name="path">Путь к файлу, где лежат задачи</param>
     /// <param name="tasks">Список задач</param>
-    public static void Delete(ref string path, List<Task> tasks)
+    public static void Delete(ref string path, List<Tasks> tasks)
     {
         Console.WriteLine("Введите ID задачи, которую желаете удалить");
         int id = MethodsFindAndCheck.CheckId(tasks);

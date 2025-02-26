@@ -15,7 +15,7 @@ public static  class ImportFiles
     /// </summary>
     /// <param name="path">Ссылка на файл, который нужно обработать</param>
     /// <returns>Список задач, полученный из этого файла </returns>
-    public static  List<Task> GetPass(out string path)
+    public static  List<Tasks> GetPass(out string path)
     {
         Console.WriteLine("Введите путь до файла ");
         bool notExist = false;
@@ -29,13 +29,13 @@ public static  class ImportFiles
                 switch (extension) //определение расширения файла
                 {
                     case ".csv":
-                        List<Task> resultTasks = new List<Task>();
+                        List<Tasks> resultTasks = new List<Tasks>();
                             using (StreamReader reader = new StreamReader(path))
                             {
                                 using (CsvReader csv = new CsvReader(reader, CultureInfo.InvariantCulture))
                                 {
-                                    IEnumerable<Task> tasks = csv.GetRecords<Task>();
-                                    foreach (Task task in tasks)
+                                    IEnumerable<Tasks> tasks = csv.GetRecords<Tasks>();
+                                    foreach (Tasks task in tasks)
                                     {
                                         resultTasks.Add(task);
                                         //Console.WriteLine(task);
@@ -55,13 +55,13 @@ public static  class ImportFiles
                     case ".json":
                         List<string> lines2 = File.ReadAllLines(path).ToList();
                         List<string> resultListJson = BetweenStaples(string.Join(" ", lines2));
-                        List<Task> resultTasks3 = new List<Task>();
+                        List<Tasks> resultTasks3 = new List<Tasks>();
                         try
                         {
                             foreach (string line in resultListJson)
                             {
-                                Task task = JsonSerializer.Deserialize<Task>(line);
-                                resultTasks3.Add(task);
+                                Tasks tasks = JsonSerializer.Deserialize<Tasks>(line);
+                                resultTasks3.Add(tasks);
                                 //Console.WriteLine(task);
                             }
 
@@ -81,7 +81,7 @@ public static  class ImportFiles
                     case ".txt":
                         string[] lines = File.ReadAllLines(path);
                         string pattern2 = @"\[(\d+)\] \[(\w+)\] \[(\w+)\] (.*)"; //паттерн для нахождения задач 
-                        List<Task> resultTasks2 = new List<Task>();
+                        List<Tasks> resultTasks2 = new List<Tasks>();
                         try
                         {
                             foreach (string line in lines)
@@ -90,11 +90,11 @@ public static  class ImportFiles
                                 if (afterReg.Groups.Count == 5)
                                 {
                                     int result = int.Parse(afterReg.Groups[1].Value);
-                                    Task task = new Task(result,
+                                    Tasks tasks = new Tasks(result,
                                         afterReg.Groups[2].ToString().Replace("[", "").Replace("]", ""),
                                         afterReg.Groups[3].ToString().Replace("[", "").Replace("]", ""),
                                         afterReg.Groups[4].ToString().Replace("[", "").Replace("]", ""),DateTime.Now);
-                                    resultTasks2.Add(task);
+                                    resultTasks2.Add(tasks);
                                     //Console.WriteLine(task);
                                 }
                                 else

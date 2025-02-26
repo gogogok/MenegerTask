@@ -16,7 +16,7 @@ public enum Prioritys
     Low
 }
 
-public class Task
+public class Tasks
 {
     /// <summary>
     /// ID задачи
@@ -48,9 +48,10 @@ public class Task
     /// </summary>
     private List<int> _dependenciesIdThisDep = new List<int>();
     
-    private DateTime _deadLine;
-    
-    //private List<int> _dependenciesId;
+    /// <summary>
+    /// Деделайн задачи
+    /// </summary>
+    private DateTime _deadLine = default;
     
     public int ID
     {
@@ -226,21 +227,48 @@ public class Task
         return _dependenciesIdThisDep;
     }
 
+    /// <summary>
+    /// Добавление задач, от которых зависит данная
+    /// </summary>
+    /// <param name="taskID">Задача, от которой зависит данная</param>
     public void SetDependenciesIdThisFrom(int taskID)
     {
         _dependenciesIdThisDep.Add(taskID);
     }
-    
 
+    /// <summary>
+    /// Добавление дедлайна.
+    /// </summary>
+    /// <param name="deadLine">Дата, которую нужно установить в качестве дедлайнс</param>
+    /// <exception cref="FormatException">Исключение, если дата дедлайна раньше сегодняшней</exception>
+    public void SetDeadLine(DateTime deadLine)
+    {
+        if (deadLine > DateTime.Now)
+        {
+            _deadLine = deadLine;
+        }
+        else
+        {
+            throw new FormatException("Дата дедлайна раньше сегодняшней");
+        }
+    }
+    public DateTime GetDeadLine()
+    {
+        return _deadLine;
+    }
+    public void DeleteDeadLine()
+    {
+        _deadLine = default;
+    }
 
     /// <summary>
     /// Конструктор для создания задачи в коде
     /// </summary>
     /// <param name="id">ID задачи</param>
-    /// <param name="status">Статус задчи</param>
+    /// <param name="status">Статус задачи</param>
     /// <param name="priority">Приоритет задачи</param>
     /// <param name="description">Описание задачи</param>
-    public Task(int id, string status, string priority, string description, DateTime updatedAt)
+    public Tasks(int id, string status, string priority, string description, DateTime updatedAt)
     {
         ID = id;
         Priority = priority;
@@ -253,7 +281,7 @@ public class Task
     /// <summary>
     /// Конструктор без параметров для корректной работы деселиризаторов
     /// </summary>
-    public Task()
+    public Tasks()
     {
         SetUpdatedAt(DateTime.Now);
     }
@@ -274,7 +302,10 @@ public class Task
        {
            str.AppendLine($"Дата последнего редактирования: {GetUpdatedAt()}");
        }
-
+       if (GetDeadLine() != default)
+       {
+           str.AppendLine($"Дедлайн: {GetDeadLine()}");
+       }
        str.AppendLine("--------------------");
        return str.ToString();
     }

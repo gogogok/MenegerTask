@@ -10,7 +10,7 @@ namespace LibWorkWithFiles;
 public static class ShowTasks
 {
 
-    public static void Show(List<Task> tasks)
+    public static void Show(List<Tasks> tasks)
     {
         ConsoleKeyInfo key1;
         do
@@ -34,15 +34,28 @@ public static class ShowTasks
     }
     
     
-    private static void ShowToConsole(List<Task> tasks)
+    private static void ShowToConsole(List<Tasks> tasks)
     {
-        foreach (Task task in tasks)
+        foreach (Tasks task in tasks)
         {
+            if (task.GetDeadLine() != default)
+            {
+                if (task.GetDeadLine() < DateTime.Now)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.Green;
+                }
+            }
             Console.WriteLine(task);
+            Console.ResetColor();
+            
         }
     }
 
-    private static void Table(List<Task> tasks)
+    private static void Table(List<Tasks> tasks)
     {
         Console.Clear();
         FiltrAndSortForTable.FilterSort(tasks);

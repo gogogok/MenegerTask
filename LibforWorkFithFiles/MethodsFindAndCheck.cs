@@ -10,7 +10,7 @@ public static class MethodsFindAndCheck
     /// </summary>
     /// <param name="tasks">Список задач</param>
     /// <returns>ID задачи</returns>
-    public static int CheckId(List<Task> tasks)
+    public static int CheckId(List<Tasks> tasks)
     {
         int id;
         while (true)
@@ -51,9 +51,9 @@ public static class MethodsFindAndCheck
     /// <param name="id">ID предмета</param>
     /// <param name="tasks">Список задач</param>
     /// <returns></returns>
-    public static Task FindById(int id, List<Task> tasks)
+    public static Tasks FindById(int id, List<Tasks> tasks)
     {
-        foreach (Task task in tasks)
+        foreach (Tasks task in tasks)
         {
             if (task.ID == id)
             {
@@ -64,41 +64,77 @@ public static class MethodsFindAndCheck
     }
     
     /// <summary>
-    /// Проверка на наличие противоречащих зависимостей
+    /// Метод, проверяющий, создаётся ли циклическая зависимость
     /// </summary>
-    /// <param name="taskDepFrom">Задача, которая должна зависеть от другой</param>
-    /// <param name="taskThisDep">Задача, от которой должно зависеть</param>
-    public static void CheckDependency(Task taskDepFrom, Task taskThisDep)
+    /// <param name="taskId">Id задачи, которая проверяется на наличие циклов</param>
+    /// <param name="tasks">Список задач</param>
+    /// <returns>True - зависимость циклична, false - в ином случае</returns>
+    public static bool IsCircled(int taskId,List<Tasks> tasks)
     {
-        if (taskThisDep.GetDependency().Count!= 0)
+        //стек вызовов для отслеживания циклов
+        HashSet<int> checkedAlr = new();
+        HashSet<int> inStack = new(); 
+        return FindDep(taskId, checkedAlr, inStack,tasks);
+    }
+    
+    /// <summary>
+    /// Метод, ищущий зависимости
+    /// </summary>
+    /// <param name="taskId">Id задачи, которая проверяется на наличие циклов</param>
+    /// <param name="tasks">Список задач</param>
+    /// <param name="checkedAlr">Стек Id задач, которые уже проверены</param>
+    /// <param name="inStack">Стек для задач, которые проверяются</param>
+    /// <returns>True - зависимость циклична, false - в ином случае</returns>
+    private  static bool FindDep(int taskId, HashSet<int> checkedAlr, HashSet<int> inStack,List<Tasks> tasks)
+    {
+        if (inStack.Contains(taskId))
         {
-            for (int i = 0; i < taskThisDep.GetDependency().Count; i++)
+            return true;
+        } //найден цикл
+
+        if (checkedAlr.Contains(taskId))
+        {
+            return false; //уже проверено, цикла нет
+        }
+
+        checkedAlr.Add(taskId);
+        inStack.Add(taskId);
+
+        foreach (int dependencyId in FindById(taskId,tasks).GetDependencyThisFrom())
+        {
+            if (FindDep(dependencyId, checkedAlr, inStack, tasks))
             {
-                if (taskThisDep.GetDependency()[i] == taskDepFrom.ID)
+                return true;
+            }
+        }
+        inStack.Remove(taskId); //выход из рекурсии
+        return false;
+    }
+    
+    /// <summary>
+    /// Проверка на наличие противоречащих зависимостей, но не отслеживающий цикличность
+    /// </summary>
+    /// <param name="tasksDepFrom>Задача, которая должна зависеть от другой</param>
+    /// <param name="tasksThisDep>Задача, от которой должно зависеть</param>
+    public static void CheckDependencyNotCircled(Tasks tasksDepFrom, Tasks tasksThisDep)
+    {
+        if (tasksThisDep.GetDependency().Count!= 0)
+        {
+            for (int i = 0; i < tasksThisDep.GetDependency().Count; i++)
+            {
+                if (tasksThisDep.GetDependency()[i] == tasksDepFrom.ID)
                 {
                     throw new ArgumentException();
                 }
 
-                if (taskThisDep.ID == taskDepFrom.ID)
+                if (tasksThisDep.ID == tasksDepFrom.ID)
                 {
                     throw new ArgumentException();
                 }
-                
             }
         }
 
-        if (taskThisDep.GetDependencyThisFrom().Count != 0)
-        {
-            for (int i = 0; i < taskThisDep.GetDependencyThisFrom().Count; i++)
-            {
-                if (taskThisDep.GetDependencyThisFrom()[i] == taskDepFrom.ID)
-                {
-                    throw new TimeoutException();
-                }
-            }
-        }
-
-        if (taskThisDep.Status == "DONE")
+        if (tasksThisDep.Status == "DONE")
         {
             throw new ArgumentException();
         }

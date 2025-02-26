@@ -1,5 +1,4 @@
 ﻿using LibWorkWithFiles;
-using Task = LibWorkWithFiles.Task;
 
 namespace  Project4_Zhdanok;
 //Жданок Дарья
@@ -18,7 +17,7 @@ internal class Program
     /// </summary>
     internal static void Main()
     {
-        List<Task> tasks = new List<Task>();//список задач
+        List<Tasks> tasks = new List<Tasks>();//список задач
         Frame.PrintFrame(Frame.ForPrint(Texts.Description));//меню приветствия
         ConsoleKeyInfo _ = Console.ReadKey(true);
         Console.Clear();
@@ -85,15 +84,25 @@ internal class Program
                         Dependence.ChooseDepAction(tasks);
                     }
                     break;
-                //для выхода из программы
+                //установка дедлайнов
                 case '7':
+                    if (tasks.Count == 0)
+                    {
+                        Console.WriteLine("Задачи не найдены");
+                    }
+                    else
+                    {
+                        DeadLines.ChooseDeadLineAction(tasks);
+                    }
+                    break;
+                //для выхода из программы
+                case '8':
                     break;
                 //при не выборе ни одного из пунктов
                 default:
                     Console.WriteLine("Введите один из пунктов меню");
                     break;
             }
-        } while (menuKey.Key != ConsoleKey.D7);
-        
+        } while (menuKey.Key != ConsoleKey.D8);
     }
 }

@@ -5,15 +5,15 @@ namespace LibWorkWithFiles;
 
 public static class FiltrAndSortForTable
 {
-    public static void FilterSort(List<Task> tasks)
+    public static void FilterSort(List<Tasks> tasks)
     {
        bool exitFlag = true;
-       List<Action<List<Task>>> actions = new List<Action<List<Task>>>();
+       List<Action<List<Tasks>>> actions = new List<Action<List<Tasks>>>();
        List<string> parametrs = new List<string>();
        do
        {
             Console.Clear();
-            AnsiConsole.Markup("[bold red]Фильтрация и сортировка[/]");
+            AnsiConsole.Markup("[bold cyan]Фильтрация и сортировка[/]");
             Console.WriteLine();
             if (actions.Count > 0)
             {
@@ -118,7 +118,7 @@ public static class FiltrAndSortForTable
                     {
                         actions.Add(list => 
                         {
-                            List<Task> sortedList = list.OrderBy(task => task.ID).ToList();
+                            List<Tasks> sortedList = list.OrderBy(task => task.ID).ToList();
                             list.Clear();
                             list.AddRange(sortedList);
                         });
@@ -128,7 +128,7 @@ public static class FiltrAndSortForTable
                     {
                         actions.Add(list => 
                         {
-                            List<Task> sortedList = list.OrderBy(task => task.Status).ToList();
+                            List<Tasks> sortedList = list.OrderBy(task => task.Status).ToList();
                             list.Clear();
                             list.AddRange(sortedList);
                         });
@@ -138,7 +138,7 @@ public static class FiltrAndSortForTable
                     {
                         actions.Add(list => 
                         {
-                            List<Task> sortedList = list.OrderByDescending(task => task.Status).ToList();
+                            List<Tasks> sortedList = list.OrderByDescending(task => task.Status).ToList();
                             list.Clear();
                             list.AddRange(sortedList);
                         });
@@ -148,7 +148,7 @@ public static class FiltrAndSortForTable
                     {
                         actions.Add(list => 
                         {
-                            List<Task> sortedList = list.OrderBy(task => task.PriorytiImportance(task.Priority)).ToList();
+                            List<Tasks> sortedList = list.OrderBy(task => task.PriorytiImportance(task.Priority)).ToList();
                             list.Clear();
                             list.AddRange(sortedList);
                         });
@@ -158,7 +158,7 @@ public static class FiltrAndSortForTable
                     {
                         actions.Add(list => 
                         {
-                            List<Task> sortedList = list.OrderByDescending(task => task.PriorytiImportance(task.Priority)).ToList();
+                            List<Tasks> sortedList = list.OrderByDescending(task => task.PriorytiImportance(task.Priority)).ToList();
                             list.Clear();
                             list.AddRange(sortedList);
                         });
@@ -168,7 +168,7 @@ public static class FiltrAndSortForTable
                     {
                         actions.Add(list => 
                         {
-                            List<Task> sortedList = list.OrderBy(task => task.Desc).ToList();
+                            List<Tasks> sortedList = list.OrderBy(task => task.Desc).ToList();
                             list.Clear();
                             list.AddRange(sortedList);
                         });
@@ -178,7 +178,7 @@ public static class FiltrAndSortForTable
                     {
                         actions.Add(list => 
                         {
-                            List<Task> sortedList = list.OrderBy(task => task.GetCreatedAt()).ToList();
+                            List<Tasks> sortedList = list.OrderBy(task => task.GetCreatedAt()).ToList();
                             list.Clear();
                             list.AddRange(sortedList);
                         });
@@ -188,7 +188,7 @@ public static class FiltrAndSortForTable
                     {
                         actions.Add(list => 
                         {
-                            List<Task> sortedList = list.OrderBy(task => task.GetUpdatedAt()).ToList();
+                            List<Tasks> sortedList = list.OrderBy(task => task.GetUpdatedAt()).ToList();
                             list.Clear();
                             list.AddRange(sortedList);
                         });
@@ -198,7 +198,7 @@ public static class FiltrAndSortForTable
                     {
                         actions.Add(list => 
                         {
-                            List<Task> sortedList = list.OrderByDescending(task => task.GetCreatedAt()).ToList();
+                            List<Tasks> sortedList = list.OrderByDescending(task => task.GetCreatedAt()).ToList();
                             list.Clear();
                             list.AddRange(sortedList);
                         });
@@ -208,7 +208,7 @@ public static class FiltrAndSortForTable
                     {
                         actions.Add(list => 
                         {
-                            List<Task> sortedList = list.OrderByDescending(task => task.GetUpdatedAt()).ToList();
+                            List<Tasks> sortedList = list.OrderByDescending(task => task.GetUpdatedAt()).ToList();
                             list.Clear();
                             list.AddRange(sortedList);
                         });
@@ -236,8 +236,8 @@ public static class FiltrAndSortForTable
                     break;
                 
                 case "Показать задачи":
-                    List<Task> filteredTasks = new List<Task>(tasks); // Копия исходного списка
-                    foreach (Action<List<Task>> action in actions)
+                    List<Tasks> filteredTasks = new List<Tasks>(tasks); // Копия исходного списка
+                    foreach (Action<List<Tasks>> action in actions)
                     {
                         action(filteredTasks);
                     }
@@ -250,20 +250,55 @@ public static class FiltrAndSortForTable
                     table.AddColumn("Описание").Centered();
                     table.AddColumn("Время создания").Centered();
                     table.AddColumn("Время изменения").Centered();
+                    table.AddColumn("Дедлайн").Centered();
 
-                    foreach (Task task in filteredTasks)
+                    foreach (Tasks task in filteredTasks)
                     {
-                        if (task.GetCreatedAt().Second != task.GetUpdatedAt().Second)
+                        if (task.GetCreatedAt().Second != task.GetUpdatedAt().Second & task.GetDeadLine()== default)
                         {
                             table.AddRow(task.ID.ToString(), task.Status, task.Priority, task.Desc,
                                 task.GetCreatedAt().ToString(CultureInfo.InvariantCulture),
-                                task.GetUpdatedAt().ToString(CultureInfo.InvariantCulture));
+                                task.GetUpdatedAt().ToString(CultureInfo.InvariantCulture),"Нет дедлайна");
                         }
-                        else
+                        else if (task.GetCreatedAt().Second != task.GetUpdatedAt().Second & task.GetDeadLine()!= default)
+                        {
+                            if (task.GetDeadLine() < DateTime.Now)
+                            {
+                                table.AddRow($"[red]{task.ID.ToString()}[/]", $"[red]{task.Status}[/]", $"[red]{task.Priority}[/]", $"[red]{task.Desc}[/]",
+                                    $"[red]{task.GetCreatedAt().ToString(CultureInfo.InvariantCulture)}[/]",
+                                    $"[red]{task.GetUpdatedAt().ToString(CultureInfo.InvariantCulture)}[/]",
+                                    $"[red]{task.GetDeadLine().ToString(CultureInfo.InvariantCulture)}[/]");
+                            }
+                            else
+                            {
+                                table.AddRow($"[green]{task.ID.ToString()}[/]", $"[green]{task.Status}[/]", $"[green]{task.Priority}[/]", $"[green]{task.Desc}[/]",
+                                    $"[green]{task.GetCreatedAt().ToString(CultureInfo.InvariantCulture)}[/]",
+                                    $"[green]{task.GetUpdatedAt().ToString(CultureInfo.InvariantCulture)}[/]",
+                                    $"[green]{task.GetDeadLine().ToString(CultureInfo.InvariantCulture)}[/]");
+                            }
+                        }
+                        else if (task.GetCreatedAt().Second == task.GetUpdatedAt().Second &
+                                 task.GetDeadLine() == default)
                         {
                             table.AddRow(task.ID.ToString(), task.Status, task.Priority, task.Desc,
                                 task.GetCreatedAt().ToString(CultureInfo.InvariantCulture),
-                                "Задача не изменялась");
+                                "Задача не изменялась","Нет дедлайна");
+                        }
+                        else if (task.GetCreatedAt().Second == task.GetUpdatedAt().Second &
+                                 task.GetDeadLine() != default)
+                        {
+                            if (task.GetDeadLine() < DateTime.Now)
+                            {
+                                table.AddRow($"[red]{task.ID.ToString()}[/]", $"[red]{task.Status}[/]", $"[red]{task.Priority}[/]", $"[red]{task.Desc}[/]",
+                                    $"[red]{task.GetCreatedAt().ToString(CultureInfo.InvariantCulture)}[/]",
+                                    "[red]Задача не изменялась[/]", $"[red]{task.GetDeadLine().ToString(CultureInfo.InvariantCulture)}[/]");
+                            }
+                            else
+                            {
+                                table.AddRow($"[green]{task.ID.ToString()}[/]", $"[green]{task.Status}[/]", $"[green]{task.Priority}[/]", $"[green]{task.Desc}[/]",
+                                    $"[green]{task.GetCreatedAt().ToString(CultureInfo.InvariantCulture)}[/]",
+                                    "[green]Задача не изменялась[/]", $"[green]{task.GetDeadLine().ToString(CultureInfo.InvariantCulture)}[/]");
+                            }
                         }
                     }
 

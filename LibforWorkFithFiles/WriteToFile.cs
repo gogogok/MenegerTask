@@ -15,9 +15,9 @@ public static class WriteToFile
     /// </summary>
     /// <param name="path">Ссылка на файл для записи</param>
     /// <param name="tasks">Данные задач для записи</param>
-    public static void WriteBackToFile(ref string path,List<Task> tasks)
+    public static void WriteBackToFile(ref string path,List<Tasks> tasks)
     {
-        IOrderedEnumerable<Task> res;
+        IOrderedEnumerable<Tasks> res;
         res = from task in tasks orderby task.ID select task;
         tasks = res.ToList(); //сортировка по ID для лучшего вида файла
         if (!File.Exists(path))
@@ -85,7 +85,7 @@ public static class WriteToFile
     /// </summary>
     /// <param name="path">Ссылка для записи</param>
     /// <param name="tasks">Данные задач для записи</param>
-    private static void WriteJson(string path, List<Task> tasks)
+    private static void WriteJson(string path, List<Tasks> tasks)
     {
         StringBuilder str = new StringBuilder();
         str.AppendLine("[");
@@ -116,11 +116,11 @@ public static class WriteToFile
     /// </summary>
     /// <param name="path">Ссылка для записи</param>
     /// <param name="tasks">Данные задач для записи</param>
-    private static void WriteCsv(string path, List<Task> tasks)
+    private static void WriteCsv(string path, List<Tasks> tasks)
     {
         List<string> lines = new List<string>();
         lines.Add("ID,Status,Priority,Desc");
-        foreach (Task task in tasks)
+        foreach (Tasks task in tasks)
         {
             if (task.Desc.Contains(',')) //если есть запятая, добавляем кавычки
             {
@@ -139,10 +139,10 @@ public static class WriteToFile
     /// </summary>
     /// <param name="path">Ссылка для записи</param>
     /// <param name="tasks">Данные задач для записи</param>
-    private static void WriteTxt(string path, List<Task> tasks)
+    private static void WriteTxt(string path, List<Tasks> tasks)
     {
         List<string> lines = new List<string>();
-        foreach (Task task in tasks)
+        foreach (Tasks task in tasks)
         {
             lines.Add($"[{task.ID}] [{task.Status}] [{task.Priority}] {task.Desc}");
         }

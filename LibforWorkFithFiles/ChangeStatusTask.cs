@@ -12,7 +12,7 @@ public static class ChangeStatusTask
     /// </summary>
     /// <param name="path">Путь к файлу, где лежат задачи</param>
     /// <param name="tasks">Список задач</param>
-    public static void Change(ref string path, List<Task> tasks)
+    public static void Change(ref string path, List<Tasks> tasks)
     {
         Console.WriteLine("Введите ID задачи, которую желаете изменить");
         int id = MethodsFindAndCheck.CheckId(tasks);
@@ -37,12 +37,12 @@ public static class ChangeStatusTask
                         status = "IN_PROGRESS";
                         break;
                     case '3':
-                        Task task = MethodsFindAndCheck.FindById(id, tasks);
+                        Tasks task = MethodsFindAndCheck.FindById(id, tasks);
                         //проверка, есть ли незаконченная задача, от которой зависит данная
                         foreach (int idTask in task.GetDependencyThisFrom())
                         {
-                            Task taskFromDep = MethodsFindAndCheck.FindById(idTask, tasks);
-                            if (taskFromDep.Status != "DONE")
+                            Tasks tasksFromDep = MethodsFindAndCheck.FindById(idTask, tasks);
+                            if (tasksFromDep.Status != "DONE")
                             {
                                 throw new ArgumentException();
                             }
