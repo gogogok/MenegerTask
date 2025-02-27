@@ -11,9 +11,8 @@ public static class AddTask
     /// Метод, добавляющий задачи
     /// </summary>
     /// <param name="tasks">Список, к которому будет добавлена задача</param>
-    /// <param name="path">Ссылка на файл, куда будет записана новая задача</param>
     /// <returns>Новую задачу</returns>
-    public static Tasks AddTasks(List<Tasks> tasks,string path)
+    public static Tasks AddTasks(List<Tasks> tasks)
     {
         Console.WriteLine("Добавление задачи");
         Console.WriteLine("Введите название задачи:");

@@ -15,94 +15,83 @@ internal class Program
     /// <summary>
     /// Точка входа в программу
     /// </summary>
-    internal static void Main()
+    static async Task Main()
     {
-        List<Tasks> tasks = new List<Tasks>();//список задач
-        Frame.PrintFrame(Frame.ForPrint(Texts.Description));//меню приветствия
-        ConsoleKeyInfo _ = Console.ReadKey(true);
+        Console.CursorVisible = false;
+        List<Tasks> tasks = new List<Tasks>(); // список задач
+        Frame.PrintFrame(Frame.ForPrint(Texts.Description)); // меню приветствия
+        Console.ReadKey(true);
         Console.Clear();
-        string pathToFile = String.Empty;
+        string pathToFile = string.Empty;
         ConsoleKeyInfo menuKey;
-        do
-        {
-            Frame.PrintFrame(Frame.ForPrint(Texts.ChoosePoint)); //меню
-            menuKey = Console.ReadKey(true);
-            Console.Clear();
-            switch (menuKey.KeyChar)
+        Console.CursorVisible = false;
+            do
             {
-                //получение данных из файла
-                case '1':
-                    tasks = ImportFiles.GetPass(out pathToFile);
-                    //Console.WriteLine(tasks.Count);
-                    break;
-                //вывод задач
-                case '2':
-                    if (tasks.Count == 0)
-                    {
-                        Console.WriteLine("Задачи не найдены");
-                    }
-                    else
-                    {
-                        ShowTasks.Show(tasks);
-                    }
-                    break;
-                //добавление задачи
-                case '3':
-                    tasks.Add(AddTask.AddTasks(tasks, pathToFile));
-                    WriteToFile.WriteBackToFile(ref pathToFile, tasks);
-                    break;
-                //изменение статуса задачи
-                case '4':
-                    if (tasks.Count == 0)
-                    {
-                        Console.WriteLine("Задачи не найдены");
-                    }
-                    else
-                    {
-                        ChangeStatusTask.Change(ref pathToFile, tasks);
-                    }
-                    break;
-                //удаление задачи
-                case '5':
-                    if (tasks.Count== 0)
-                    {
-                        Console.WriteLine("Задачи не найдены");
-                    }
-                    else
-                    {
-                        DeleteTask.Delete(ref pathToFile, tasks);
-                    }
-                    break;
-                //добавление зависимости
-                case '6':
-                    if (tasks.Count == 0)
-                    {
-                        Console.WriteLine("Задачи не найдены");
-                    }
-                    else
-                    {
-                        Dependence.ChooseDepAction(tasks);
-                    }
-                    break;
-                //установка дедлайнов
-                case '7':
-                    if (tasks.Count == 0)
-                    {
-                        Console.WriteLine("Задачи не найдены");
-                    }
-                    else
-                    {
-                        DeadLines.ChooseDeadLineAction(tasks);
-                    }
-                    break;
-                //для выхода из программы
-                case '8':
-                    break;
-                //при не выборе ни одного из пунктов
-                default:
-                    Console.WriteLine("Введите один из пунктов меню");
-                    break;
-            }
-        } while (menuKey.Key != ConsoleKey.D8);
+                Frame.PrintFrame(Frame.ForPrint(Texts.ChoosePoint)); // меню
+                CancellationTokenSource cts = new CancellationTokenSource();
+                Task deadlineCheckTask = Task.Run(() => DeadLines.CheckDeadLinesAsync(tasks, cts.Token));
+                menuKey = Console.ReadKey(true);
+                Console.Clear();
+                switch (menuKey.KeyChar)
+                {
+                    case '1':
+                        do
+                        {
+                            pathToFile = ImportFilesAsync.GetPass();
+                            tasks = await ImportFilesAsync.FileHandler(pathToFile);
+                        } while (tasks == null);
+                        break;
+
+                    case '2':
+                        if (tasks.Count == 0)
+                            Console.WriteLine("Задачи не найдены");
+                        else
+                            ShowTasks.Show(tasks);
+                        break;
+
+                    case '3':
+                        tasks.Add(AddTask.AddTasks(tasks));
+                        WriteToFile.WriteBackToFile(ref pathToFile, tasks);
+                        break;
+
+                    case '4':
+                        if (tasks.Count == 0)
+                            Console.WriteLine("Задачи не найдены");
+                        else
+                            ChangeStatusTask.Change(ref pathToFile, tasks);
+                        break;
+
+                    case '5':
+                        if (tasks.Count == 0)
+                            Console.WriteLine("Задачи не найдены");
+                        else
+                            DeleteTask.Delete(ref pathToFile, tasks);
+                        break;
+
+                    case '6':
+                        if (tasks.Count == 0)
+                            Console.WriteLine("Задачи не найдены");
+                        else
+                            Dependence.ChooseDepAction(tasks);
+                        break;
+
+                    case '7':
+                        if (tasks.Count == 0)
+                            Console.WriteLine("Задачи не найдены");
+                        else
+                            DeadLines.ChooseDeadLineAction(tasks);
+                        break;
+
+                    case '8': // Завершение программы
+                        cts.Cancel(); // Останавливаем фоновую задачу
+                        break;
+
+                    default:
+                        Console.WriteLine("Введите один из пунктов меню");
+                        break;
+                }
+                cts.Cancel();
+            } while (menuKey.Key != ConsoleKey.D8);
+        
     }
 }

@@ -305,6 +305,13 @@ public class Tasks
        if (GetDeadLine() != default)
        {
            str.AppendLine($"Дедлайн: {GetDeadLine()}");
+           if(DateTime.Now > GetDeadLine())
+           {
+               if (DateTime.Now.Hour - GetUpdatedAt().Hour <= 1)
+               {
+                   str.AppendLine("До конца дедлайна меньше часа!");
+               }
+           }
        }
        str.AppendLine("--------------------");
        return str.ToString();
