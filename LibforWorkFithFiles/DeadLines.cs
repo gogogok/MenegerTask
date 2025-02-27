@@ -12,7 +12,7 @@ public static class DeadLines
     /// Меню для выбора действия с дедлайном
     /// </summary>
     /// <param name="tasks">Список задач</param>
-    public static void ChooseDeadLineAction(List<Tasks> tasks)
+    public static void ChooseDeadLineAction(List<Tasks> tasks, ref bool alrBotInUse)
     {
         ConsoleKeyInfo key;
         do
@@ -23,7 +23,7 @@ public static class DeadLines
             switch (key.KeyChar)
             {
                 case '1':
-                    AddDeadLine(tasks);
+                    AddDeadLine(tasks,ref alrBotInUse);
                     break;
                 case '2':
                     DeleteDeadLines(tasks);
@@ -36,7 +36,7 @@ public static class DeadLines
     /// Метод для добавления нового дедлайна
     /// </summary>
     /// <param name="tasks">Список задач</param>
-    private static void AddDeadLine(List<Tasks> tasks)
+    private static void AddDeadLine(List<Tasks> tasks, ref bool alreadyBotInUse)
     {
         Console.WriteLine("Введите ID задачи, для которой желаете установить дедлайн");
         int id = MethodsFindAndCheck.CheckId(tasks);
@@ -46,12 +46,18 @@ public static class DeadLines
             Console.WriteLine($"Введите дату в формате \"{patternDate}\"");
             try
             {
+                Console.CursorVisible = true;
                 string date = Console.ReadLine();
                 if (DateTime.TryParseExact(date, patternDate, null, DateTimeStyles.None, out DateTime parsedDate))
                 {
                     Tasks task = MethodsFindAndCheck.FindById(id, tasks);
                     task.SetDeadLine(parsedDate);
                     task.SetUpdatedAt(DateTime.Now); //запись изменения задачи
+                    if (!alreadyBotInUse)
+                    {
+                        _ = TelegramBot.SendMessageAsync();
+                        alreadyBotInUse = true;
+                    }
                     break;
                 }
                 throw new FormatException(); //исключение, если не тот формат даты или дата дедлайна уже просрочена
@@ -85,6 +91,11 @@ public static class DeadLines
         }
     }
 
+    /// <summary>
+    /// Метод, фоново проверяющий дедлайны и отсылающий о них сообщения в бот
+    /// </summary>
+    /// <param name="tasks">Список задач</param>
+    /// <param name="token">Токен для прекращения работы</param>
     public static async Task CheckDeadLinesAsync(List<Tasks> tasks, CancellationToken token)
     {
         while (!token.IsCancellationRequested) // Проверяем флаг отмены
@@ -95,20 +106,35 @@ public static class DeadLines
                 {
                     if (task.GetDeadLine() != default)
                     {
-                        if (DateTime.Now > task.GetDeadLine())
+                        if (DateTime.Now.Minute == task.GetDeadLine().Minute)
                         {
                             Console.ForegroundColor = ConsoleColor.DarkRed;
                             Console.WriteLine($"Дедлайн задачи {task.ID} просрочен.");
+                            await TelegramBot.NotificationAcync($"Дедлайн задачи \n\n {task.ID}. {task.Desc}\n\n просрочен.");
                         }
-                        else if (DateTime.Now.Minute - task.GetDeadLine().Minute<=10 )
+                        else if (DateTime.Now.Minute - task.GetDeadLine().Minute == 1 )
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine($"До конца дедлайна задачи {task.ID} меньше 1 минуты, ОЧЕНЬ поторопитесь!");
+                            await TelegramBot.NotificationAcync($"До конца дедлайна задачи \n\n {task.ID}. {task.Desc}\n\n меньше 1 минуты, ОЧЕНЬ поторопитесь!");
+                        }
+                        else if (DateTime.Now.Minute - task.GetDeadLine().Minute == 5 )
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine($"До конца дедлайна задачи {task.ID} меньше 5 минут, поторопитесь!");
+                            await TelegramBot.NotificationAcync($"До конца дедлайна задачи \n\n {task.ID}. {task.Desc}\n\n меньше 5 минут, поторопитесь!");
+                        }
+                        else if (DateTime.Now.Minute - task.GetDeadLine().Minute == 10 )
                         {
                             Console.ForegroundColor = ConsoleColor.Red;
                             Console.WriteLine($"До конца дедлайна задачи {task.ID} меньше 10 минут, поторопитесь!");
+                            await TelegramBot.NotificationAcync($"До конца дедлайна задачи \n\n {task.ID}. {task.Desc}\n\n меньше 10 минут, поторопитесь!");
                         }
-                        else if (DateTime.Now.Hour - task.GetDeadLine().Hour<=1 )
+                        else if (DateTime.Now.Minute - task.GetDeadLine().Minute == 59 )
                         {
                             Console.ForegroundColor = ConsoleColor.Yellow;
                             Console.WriteLine($"До конца дедлайна задачи {task.ID} меньше одного часа!");
+                            await TelegramBot.NotificationAcync($"До конца дедлайна задачи \n\n {task.ID}. {task.Desc}\n\n меньше одного часа!");
                         }
                     }
                 }
@@ -116,11 +142,13 @@ public static class DeadLines
             Console.ResetColor();
             try
             {
-                await Task.Delay(10000, token); // Прерываем задержку при отмене
+                //задержка после каждой проверки на минуту и токен, который даёт понять, продолжать работу или остановить
+                await Task.Delay(60000, token); 
             }
             catch (TaskCanceledException)
             {
-                break; // Выходим из цикла при отмене
+                //выход из цикла, если работа должна быть прекращена
+                break; 
             }
         }
     }

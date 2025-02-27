@@ -22,3 +22,5 @@
 /Users/darazdanok/Desktop/Sharps/Projects/Project4_Zhdanok/Project4_Zhdanok/bin/Debug/net8.0/LibforWorkFithFiles.dll
 /Users/darazdanok/Desktop/Sharps/Projects/Project4_Zhdanok/Project4_Zhdanok/bin/Debug/net8.0/LibforWorkFithFiles.pdb
 /Users/darazdanok/Desktop/Sharps/Projects/Project4_Zhdanok/Project4_Zhdanok/bin/Debug/net8.0/Spectre.Console.dll
+/Users/darazdanok/Desktop/Sharps/Projects/Project4_Zhdanok/Project4_Zhdanok/bin/Debug/net8.0/System.Text.Json.dll
+/Users/darazdanok/Desktop/Sharps/Projects/Project4_Zhdanok/Project4_Zhdanok/bin/Debug/net8.0/Telegram.Bot.dll

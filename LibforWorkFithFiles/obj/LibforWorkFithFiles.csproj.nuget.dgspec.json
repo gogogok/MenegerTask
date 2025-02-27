@@ -58,6 +58,10 @@
             "Spectre.Console": {
               "target": "Package",
               "version": "[0.49.1, )"
+            },
+            "Telegram.Bot": {
+              "target": "Package",
+              "version": "[22.4.4, )"
             }
           },
           "imports": [

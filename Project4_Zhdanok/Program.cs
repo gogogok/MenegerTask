@@ -17,6 +17,7 @@ internal class Program
     /// </summary>
     static async Task Main()
     {
+        bool alreadyBotInUse = false;
         Console.CursorVisible = false;
         List<Tasks> tasks = new List<Tasks>(); // список задач
         Frame.PrintFrame(Frame.ForPrint(Texts.Description)); // меню приветствия
@@ -79,7 +80,7 @@ internal class Program
                         if (tasks.Count == 0)
                             Console.WriteLine("Задачи не найдены");
                         else
-                            DeadLines.ChooseDeadLineAction(tasks);
+                            DeadLines.ChooseDeadLineAction(tasks, ref alreadyBotInUse);
                         break;
 
                     case '8': // Завершение программы
