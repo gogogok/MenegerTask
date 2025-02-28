@@ -52,7 +52,8 @@ public class Tasks
     /// Деделайн задачи
     /// </summary>
     private DateTime _deadLine = default;
-    
+
+    private int _percentComplete;
     public int ID
     {
         get { return _id; }
@@ -170,24 +171,47 @@ public class Tasks
         }
     }
 
+    /// <summary>
+    /// Время создания задачи
+    /// </summary>
     private DateTime _createdAt = DateTime.Now;
+    
+    /// <summary>
+    /// Доступ к дате создания
+    /// </summary>
+    /// <returns>Дату создания</returns>
     public DateTime GetCreatedAt()
     {
         return _createdAt;
     }
 
+    /// <summary>
+    /// Дата обновления
+    /// </summary>
     private DateTime _updatedAt;
 
+    /// <summary>
+    /// Доступ к дате изменения
+    /// </summary>
+    /// <returns>Дату создания</returns>
     public DateTime GetUpdatedAt()
     {
         return _updatedAt;
     }
 
+    /// <summary>
+    /// Установление даты обновления
+    /// </summary>
+    /// <param name="dateTime">Дата обновления</param>
     public void SetUpdatedAt(DateTime dateTime)
     {
         _updatedAt = dateTime;
     }
 
+    /// <summary>
+    /// Метод, добавляющий задачи, зависимые от этой
+    /// </summary>
+    /// <param name="dependencyId"></param>
     public void AddDependency(int dependencyId)
     {
        _dependenciesIdFromThis.Add(dependencyId);
@@ -236,6 +260,15 @@ public class Tasks
         _dependenciesIdThisDep.Add(taskID);
     }
 
+    public int GetPercentComplete()
+    {
+       return _percentComplete;
+    }
+    public void SetPercentComplete(int percentComplete)
+    {
+        _percentComplete = percentComplete;
+    }
+    
     /// <summary>
     /// Добавление дедлайна.
     /// </summary>
@@ -275,6 +308,18 @@ public class Tasks
         Status = status;
         Desc = description;
         SetUpdatedAt(updatedAt);
+        if (Status == "DONE")
+        {
+            SetPercentComplete(100);
+        }
+        else if (Status == "IN_PROGRESS")
+        {
+            SetPercentComplete(50);
+        }
+        else if (Status == "TODO")
+        {
+            SetPercentComplete(0);
+        }
     }
     
 
@@ -313,6 +358,7 @@ public class Tasks
                }
            }
        }
+       str.AppendLine(ProgressBar.Progress(_percentComplete));
        str.AppendLine("--------------------");
        return str.ToString();
     }

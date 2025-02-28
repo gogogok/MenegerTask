@@ -82,8 +82,15 @@ internal class Program
                         else
                             DeadLines.ChooseDeadLineAction(tasks, ref alreadyBotInUse);
                         break;
+                    
+                    case '8':
+                        if (tasks.Count == 0)
+                            Console.WriteLine("Задачи не найдены");
+                        else
+                            AddPersentComplete.AddPersent(tasks);
+                        break;
 
-                    case '8': // Завершение программы
+                    case '9': // Завершение программы
                         cts.Cancel(); // Останавливаем фоновую задачу
                         break;
 

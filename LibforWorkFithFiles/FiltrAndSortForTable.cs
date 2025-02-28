@@ -251,14 +251,17 @@ public static class FiltrAndSortForTable
                     table.AddColumn("Время создания").Centered();
                     table.AddColumn("Время изменения").Centered();
                     table.AddColumn("Дедлайн").Centered();
-
+                    table.AddColumn("Шкала прогресса").Centered();
+                    
+                    
                     foreach (Tasks task in filteredTasks)
                     {
+                        string bar = ProgressBar.Progress(task.GetPercentComplete());
                         if (task.GetCreatedAt().Second != task.GetUpdatedAt().Second & task.GetDeadLine()== default)
                         {
                             table.AddRow(task.ID.ToString(), task.Status, task.Priority, task.Desc,
                                 task.GetCreatedAt().ToString(CultureInfo.InvariantCulture),
-                                task.GetUpdatedAt().ToString(CultureInfo.InvariantCulture),"Нет дедлайна");
+                                task.GetUpdatedAt().ToString(CultureInfo.InvariantCulture),"Нет дедлайна",bar);
                         }
                         else if (task.GetCreatedAt().Second != task.GetUpdatedAt().Second & task.GetDeadLine()!= default)
                         {
@@ -267,14 +270,14 @@ public static class FiltrAndSortForTable
                                 table.AddRow($"[red]{task.ID.ToString()}[/]", $"[red]{task.Status}[/]", $"[red]{task.Priority}[/]", $"[red]{task.Desc}[/]",
                                     $"[red]{task.GetCreatedAt().ToString(CultureInfo.InvariantCulture)}[/]",
                                     $"[red]{task.GetUpdatedAt().ToString(CultureInfo.InvariantCulture)}[/]",
-                                    $"[red]{task.GetDeadLine().ToString(CultureInfo.InvariantCulture)}[/]");
+                                    $"[red]{task.GetDeadLine().ToString(CultureInfo.InvariantCulture)}[/]",bar);
                             }
                             else
                             {
                                 table.AddRow($"[green]{task.ID.ToString()}[/]", $"[green]{task.Status}[/]", $"[green]{task.Priority}[/]", $"[green]{task.Desc}[/]",
                                     $"[green]{task.GetCreatedAt().ToString(CultureInfo.InvariantCulture)}[/]",
                                     $"[green]{task.GetUpdatedAt().ToString(CultureInfo.InvariantCulture)}[/]",
-                                    $"[green]{task.GetDeadLine().ToString(CultureInfo.InvariantCulture)}[/]");
+                                    $"[green]{task.GetDeadLine().ToString(CultureInfo.InvariantCulture)}[/]",bar);
                             }
                         }
                         else if (task.GetCreatedAt().Second == task.GetUpdatedAt().Second &
@@ -282,7 +285,7 @@ public static class FiltrAndSortForTable
                         {
                             table.AddRow(task.ID.ToString(), task.Status, task.Priority, task.Desc,
                                 task.GetCreatedAt().ToString(CultureInfo.InvariantCulture),
-                                "Задача не изменялась","Нет дедлайна");
+                                "Задача не изменялась","Нет дедлайна",bar);
                         }
                         else if (task.GetCreatedAt().Second == task.GetUpdatedAt().Second &
                                  task.GetDeadLine() != default)
@@ -291,13 +294,13 @@ public static class FiltrAndSortForTable
                             {
                                 table.AddRow($"[red]{task.ID.ToString()}[/]", $"[red]{task.Status}[/]", $"[red]{task.Priority}[/]", $"[red]{task.Desc}[/]",
                                     $"[red]{task.GetCreatedAt().ToString(CultureInfo.InvariantCulture)}[/]",
-                                    "[red]Задача не изменялась[/]", $"[red]{task.GetDeadLine().ToString(CultureInfo.InvariantCulture)}[/]");
+                                    "[red]Задача не изменялась[/]", $"[red]{task.GetDeadLine().ToString(CultureInfo.InvariantCulture)}[/]", bar);
                             }
                             else
                             {
                                 table.AddRow($"[green]{task.ID.ToString()}[/]", $"[green]{task.Status}[/]", $"[green]{task.Priority}[/]", $"[green]{task.Desc}[/]",
                                     $"[green]{task.GetCreatedAt().ToString(CultureInfo.InvariantCulture)}[/]",
-                                    "[green]Задача не изменялась[/]", $"[green]{task.GetDeadLine().ToString(CultureInfo.InvariantCulture)}[/]");
+                                    "[green]Задача не изменялась[/]", $"[green]{task.GetDeadLine().ToString(CultureInfo.InvariantCulture)}[/]",bar);
                             }
                         }
                     }
