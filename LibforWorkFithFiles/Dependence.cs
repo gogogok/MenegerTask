@@ -107,8 +107,8 @@ public static class Dependence
             }
             Console.Clear();
             Console.WriteLine($"Добавлена зависимость: {idFirst} от {idSecond} ");
-            task1.SetUpdatedAt(DateTime.Now);
-            task2.SetUpdatedAt(DateTime.Now);
+            task1.Updated = DateTime.Now.ToString("dd-MM-yy HH:mm");
+            task2.Updated = DateTime.Now.ToString("dd-MM-yy HH:mm");
         }
         catch (ArgumentException)
         {
@@ -163,8 +163,8 @@ public static class Dependence
         {
             task1.DeleteDependencyFromThis(idSecond);
             task2.DeleteDependencyThisFrom(idFirst);
-            task1.SetUpdatedAt(DateTime.Now);
-            task2.SetUpdatedAt(DateTime.Now);
+            task1.Updated = DateTime.Now.ToString("dd-MM-yy HH:mm");;
+            task2.Updated = DateTime.Now.ToString("dd-MM-yy HH:mm");;
             Console.WriteLine("Зависимость удалена");
         }
         else

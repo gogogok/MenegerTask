@@ -76,6 +76,22 @@ public static  class ImportFilesAsync
                         resultTasks3.Add(tasks);
                     }
 
+                    foreach (Tasks task in resultTasks3)
+                    {
+                        if (task.Status == "DONE")
+                        {
+                           task.PercentComplete = 100;
+                        }
+                        else if (task.Status == "IN_PROGRESS" & task.PercentComplete == 0)
+                        {
+                            task.PercentComplete =50;
+                        }
+                        else if (task.Status == "TODO")
+                        {
+                            task.PercentComplete = 0;
+                        }
+                    }
+
                     return resultTasks3;
                 }
                 catch (JsonException)

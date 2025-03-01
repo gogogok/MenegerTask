@@ -26,6 +26,7 @@ internal class Program
         string pathToFile = string.Empty;
         ConsoleKeyInfo menuKey;
         Console.CursorVisible = false;
+        _ = TelegramBot.SendMessageAsync();
             do
             {
                 Frame.PrintFrame(Frame.ForPrint(Texts.ChoosePoint)); // меню
@@ -35,6 +36,7 @@ internal class Program
                 Console.Clear();
                 switch (menuKey.KeyChar)
                 {
+                    //Ввод данных
                     case '1':
                         do
                         {
@@ -42,52 +44,64 @@ internal class Program
                             tasks = await ImportFilesAsync.FileHandler(pathToFile);
                         } while (tasks == null);
                         break;
-
+                    
+                    //Вывод задач
                     case '2':
                         if (tasks.Count == 0)
                             Console.WriteLine("Задачи не найдены");
                         else
                             ShowTasks.Show(tasks);
                         break;
-
+                    
+                    //Добавление задач
                     case '3':
                         tasks.Add(AddTask.AddTasks(tasks));
                         WriteToFile.WriteBackToFile(ref pathToFile, tasks);
                         break;
-
+                    
+                    //Изменение статуса
                     case '4':
                         if (tasks.Count == 0)
                             Console.WriteLine("Задачи не найдены");
                         else
                             ChangeStatusTask.Change(ref pathToFile, tasks);
                         break;
-
+                    //Удаление задачи
                     case '5':
                         if (tasks.Count == 0)
                             Console.WriteLine("Задачи не найдены");
                         else
                             DeleteTask.Delete(ref pathToFile, tasks);
                         break;
-
+                    
+                    //управление зависимостями
                     case '6':
                         if (tasks.Count == 0)
                             Console.WriteLine("Задачи не найдены");
                         else
                             Dependence.ChooseDepAction(tasks);
                         break;
-
+                    
+                    //управление дедлайнами
                     case '7':
                         if (tasks.Count == 0)
                             Console.WriteLine("Задачи не найдены");
                         else
-                            DeadLines.ChooseDeadLineAction(tasks, ref alreadyBotInUse);
+                        {
+                            DeadLines.ChooseDeadLineAction(tasks);
+                            WriteToFile.WriteBackToFile(ref pathToFile, tasks);
+                        }
                         break;
                     
+                    //Добавление процента выполнения
                     case '8':
                         if (tasks.Count == 0)
                             Console.WriteLine("Задачи не найдены");
                         else
+                        {
                             AddPersentComplete.AddPersent(tasks);
+                            WriteToFile.WriteBackToFile(ref pathToFile, tasks);
+                        }
                         break;
 
                     case '9': // Завершение программы
@@ -99,7 +113,7 @@ internal class Program
                         break;
                 }
                 cts.Cancel();
-            } while (menuKey.Key != ConsoleKey.D8);
+            } while (menuKey.Key != ConsoleKey.D9);
         
     }
 }

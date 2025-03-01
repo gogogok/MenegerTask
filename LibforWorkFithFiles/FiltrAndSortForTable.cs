@@ -256,35 +256,35 @@ public static class FiltrAndSortForTable
                     
                     foreach (Tasks task in filteredTasks)
                     {
-                        string bar = ProgressBar.Progress(task.GetPercentComplete());
+                        string bar = ProgressBar.Progress(task.PercentComplete);
                         if (task.GetCreatedAt().Second != task.GetUpdatedAt().Second & task.GetDeadLine()== default)
                         {
                             table.AddRow(task.ID.ToString(), task.Status, task.Priority, task.Desc,
-                                task.GetCreatedAt().ToString(CultureInfo.InvariantCulture),
-                                task.GetUpdatedAt().ToString(CultureInfo.InvariantCulture),"Нет дедлайна",bar);
+                                $"{task.GetCreatedAt():dd-MM-yy HH:mm}",
+                                $"{task.GetUpdatedAt():dd-MM-yy HH:mm}","Нет дедлайна",bar);
                         }
                         else if (task.GetCreatedAt().Second != task.GetUpdatedAt().Second & task.GetDeadLine()!= default)
                         {
                             if (task.GetDeadLine() < DateTime.Now)
                             {
                                 table.AddRow($"[red]{task.ID.ToString()}[/]", $"[red]{task.Status}[/]", $"[red]{task.Priority}[/]", $"[red]{task.Desc}[/]",
-                                    $"[red]{task.GetCreatedAt().ToString(CultureInfo.InvariantCulture)}[/]",
-                                    $"[red]{task.GetUpdatedAt().ToString(CultureInfo.InvariantCulture)}[/]",
-                                    $"[red]{task.GetDeadLine().ToString(CultureInfo.InvariantCulture)}[/]",bar);
+                                    $"[red]{task.GetCreatedAt():dd-MM-yy HH:mm}[/]",
+                                    $"[red]{task.GetUpdatedAt():dd-MM-yy HH:mm}[/]",
+                                    $"[red]{task.GetDeadLine():dd-MM-yy HH:mm}[/]",bar);
                             }
                             else
                             {
                                 table.AddRow($"[green]{task.ID.ToString()}[/]", $"[green]{task.Status}[/]", $"[green]{task.Priority}[/]", $"[green]{task.Desc}[/]",
-                                    $"[green]{task.GetCreatedAt().ToString(CultureInfo.InvariantCulture)}[/]",
-                                    $"[green]{task.GetUpdatedAt().ToString(CultureInfo.InvariantCulture)}[/]",
-                                    $"[green]{task.GetDeadLine().ToString(CultureInfo.InvariantCulture)}[/]",bar);
+                                    $"[green]{task.GetCreatedAt():dd-MM-yy HH:mm}[/]",
+                                    $"[green]{task.GetUpdatedAt():dd-MM-yy HH:mm}[/]",
+                                    $"[green]{task.GetDeadLine():dd-MM-yy HH:mm}[/]",bar);
                             }
                         }
                         else if (task.GetCreatedAt().Second == task.GetUpdatedAt().Second &
                                  task.GetDeadLine() == default)
                         {
                             table.AddRow(task.ID.ToString(), task.Status, task.Priority, task.Desc,
-                                task.GetCreatedAt().ToString(CultureInfo.InvariantCulture),
+                                $"{task.GetCreatedAt():dd-MM-yy HH:mm}",
                                 "Задача не изменялась","Нет дедлайна",bar);
                         }
                         else if (task.GetCreatedAt().Second == task.GetUpdatedAt().Second &
@@ -293,14 +293,14 @@ public static class FiltrAndSortForTable
                             if (task.GetDeadLine() < DateTime.Now)
                             {
                                 table.AddRow($"[red]{task.ID.ToString()}[/]", $"[red]{task.Status}[/]", $"[red]{task.Priority}[/]", $"[red]{task.Desc}[/]",
-                                    $"[red]{task.GetCreatedAt().ToString(CultureInfo.InvariantCulture)}[/]",
-                                    "[red]Задача не изменялась[/]", $"[red]{task.GetDeadLine().ToString(CultureInfo.InvariantCulture)}[/]", bar);
+                                    $"[red]{task.GetCreatedAt():dd-MM-yy HH:mm}[/]",
+                                    "[red]Задача не изменялась[/]", $"[red]{task.GetDeadLine():dd-MM-yy HH:mm}[/]", bar);
                             }
                             else
                             {
                                 table.AddRow($"[green]{task.ID.ToString()}[/]", $"[green]{task.Status}[/]", $"[green]{task.Priority}[/]", $"[green]{task.Desc}[/]",
-                                    $"[green]{task.GetCreatedAt().ToString(CultureInfo.InvariantCulture)}[/]",
-                                    "[green]Задача не изменялась[/]", $"[green]{task.GetDeadLine().ToString(CultureInfo.InvariantCulture)}[/]",bar);
+                                    $"[green]{task.GetCreatedAt():dd-MM-yy HH:mm}[/]",
+                                    "[green]Задача не изменялась[/]", $"[green]{task.GetDeadLine():dd-MM-yy HH:mm}[/]",bar);
                             }
                         }
                     }

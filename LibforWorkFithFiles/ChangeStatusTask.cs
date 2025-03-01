@@ -16,7 +16,7 @@ public static class ChangeStatusTask
     {
         Console.WriteLine("Введите ID задачи, которую желаете изменить");
         int id = MethodsFindAndCheck.CheckId(tasks);
-
+        Tasks task = MethodsFindAndCheck.FindById(id, tasks);
         string status = String.Empty;
         ConsoleKeyInfo key;
         try
@@ -32,12 +32,19 @@ public static class ChangeStatusTask
                 {
                     case '1':
                         status = "TODO";
+                        task.Status = status;
+                        task.Updated = DateTime.Now.ToString("dd-MM-yy HH:mm");
+                        task.PercentComplete = 0;
+                        
                         break;
                     case '2':
                         status = "IN_PROGRESS";
+                        task.Status = status;
+                        task.Updated = DateTime.Now.ToString("dd-MM-yy HH:mm");
+                        task.PercentComplete = 50;
+                        
                         break;
                     case '3':
-                        Tasks task = MethodsFindAndCheck.FindById(id, tasks);
                         //проверка, есть ли незаконченная задача, от которой зависит данная
                         foreach (int idTask in task.GetDependencyThisFrom())
                         {
@@ -47,21 +54,14 @@ public static class ChangeStatusTask
                                 throw new ArgumentException();
                             }
                         }
-
                         status = "DONE";
+                        task.Status = status;
+                        task.Updated = DateTime.Now.ToString("dd-MM-yy HH:mm");
+                        task.PercentComplete = 100;
                         break;
                 }
             } while (key.Key != ConsoleKey.D1 && key.Key != ConsoleKey.D2 && key.Key != ConsoleKey.D3);
-
-
-            for (int i = 0; i < tasks.Count; i++)
-            {
-                if (tasks[i].ID == id)
-                {
-                    tasks[i].Status = status;
-                    tasks[i].SetUpdatedAt(DateTime.Now);
-                }
-            }
+            
 
             WriteToFile.WriteBackToFile(ref path, tasks);
             Console.Clear();

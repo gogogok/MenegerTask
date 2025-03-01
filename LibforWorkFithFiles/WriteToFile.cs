@@ -95,7 +95,18 @@ public static class WriteToFile
             str.AppendLine($"\t\t\"ID\": {tasks[i].ID},");
             str.AppendLine($"\t\t\"Status\": \"{tasks[i].Status}\",");
             str.AppendLine($"\t\t\"Priority\": \"{tasks[i].Priority}\",");
-            str.AppendLine($"\t\t\"Desc\": \"{tasks[i].Desc}\"");
+            str.AppendLine($"\t\t\"Desc\": \"{tasks[i].Desc}\",");
+            str.AppendLine($"\t\t\"CreatedAt\": \"{tasks[i].GetCreatedAt():dd-MM-yy HH:mm}\",");
+            if (tasks[i].GetCreatedAt().Second != tasks[i].GetUpdatedAt().Second)
+            {
+                str.AppendLine($"\t\t\"Updated\": \"{tasks[i].GetUpdatedAt():dd-MM-yy HH:mm}\",");
+            }
+
+            if (tasks[i].GetDeadLine() != default)
+            {
+                str.AppendLine($"\t\t\"DeadLine\": \"{tasks[i].GetDeadLine():dd-MM-yy HH:mm}\",");
+            }
+            str.AppendLine($"\t\t\"PercentComplete\": {tasks[i].PercentComplete}");
             if (i < tasks.Count - 1)
             {
                 str.AppendLine("\t},");

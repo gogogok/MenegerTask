@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Text;
 
 namespace LibWorkWithFiles;
@@ -37,23 +38,26 @@ public class Tasks
     /// Описание задачи
     /// </summary>
     private string? _description;
-    
+
     /// <summary>
     /// ID задач, зависимых от этой задачи
     /// </summary>
     private List<int> _dependenciesIdFromThis = new List<int>();
-    
+
     /// <summary>
     /// ID задач, от которых зависит эта задача
     /// </summary>
     private List<int> _dependenciesIdThisDep = new List<int>();
-    
+
     /// <summary>
     /// Деделайн задачи
     /// </summary>
     private DateTime _deadLine = default;
+    
+    
 
     private int _percentComplete;
+
     public int ID
     {
         get { return _id; }
@@ -175,38 +179,86 @@ public class Tasks
     /// Время создания задачи
     /// </summary>
     private DateTime _createdAt = DateTime.Now;
-    
-    /// <summary>
-    /// Доступ к дате создания
-    /// </summary>
-    /// <returns>Дату создания</returns>
-    public DateTime GetCreatedAt()
-    {
-        return _createdAt;
-    }
+
+
 
     /// <summary>
     /// Дата обновления
     /// </summary>
     private DateTime _updatedAt;
 
-    /// <summary>
-    /// Доступ к дате изменения
-    /// </summary>
-    /// <returns>Дату создания</returns>
+
+    public int PercentComplete
+    {
+        get => _percentComplete;
+        set
+        {
+            if (value < 0 || value > 100)
+            {
+                throw new FormatException();
+            }
+            else
+            {
+                _percentComplete = value;
+            }
+        }
+    }
+
+    public DateTime GetDeadLine()
+    {
+        return _deadLine;
+    }
+    
+    public string DeadLine
+    {
+        set
+        {
+            if ( DateTime.TryParseExact(value, "dd-MM-yy HH:mm", null, DateTimeStyles.None, out DateTime parsedDate) ) 
+            {
+                if (DateTime.Now <= parsedDate)
+                {
+                    _deadLine = parsedDate;
+                }
+                else
+                {
+                    throw new FormatException("Дата дедлайна раньше сегодняшней");
+                }
+            }
+            else
+            {
+                throw new FormatException("Неверный формат данных");
+            }
+        }
+    }
+
     public DateTime GetUpdatedAt()
     {
         return _updatedAt;
     }
-
-    /// <summary>
-    /// Установление даты обновления
-    /// </summary>
-    /// <param name="dateTime">Дата обновления</param>
-    public void SetUpdatedAt(DateTime dateTime)
+    
+    public string Updated
     {
-        _updatedAt = dateTime;
+        set
+        {
+            _ = DateTime.TryParseExact(value, "dd-MM-yy HH:mm", null, DateTimeStyles.None, out DateTime parsedDate);
+            if (parsedDate != default)
+            {
+                if (_createdAt <= parsedDate)
+                {
+                    _updatedAt = parsedDate;
+                }
+                else
+                {
+                    _updatedAt = DateTime.Now;
+                }
+            }
+            else
+            {
+                _updatedAt = DateTime.Now;
+            }
+        }
     }
+
 
     /// <summary>
     /// Метод, добавляющий задачи, зависимые от этой
@@ -259,39 +311,19 @@ public class Tasks
     {
         _dependenciesIdThisDep.Add(taskID);
     }
-
-    public int GetPercentComplete()
-    {
-       return _percentComplete;
-    }
-    public void SetPercentComplete(int percentComplete)
-    {
-        _percentComplete = percentComplete;
-    }
     
-    /// <summary>
-    /// Добавление дедлайна.
-    /// </summary>
-    /// <param name="deadLine">Дата, которую нужно установить в качестве дедлайнс</param>
-    /// <exception cref="FormatException">Исключение, если дата дедлайна раньше сегодняшней</exception>
-    public void SetDeadLine(DateTime deadLine)
-    {
-        if (deadLine > DateTime.Now)
-        {
-            _deadLine = deadLine;
-        }
-        else
-        {
-            throw new FormatException("Дата дедлайна раньше сегодняшней");
-        }
-    }
-    public DateTime GetDeadLine()
-    {
-        return _deadLine;
-    }
     public void DeleteDeadLine()
     {
         _deadLine = default;
+    }
+    
+    /// <summary>
+    /// Доступ к дате создания
+    /// </summary>
+    /// <returns>Дату создания</returns>
+    public DateTime GetCreatedAt()
+    {
+     return _createdAt;
     }
 
     /// <summary>
@@ -307,18 +339,18 @@ public class Tasks
         Priority = priority;
         Status = status;
         Desc = description;
-        SetUpdatedAt(updatedAt);
+        _updatedAt = updatedAt;
         if (Status == "DONE")
         {
-            SetPercentComplete(100);
+            _percentComplete = 100;
         }
         else if (Status == "IN_PROGRESS")
         {
-            SetPercentComplete(50);
+            _percentComplete =50;
         }
         else if (Status == "TODO")
         {
-            SetPercentComplete(0);
+            _percentComplete = 0;
         }
     }
     
@@ -328,7 +360,7 @@ public class Tasks
     /// </summary>
     public Tasks()
     {
-        SetUpdatedAt(DateTime.Now);
+        _updatedAt = DateTime.Now;
     }
 
     /// <summary>
@@ -342,17 +374,17 @@ public class Tasks
        str.AppendLine($"Статус: {Status}");
        str.AppendLine($"Приоритет: {Priority}");
        str.AppendLine($"Описание: {Desc}");
-       str.AppendLine($"Дата и время создания: {GetCreatedAt()}");
-       if (GetCreatedAt().Second != GetUpdatedAt().Second)
+       str.AppendLine($"Дата и время создания: {_createdAt}");
+       if (_createdAt.Second != _updatedAt.Second)
        {
-           str.AppendLine($"Дата последнего редактирования: {GetUpdatedAt()}");
+           str.AppendLine($"Дата последнего редактирования: {_updatedAt}");
        }
-       if (GetDeadLine() != default)
+       if (_deadLine != default)
        {
-           str.AppendLine($"Дедлайн: {GetDeadLine()}");
-           if(DateTime.Now > GetDeadLine())
+           str.AppendLine($"Дедлайн: {_deadLine.ToString("dd-MM-yy HH:mm")}");
+           if(DateTime.Now > _deadLine)
            {
-               if (DateTime.Now.Hour - GetUpdatedAt().Hour <= 1)
+               if ((DateTime.Today.Year == GetDeadLine().Year &  DateTime.Today.Month == GetDeadLine().Month &  DateTime.Today.Day == GetDeadLine().Day &  DateTime.Today.Hour == GetDeadLine().Hour &  DateTime.Today.Minute - GetDeadLine().Minute < 59))
                {
                    str.AppendLine("До конца дедлайна меньше часа!");
                }
@@ -371,3 +403,4 @@ public class Tasks
         return 4;
     }
 }
+
