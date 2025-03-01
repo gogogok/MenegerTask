@@ -99,7 +99,8 @@ public static class MethodsFindAndCheck
 
         checkedAlr.Add(taskId);
         inStack.Add(taskId);
-
+        
+        if(FindById(taskId,tasks)==null) return false;
         foreach (int dependencyId in FindById(taskId,tasks).GetDependency())
         {
             if (FindDep(dependencyId, checkedAlr, inStack, tasks))

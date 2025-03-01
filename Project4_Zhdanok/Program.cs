@@ -87,7 +87,11 @@ internal class Program
                         if (projects.Count == 0)
                             Console.WriteLine("Проекты не найдены");
                         else
-                            Dependence.ChooseDepAction(projects,tasks);
+                        {
+                            Dependence.ChooseDepAction(projects, tasks);
+                            WriteToFile.WriteBackToFile( ref pathToFile, projects);
+                        }
+
                         break;
                     
                     //управление дедлайнами

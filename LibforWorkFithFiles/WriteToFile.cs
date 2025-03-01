@@ -116,6 +116,10 @@ public static class WriteToFile
             }
             str.AppendLine($"\t\t\"PercentComplete\": {tasks[i].PercentComplete},");
             str.AppendLine($"\t\t\"InProject\": \"{tasks[i].InProject}\"");
+            if (tasks[i].GetDependency().Count != 0)
+            {
+                str.AppendLine($"\t\t\"DependencyFromThis\": \"{tasks[i].DependencyFromThis}\"");
+            }
             if (i < tasks.Count - 1)
             {
                 str.AppendLine("\t},");
@@ -166,6 +170,14 @@ public static class WriteToFile
             str.Append($"{task.GetCreatedAt():dd-MM-yy HH:mm},");
             str.Append($"{task.GetUpdatedAt():dd-MM-yy HH:mm},");
             str.Append($"{task.InProject},");
+            if (task.GetDependency().Count != 0)
+            {
+                str.Append($"\"{task.DependencyFromThis}\",");
+            }
+            else
+            {
+                str.Append($"-,");
+            }
             if (task.GetDeadLine() != default)
             {
                 str.Append($"{task.GetDeadLine():dd-MM-yy HH:mm}");
