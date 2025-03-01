@@ -2,6 +2,7 @@
 using System.Text.Json;
 using System.Text.RegularExpressions;
 using CsvHelper;
+using CsvHelper.Configuration;
 
 namespace LibWorkWithFiles;
 
@@ -49,19 +50,55 @@ public static  class ImportFilesAsync
         {
             case ".csv":
                 List<Tasks> resultTasks = new List<Tasks>();
-                using (StreamReader reader = new StreamReader(path))
+                try
                 {
-                    using (CsvReader csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+                    using (StreamReader reader = new StreamReader(path))
                     {
-                        //асинхронная операция чтения файла
-                        IEnumerable<Tasks> tasks = await Task.Run(() => csv.GetRecords<Tasks>().ToList());
-                        foreach (Tasks task in tasks)
+                        //конфигуратор для обработки отсутствия столбцов
+                        CsvConfiguration config = new CsvConfiguration(CultureInfo.InvariantCulture)
                         {
-                            resultTasks.Add(task);
+                            MissingFieldFound = null,
+                            IgnoreBlankLines = true
+                            
+                        };
+                        using (CsvReader csv = new CsvReader(reader, config))
+                        {
+                            //асинхронная операция чтения файла
+                            IEnumerable<Tasks> tasks = await Task.Run(() => csv.GetRecords<Tasks>().ToList());
+                            foreach (Tasks task in tasks)
+                            {
+                                resultTasks.Add(task);
+                            }
+
+                            foreach (Tasks task in resultTasks)
+                            {
+                                if (task.Status == "DONE")
+                                {
+                                    task.PercentComplete = 100;
+                                }
+                                else if (task.Status == "IN_PROGRESS" & task.PercentComplete == 0)
+                                {
+                                    task.PercentComplete = 50;
+                                }
+                                else if (task.Status == "TODO")
+                                {
+                                    task.PercentComplete = 0;
+                                }
+                            }
+                            return resultTasks;
                         }
                     }
                 }
-                return resultTasks;
+                catch (CsvHelperException)
+                {
+                    Console.WriteLine("Неверный формат CSV файла. (Если файл корректен, проверьте заменены ли пустые строки \"-\"");
+                    return null;
+                }
+                catch (FormatException)
+                {
+                    Console.WriteLine("Данные CSV файла некорректны");
+                    return null;
+                }
             
             case ".json":
                 //асинхронная операция чтения файла
@@ -91,16 +128,16 @@ public static  class ImportFilesAsync
                             task.PercentComplete = 0;
                         }
                     }
-
-                    return resultTasks3;
+                    
                 }
                 catch (JsonException)
                 {
                     Console.WriteLine("JSON файл не корректен. Попробуйте другой файл.");
+                    return null;
                 }
                 catch (FormatException)
                 {
-                    Console.WriteLine("JSON файл не корректен. Попробуйте другой файл.");
+                    Console.WriteLine("Данные файла некорректны, повторите попытку");
                     return null;
                 }
                 break;

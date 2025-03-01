@@ -1,5 +1,6 @@
 using System.Globalization;
 using System.Text;
+using CsvHelper.Configuration.Attributes;
 
 namespace LibWorkWithFiles;
 
@@ -188,6 +189,7 @@ public class Tasks
     private DateTime _updatedAt;
 
 
+    [Optional]
     public int PercentComplete
     {
         get => _percentComplete;
@@ -209,24 +211,32 @@ public class Tasks
         return _deadLine;
     }
     
+    [Optional]
     public string DeadLine
     {
         set
         {
-            if ( DateTime.TryParseExact(value, "dd-MM-yy HH:mm", null, DateTimeStyles.None, out DateTime parsedDate) ) 
+            if (value != "-"| string.IsNullOrWhiteSpace(value))
             {
-                if (DateTime.Now <= parsedDate)
+                if (DateTime.TryParseExact(value, "dd-MM-yy HH:mm", null, DateTimeStyles.None, out DateTime parsedDate))
                 {
-                    _deadLine = parsedDate;
+                    if (DateTime.Now <= parsedDate)
+                    {
+                        _deadLine = parsedDate;
+                    }
+                    else
+                    {
+                        throw new FormatException("Дата дедлайна раньше сегодняшней");
+                    }
                 }
                 else
                 {
-                    throw new FormatException("Дата дедлайна раньше сегодняшней");
+                    throw new FormatException("Неверный формат данных");
                 }
             }
             else
             {
-                throw new FormatException("Неверный формат данных");
+                _deadLine = default;
             }
         }
     }
@@ -236,16 +246,24 @@ public class Tasks
         return _updatedAt;
     }
     
+    [Optional]
     public string Updated
     {
         set
         {
-            _ = DateTime.TryParseExact(value, "dd-MM-yy HH:mm", null, DateTimeStyles.None, out DateTime parsedDate);
-            if (parsedDate != default)
+            if (value != "-" | string.IsNullOrWhiteSpace(value))
             {
-                if (_createdAt <= parsedDate)
+                _ = DateTime.TryParseExact(value, "dd-MM-yy HH:mm", null, DateTimeStyles.None, out DateTime parsedDate);
+                if (parsedDate != default)
                 {
-                    _updatedAt = parsedDate;
+                    if (_createdAt <= parsedDate)
+                    {
+                        _updatedAt = parsedDate;
+                    }
+                    else
+                    {
+                        _updatedAt = DateTime.Now;
+                    }
                 }
                 else
                 {
