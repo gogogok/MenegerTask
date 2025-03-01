@@ -100,7 +100,7 @@ public static class MethodsFindAndCheck
         checkedAlr.Add(taskId);
         inStack.Add(taskId);
 
-        foreach (int dependencyId in FindById(taskId,tasks).GetDependencyThisFrom())
+        foreach (int dependencyId in FindById(taskId,tasks).GetDependency())
         {
             if (FindDep(dependencyId, checkedAlr, inStack, tasks))
             {
@@ -112,28 +112,11 @@ public static class MethodsFindAndCheck
     }
 
     /// <summary>
-    /// Проверка на наличие противоречащих зависимостей, но не отслеживающий цикличность
+    /// Проверка на наличие зависимости, где предыдущая задача уже сделана
     /// </summary>
     /// <param name="tasksThisDep">Задача, от которой должно зависеть</param>
-    /// <param name="tasksDepFrom">Задача, которая должна зависеть от другой</param>
-    public static void CheckDependencyNotCircled(Tasks tasksDepFrom, Tasks tasksThisDep)
+    public static void CheckDependencyNotCircled(Tasks tasksThisDep)
     {
-        if (tasksThisDep.GetDependency().Count!= 0)
-        {
-            for (int i = 0; i < tasksThisDep.GetDependency().Count; i++)
-            {
-                if (tasksThisDep.GetDependency()[i] == tasksDepFrom.Id)
-                {
-                    throw new ArgumentException();
-                }
-
-                if (tasksThisDep.Id == tasksDepFrom.Id)
-                {
-                    throw new ArgumentException();
-                }
-            }
-        }
-
         if (tasksThisDep.Status == "DONE")
         {
             throw new ArgumentException();

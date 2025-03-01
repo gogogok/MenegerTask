@@ -56,11 +56,6 @@ public class Tasks
     private List<int> _dependenciesIdFromThis = new List<int>();
 
     /// <summary>
-    /// ID задач, от которых зависит эта задача
-    /// </summary>
-    private List<int> _dependenciesIdThisDep = new List<int>();
-
-    /// <summary>
     /// Деделайн задачи
     /// </summary>
     private DateTime _deadLine = default;
@@ -70,6 +65,9 @@ public class Tasks
     /// </summary>
     private int _percentComplete;
 
+    /// <summary>
+    /// Принадлежность задач к проекту
+    /// </summary>
     private string _inProject = "Задачи без проекта";
     
     /// <summary>
@@ -290,7 +288,37 @@ public class Tasks
     {
        _dependenciesIdFromThis.Add(dependencyId);
     }
-
+    
+    /// <summary>
+    /// Аксессор к зависисмостям
+    /// </summary>
+    [Optional] 
+    public string DependencyFromThis
+    {
+        get
+        {
+            return string.Join(' ', _dependenciesIdFromThis.ToArray());
+        }
+        set
+        {
+            if (value != "-")
+                if (value.Contains(" "))
+                {
+                    string[] parts = value.Split(' ');
+                    foreach (string p in parts)
+                    {
+                        int d = int.Parse(p);
+                        _dependenciesIdFromThis.Add(d);
+                    }
+                }
+                else
+                {
+                    _dependenciesIdFromThis.Add(int.Parse(value));
+                }
+        }
+    
+    }
+    
     /// <summary>
     /// Удаление задачи, зависящей от данной
     /// </summary>
@@ -300,14 +328,14 @@ public class Tasks
         _dependenciesIdFromThis.Remove(dependencyId);
     }
     
-    /// <summary>
-    /// Удаление задачи, от которой зависит данная
-    /// </summary>
-    /// <param name="dependencyId">ID задачи, от которой зависит данная</param>
-    public void DeleteDependencyThisFrom(int dependencyId)
-    {
-        _dependenciesIdThisDep.Remove(dependencyId);
-    }
+    // /// <summary>
+    // /// Удаление задачи, от которой зависит данная
+    // /// </summary>
+    // /// <param name="dependencyId">ID задачи, от которой зависит данная</param>
+    // public void DeleteDependencyThisFrom(int dependencyId)
+    // {
+    //     _dependenciesIdThisDep.Remove(dependencyId);
+    // }
     /// <summary>
     /// ID задач, зависящих от этой задачи
     /// </summary>
@@ -316,23 +344,23 @@ public class Tasks
     {
         return _dependenciesIdFromThis;
     }
-    /// <summary>
-    /// ID задач, от которых зависит эта задача
-    /// </summary>
-    /// <returns>Список ID</returns>
-    public List<int> GetDependencyThisFrom()
-    {
-        return _dependenciesIdThisDep;
-    }
+    // /// <summary>
+    // /// ID задач, от которых зависит эта задача
+    // /// </summary>
+    // /// <returns>Список ID</returns>
+    // public List<int> GetDependencyThisFrom()
+    // {
+    //     return _dependenciesIdThisDep;
+    // }
 
-    /// <summary>
-    /// Добавление задач, от которых зависит данная
-    /// </summary>
-    /// <param name="taskID">Задача, от которой зависит данная</param>
-    public void SetDependenciesIdThisFrom(int taskID)
-    {
-        _dependenciesIdThisDep.Add(taskID);
-    }
+    // /// <summary>
+    // /// Добавление задач, от которых зависит данная
+    // /// </summary>
+    // /// <param name="taskID">Задача, от которой зависит данная</param>
+    // public void SetDependenciesIdThisFrom(int taskID)
+    // {
+    //     _dependenciesIdThisDep.Add(taskID);
+    // }
     
     public void DeleteDeadLine()
     {
@@ -356,7 +384,13 @@ public class Tasks
     public string InProject
     {
         get => _inProject;
-        set => _inProject = value;
+        set
+        {
+            if (value != "-")
+            {
+                _inProject = value;
+            }
+        }
     }
     
     /// <summary>

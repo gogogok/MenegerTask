@@ -49,12 +49,16 @@ public static class ChangeStatusTask
                             break;
                         case '3':
                             //проверка, есть ли незаконченная задача, от которой зависит данная
-                            foreach (int idTask in task.GetDependencyThisFrom())
+                            foreach (Tasks task1 in tasks)
                             {
-                                Tasks tasksFromDep = MethodsFindAndCheck.FindById(idTask, tasks);
-                                if (tasksFromDep.Status != "DONE")
+                                if (task1.GetDependency().Contains(id))
                                 {
-                                    throw new ArgumentException();
+                                    int idTask = task1.GetDependency()[task1.GetDependency().IndexOf(id)];
+                                    Tasks tasksFromDep = MethodsFindAndCheck.FindById(idTask, tasks);
+                                    if (tasksFromDep.Status != "DONE")
+                                    {
+                                        throw new ArgumentException();
+                                    }
                                 }
                             }
 

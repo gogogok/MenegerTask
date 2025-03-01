@@ -108,15 +108,12 @@ public static class Dependence
             {
                 Tasks task2 = MethodsFindAndCheck.FindById(idSecond, tasks);
                 Tasks task1 = MethodsFindAndCheck.FindById(idFirst, tasks);
-                MethodsFindAndCheck.CheckDependencyNotCircled(task1,
-                    task2); //проверка корректности добавления зависимости
+                MethodsFindAndCheck.CheckDependencyNotCircled(task2); //проверка корректности добавления зависимости
                 //добавляем задачи в зависимости для дальнейшей проверки на цикличность
                 task2.AddDependency(idFirst);
-                task1.SetDependenciesIdThisFrom(idSecond);
                 if (MethodsFindAndCheck.IsCircled(idFirst, tasks))
                 {
                     //если зависимость циклична, она удаляется и выбрасывается исключение
-                    task1.DeleteDependencyThisFrom(idSecond);
                     task2.DeleteDependencyFromThis(idFirst);
                     throw new TimeoutException();
                 }
@@ -172,9 +169,9 @@ public static class Dependence
         Tasks task2 = MethodsFindAndCheck.FindById(idSecond, tasks);
 
         bool isInDep = false;
-        foreach (int dep1 in task2.GetDependencyThisFrom())
+        foreach (int dep1 in task1.GetDependency())
         {
-            if (dep1 == idFirst)
+            if (dep1 == idSecond)
             {
                 isInDep = true;
             }
@@ -183,7 +180,6 @@ public static class Dependence
         if (isInDep)
         {
             task1.DeleteDependencyFromThis(idSecond);
-            task2.DeleteDependencyThisFrom(idFirst);
             task1.Updated();
             task2.Updated();
             Console.WriteLine("Зависимость удалена");

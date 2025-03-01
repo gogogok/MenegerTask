@@ -146,8 +146,8 @@ public static class WriteToFile
         str.Append("Desc,");
         str.Append("CreatedAt,");
         str.Append("Updated,");
-        str.Append("DeadLine,");
-        str.Append("InProject");
+        str.Append("InProject,");
+        str.Append("DeadLine");
         lines.Add(str.ToString());
         foreach (Tasks task in tasks)
         {
@@ -165,15 +165,15 @@ public static class WriteToFile
             }
             str.Append($"{task.GetCreatedAt():dd-MM-yy HH:mm},");
             str.Append($"{task.GetUpdatedAt():dd-MM-yy HH:mm},");
+            str.Append($"{task.InProject},");
             if (task.GetDeadLine() != default)
             {
-                str.Append($"{task.GetDeadLine():dd-MM-yy HH:mm},");
+                str.Append($"{task.GetDeadLine():dd-MM-yy HH:mm}");
             }
             else
             {
                 str.Append("-,");
             }
-            str.Append($"{task.InProject}");
             lines.Add(str.ToString());
         }
         File.WriteAllLines(path, lines);

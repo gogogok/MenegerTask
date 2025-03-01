@@ -55,12 +55,12 @@ public static  class ImportFilesAsync
                 {
                     using (StreamReader reader = new StreamReader(path))
                     {
-                       
+
                         CsvConfiguration config = new CsvConfiguration(CultureInfo.InvariantCulture)
                         {
-                            MissingFieldFound = null,  //конфигуратор для обработки отсутствия столбцов
-                            IgnoreBlankLines = true  //конфигуратор для обработки пустых строк
-                            
+                            MissingFieldFound = null, //конфигуратор для обработки отсутствия столбцов
+                            IgnoreBlankLines = true //конфигуратор для обработки пустых строк
+
                         };
                         using (CsvReader csv = new CsvReader(reader, config))
                         {
@@ -69,10 +69,34 @@ public static  class ImportFilesAsync
                             foreach (Tasks task in tasks)
                             {
                                 resultTasks.Add(task);
+                                //проверка на сущестование предмета с таким Id
+                                foreach (int indDep in task.GetDependency())
+                                {
+                                    Tasks task2 = MethodsFindAndCheck.FindById(indDep, tasks.ToList());
+                                    if (task2 == null)
+                                    {
+                                        throw new IndexOutOfRangeException();
+                                    }
+                                }
                             }
-
+                            
+                            
                             foreach (Tasks task in resultTasks)
                             {
+                                //проверка повторяющихся значений в зависимостях
+                                bool flagRepeats = task.GetDependency().Count != task.GetDependency().Distinct().Count();
+                                if (flagRepeats)
+                                {
+                                    throw new IndexOutOfRangeException();
+                                }
+                                //проверка циклической зависимости
+                                bool circle = MethodsFindAndCheck.IsCircled(task.Id, resultTasks);
+                                if (circle)
+                                {
+                                    throw new TimeoutException();
+                                }
+                                
+                                //установление прогресса в зависимости от статуса
                                 if (task.Status == "DONE")
                                 {
                                     task.PercentComplete = 100;
@@ -85,8 +109,10 @@ public static  class ImportFilesAsync
                                 {
                                     task.PercentComplete = 0;
                                 }
+
                                 string prName = task.InProject;
-                                Project? pr = MethodsFindAndCheck.FindByName(projects,prName);
+                                //добавление проектов в зависисмости от принадлежности к ним задачам
+                                Project? pr = MethodsFindAndCheck.FindByName(projects, prName);
                                 if (pr == null)
                                 {
                                     Project pr2 = new Project(prName);
@@ -98,18 +124,30 @@ public static  class ImportFilesAsync
                                     pr.AddTaskInProject(task);
                                 }
                             }
+
                             return projects;
                         }
                     }
                 }
                 catch (CsvHelperException)
                 {
-                    Console.WriteLine("Неверный формат CSV файла. (Если файл корректен, проверьте заменены ли пустые строки \"-\", проверьте также, не истекли ли дедлайны)");
+                    Console.WriteLine(
+                        "Неверный формат CSV файла. (Если файл корректен, проверьте заменены ли пустые строки \"-\", проверьте также, не истекли ли дедлайны)");
                     return null;
                 }
                 catch (FormatException)
                 {
                     Console.WriteLine("Данные CSV файла некорректны");
+                    return null;
+                }
+                catch (IndexOutOfRangeException)
+                {
+                    Console.WriteLine("В зависимостях указано Id, которого не существует или повторяющиеся значения.");
+                    return null;
+                }
+                catch (TimeoutException)
+                {
+                    Console.WriteLine("Зависимость одной из задач циклична");
                     return null;
                 }
             
@@ -126,22 +164,60 @@ public static  class ImportFilesAsync
                         Tasks tasks = JsonSerializer.Deserialize<Tasks>(line);
                         resultTasks3.Add(tasks);
                     }
+                    
+                    //проверка на сущестование предмета с таким Id
+                    foreach (Tasks task in resultTasks3)
+                    {
+                        foreach (int indDep in task.GetDependency())
+                        {
+                            Tasks task2 = MethodsFindAndCheck.FindById(indDep, resultTasks3);
+                            if (task2 == null)
+                            {
+                                throw new IndexOutOfRangeException();
+                            }
+                        }
+                    }
 
                     foreach (Tasks task in resultTasks3)
                     {
+                        //проверка
+                        bool flagRepeats = task.GetDependency().Count != task.GetDependency().Distinct().Count();
+                        if (flagRepeats)
+                        {
+                            throw new IndexOutOfRangeException();
+                        }
                         
+                        //проверка существования задач с данным Id
+                        foreach (int indDep in task.GetDependency())
+                        {
+                            Tasks task2 = MethodsFindAndCheck.FindById(indDep, resultTasks3);
+                            if (task2 == null)
+                            {
+                                throw new IndexOutOfRangeException();
+                            }
+                        }
+                        
+                        //проверка циклической зависимости
+                        bool circle = MethodsFindAndCheck.IsCircled(task.Id, resultTasks3);
+                        if (circle)
+                        {
+                            throw new TimeoutException();
+                        }
+                        
+                        //установление прогресса в зависимости от статуса
                         if (task.Status == "DONE")
                         {
-                           task.PercentComplete = 100;
+                            task.PercentComplete = 100;
                         }
                         else if (task.Status == "IN_PROGRESS" & task.PercentComplete == 0)
                         {
-                            task.PercentComplete =50;
+                            task.PercentComplete = 50;
                         }
                         else if (task.Status == "TODO")
                         {
                             task.PercentComplete = 0;
                         }
+
                         string prName = task.InProject;
                         Project pr = new Project(prName);
                         if (!projects3.Contains(pr))
@@ -151,12 +227,13 @@ public static  class ImportFilesAsync
                         }
                         else
                         {
-                            Project? project = MethodsFindAndCheck.FindByName(projects3,prName);
+                            Project? project = MethodsFindAndCheck.FindByName(projects3, prName);
                             project.AddTaskInProject(task);
                         }
                     }
+
                     return projects3;
-                    
+
                 }
                 catch (JsonException)
                 {
@@ -168,7 +245,16 @@ public static  class ImportFilesAsync
                     Console.WriteLine("Данные файла некорректны, повторите попытку");
                     return null;
                 }
-                break;
+                catch (IndexOutOfRangeException)
+                {
+                    Console.WriteLine("В зависимостях указано Id, которого не существует или Id повторяются или повторяющиеся Id");
+                    return null;
+                }
+                catch (TimeoutException)
+                {
+                    Console.WriteLine("Зависимость одной из задач циклична");
+                    return null;
+                }
             case ".txt":
                 //асинхронная операция чтения файла
                 string[] lines = await File.ReadAllLinesAsync(path);
@@ -199,6 +285,7 @@ public static  class ImportFilesAsync
                     Project pr = new Project("Задачи без проекта");
                     foreach (Tasks task in resultTasks2)
                     {
+                        
                         pr.AddTaskInProject(task);
                         task.InProject = pr.Name;
                     }
