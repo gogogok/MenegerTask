@@ -1,9 +1,13 @@
+using System.ComponentModel;
 using System.Globalization;
 using System.Text;
 using CsvHelper.Configuration.Attributes;
 
 namespace LibWorkWithFiles;
 
+/// <summary>
+/// Перечисление статусов
+/// </summary>
 public enum Statuses
 {
     ToDo,
@@ -11,6 +15,9 @@ public enum Statuses
     Done
 }
 
+/// <summary>
+/// Перечисление приоритетов
+/// </summary>
 public enum Prioritys
 {
     High,
@@ -18,6 +25,9 @@ public enum Prioritys
     Low
 }
 
+/// <summary>
+/// Класс, описывающий задачу
+/// </summary>
 public class Tasks
 {
     /// <summary>
@@ -55,14 +65,20 @@ public class Tasks
     /// </summary>
     private DateTime _deadLine = default;
     
-    
-
+    /// <summary>
+    /// Процент выполнения задачи
+    /// </summary>
     private int _percentComplete;
 
-    public int ID
+    private string _inProject = "Задачи без проекта";
+    
+    /// <summary>
+    /// Аксессор к Id
+    /// </summary>
+    public int Id
     {
         get { return _id; }
-        set { _id = value; }
+        init { _id = value; }
     }
 
     /// <summary>
@@ -188,8 +204,10 @@ public class Tasks
     /// </summary>
     private DateTime _updatedAt;
 
-
-    [Optional]
+    /// <summary>
+    /// Аксессор к данным процента выполнения
+    /// </summary>
+    [Optional] //показывает, что данные не обязательно должны присутствовать в CSV
     public int PercentComplete
     {
         get => _percentComplete;
@@ -199,19 +217,23 @@ public class Tasks
             {
                 throw new FormatException();
             }
-            else
-            {
-                _percentComplete = value;
-            }
+            _percentComplete = value;
         }
     }
 
+    /// <summary>
+    /// Доступ к дате дедлайна
+    /// </summary>
+    /// <returns>Дату дедлайна</returns>
     public DateTime GetDeadLine()
     {
         return _deadLine;
     }
     
-    [Optional]
+    /// <summary>
+    /// Аксессор к дате дедлайна
+    /// </summary>
+    [Optional]  //показывает, что данные не обязательно должны присутствовать в CSV
     public string DeadLine
     {
         set
@@ -236,45 +258,27 @@ public class Tasks
             }
             else
             {
+                //если строка пустая или данных из CSV нет - значение по умолчанию
                 _deadLine = default;
             }
         }
     }
 
+    /// <summary>
+    /// Доступ к значению даты обновления в формате DateTime
+    /// </summary>
+    /// <returns>Дату обновления с типом даты</returns>
     public DateTime GetUpdatedAt()
     {
         return _updatedAt;
     }
     
-    [Optional]
-    public string Updated
+    /// <summary>
+    /// Аксессор к дате обновления
+    /// </summary>
+    public void Updated()
     {
-        set
-        {
-            if (value != "-" | string.IsNullOrWhiteSpace(value))
-            {
-                _ = DateTime.TryParseExact(value, "dd-MM-yy HH:mm", null, DateTimeStyles.None, out DateTime parsedDate);
-                if (parsedDate != default)
-                {
-                    if (_createdAt <= parsedDate)
-                    {
-                        _updatedAt = parsedDate;
-                    }
-                    else
-                    {
-                        _updatedAt = DateTime.Now;
-                    }
-                }
-                else
-                {
-                    _updatedAt = DateTime.Now;
-                }
-            }
-            else
-            {
-                _updatedAt = DateTime.Now;
-            }
-        }
+        _updatedAt = DateTime.Now;
     }
 
 
@@ -345,19 +349,30 @@ public class Tasks
     }
 
     /// <summary>
+    ///  Аксессор к названию проекта, которому принадлежит
+    /// </summary>
+    [Optional]
+    [DefaultValue("Задачи без проектов")] //что ставить по умолчанию, если нет колонки в CSV
+    public string InProject
+    {
+        get => _inProject;
+        set => _inProject = value;
+    }
+    
+    /// <summary>
     /// Конструктор для создания задачи в коде
     /// </summary>
     /// <param name="id">ID задачи</param>
     /// <param name="status">Статус задачи</param>
     /// <param name="priority">Приоритет задачи</param>
     /// <param name="description">Описание задачи</param>
-    public Tasks(int id, string status, string priority, string description, DateTime updatedAt)
+    public Tasks(int id, string status, string priority, string description)
     {
-        ID = id;
+        Id = id;
         Priority = priority;
         Status = status;
         Desc = description;
-        _updatedAt = updatedAt;
+        Updated();
         if (Status == "DONE")
         {
             _percentComplete = 100;
@@ -388,7 +403,7 @@ public class Tasks
     public override string ToString()
     {
        StringBuilder str = new();
-       str.AppendLine($"ID: {ID}");
+       str.AppendLine($"ID: {Id}");
        str.AppendLine($"Статус: {Status}");
        str.AppendLine($"Приоритет: {Priority}");
        str.AppendLine($"Описание: {Desc}");

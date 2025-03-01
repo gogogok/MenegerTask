@@ -21,7 +21,7 @@ public static class MethodsFindAndCheck
                 bool isId = false;
                 for (int i = 0; i < tasks.Count; i++)
                 {
-                    if (tasks[i].ID == id)
+                    if (tasks[i].Id == id)
                     {
                         isId = true;
                     }
@@ -55,7 +55,7 @@ public static class MethodsFindAndCheck
     {
         foreach (Tasks task in tasks)
         {
-            if (task.ID == id)
+            if (task.Id == id)
             {
                 return task;
             }
@@ -122,12 +122,12 @@ public static class MethodsFindAndCheck
         {
             for (int i = 0; i < tasksThisDep.GetDependency().Count; i++)
             {
-                if (tasksThisDep.GetDependency()[i] == tasksDepFrom.ID)
+                if (tasksThisDep.GetDependency()[i] == tasksDepFrom.Id)
                 {
                     throw new ArgumentException();
                 }
 
-                if (tasksThisDep.ID == tasksDepFrom.ID)
+                if (tasksThisDep.Id == tasksDepFrom.Id)
                 {
                     throw new ArgumentException();
                 }
@@ -138,5 +138,63 @@ public static class MethodsFindAndCheck
         {
             throw new ArgumentException();
         }
+    }
+    
+    /// <summary>
+    /// Метод для проверки существования имени проекта
+    /// </summary>
+    /// <param name="projects">Список проектов</param>
+    /// <returns>Имя проекта, если такое есть</returns>
+    public static string CheckProjectName(List<Project> projects)
+    {
+        string projectName;
+        while (true)
+        {
+            try
+            {
+                projectName = Console.ReadLine();
+                bool isName = false;
+                for (int i = 0; i < projects.Count; i++)
+                {
+                    if (projects[i].Name == projectName)
+                    {
+                        isName = true;
+                    }
+                }
+
+                if (!isName)
+                {
+                    throw new IndexOutOfRangeException();
+                }
+                break;
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine("Число не было введено. Повторите ввод");
+            }
+            catch (IndexOutOfRangeException)
+            {
+                Console.WriteLine("Задачи с таким ID не существует. Повторите ввод");
+            }
+        }
+        return projectName;
+    }
+
+    /// <summary>
+    /// Нахождение проекта по названию
+    /// </summary>
+    /// <param name="name">Название проекта</param>
+    /// <param name="projects">Список проектов</param>
+    /// <returns></returns>
+    public static Project? FindByName(List<Project> projects, string name)
+    {
+        foreach (Project project in projects)
+        {
+            if (project.Name == name)
+            {
+                return project;
+            }
+        }
+        return null;
     }
 }

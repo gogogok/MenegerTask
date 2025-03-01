@@ -11,8 +11,9 @@ public static class AddTask
     /// Метод, добавляющий задачи
     /// </summary>
     /// <param name="tasks">Список, к которому будет добавлена задача</param>
+    /// <param name="projects">Список проектов, в котором лежит проект, к которому будет добавлена задача</param>
     /// <returns>Новую задачу</returns>
-    public static Tasks AddTasks(List<Tasks> tasks)
+    public static void AddTasks(List<Project> projects, List<Tasks> tasks)
     {
         Console.WriteLine("Добавление задачи");
         Console.WriteLine("Введите название задачи:");
@@ -20,20 +21,18 @@ public static class AddTask
         do
         {
             string? desc = Console.ReadLine();
-            if (tasks!= null) //проверка на то, есть ли уже задача с таким описанием
+            foreach (Project project in projects)
             {
-                if (tasks.Count != 0)
+                foreach (Tasks task in project)
                 {
-                    foreach (Tasks task in tasks)
+                    if (task.Desc == desc)
                     {
-                        if (task.Desc == desc)
-                        {
-                            notInList = true;
-                            break;
-                        }
+                        notInList = true;
+                        break; 
                     }
                 }
             }
+            
 
             if (!notInList)
             {
@@ -57,14 +56,19 @@ public static class AddTask
                     }
                 } while (key1.Key != ConsoleKey.D1 && key1.Key != ConsoleKey.D2 && key1.Key != ConsoleKey.D3);
                 
-                return new Tasks(UniqueId(tasks), "TODO", priority,desc,DateTime.Now); //возвращение новой задачи
+                Console.WriteLine("Введите название проекта, к которому хотите присоединить задачу");
+                string name = MethodsFindAndCheck.CheckProjectName(projects);
+                Project? project = MethodsFindAndCheck.FindByName(projects, name);
+                tasks = tasks.OrderBy(t => t.Id).ToList();
+                Tasks task = new Tasks(UniqueId(tasks), "TODO", priority, desc);
+                tasks.Add(task);
+                project.AddTaskInProject(task);
             }
             else
             {
                 Console.WriteLine("Задача с таким названием уже существует.");
             }
         } while (notInList);
-        return null;
     }
 
     /// <summary>
@@ -80,7 +84,7 @@ public static class AddTask
             foreach (Tasks task in tasks)
             {
                 ind1++;
-                int ind2 = task.ID;
+                int ind2 = task.Id;
                 if (ind1 != ind2) //если ID пропущен, возвращаем этот ID
                 {
                     return ind1;
@@ -91,6 +95,6 @@ public static class AddTask
         {
             return 1;
         }
-        return ind1+=1;
+        return ind1 + 1;
     }
 }

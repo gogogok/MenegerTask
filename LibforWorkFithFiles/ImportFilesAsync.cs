@@ -43,22 +43,23 @@ public static  class ImportFilesAsync
     /// </summary>
     /// <param name="path">Ссылка на файл, который нужно обработать</param>
     /// <returns>Список задач, полученный из этого файла </returns>
-    public static async Task<List<Tasks>> FileHandler(string path)
+    public static async Task<List<Project>> FileHandler(string path)
     {
         string extension = Path.GetExtension(path);
         switch (extension) //определение расширения файла
         {
             case ".csv":
                 List<Tasks> resultTasks = new List<Tasks>();
+                List<Project> projects = new List<Project>();
                 try
                 {
                     using (StreamReader reader = new StreamReader(path))
                     {
-                        //конфигуратор для обработки отсутствия столбцов
+                       
                         CsvConfiguration config = new CsvConfiguration(CultureInfo.InvariantCulture)
                         {
-                            MissingFieldFound = null,
-                            IgnoreBlankLines = true
+                            MissingFieldFound = null,  //конфигуратор для обработки отсутствия столбцов
+                            IgnoreBlankLines = true  //конфигуратор для обработки пустых строк
                             
                         };
                         using (CsvReader csv = new CsvReader(reader, config))
@@ -84,8 +85,20 @@ public static  class ImportFilesAsync
                                 {
                                     task.PercentComplete = 0;
                                 }
+                                string prName = task.InProject;
+                                Project pr = new Project(prName);
+                                if (!projects.Contains(pr))
+                                {
+                                    projects.Add(pr);
+                                    pr.AddTaskInProject(task);
+                                }
+                                else
+                                {
+                                    Project? project = MethodsFindAndCheck.FindByName(projects,prName);
+                                    project.AddTaskInProject(task);
+                                }
                             }
-                            return resultTasks;
+                            return projects;
                         }
                     }
                 }
@@ -105,6 +118,7 @@ public static  class ImportFilesAsync
                 string[] lines2 = await File.ReadAllLinesAsync(path);
                 List<string> resultListJson = BetweenStaples(string.Join(" ", lines2));
                 List<Tasks> resultTasks3 = new List<Tasks>();
+                List<Project> projects3 = new List<Project>();
                 try
                 {
                     foreach (string line in resultListJson)
@@ -115,6 +129,7 @@ public static  class ImportFilesAsync
 
                     foreach (Tasks task in resultTasks3)
                     {
+                        
                         if (task.Status == "DONE")
                         {
                            task.PercentComplete = 100;
@@ -127,7 +142,20 @@ public static  class ImportFilesAsync
                         {
                             task.PercentComplete = 0;
                         }
+                        string prName = task.InProject;
+                        Project pr = new Project(prName);
+                        if (!projects3.Contains(pr))
+                        {
+                            projects3.Add(pr);
+                            pr.AddTaskInProject(task);
+                        }
+                        else
+                        {
+                            Project? project = MethodsFindAndCheck.FindByName(projects3,prName);
+                            project.AddTaskInProject(task);
+                        }
                     }
+                    return projects3;
                     
                 }
                 catch (JsonException)
@@ -146,6 +174,7 @@ public static  class ImportFilesAsync
                 string[] lines = await File.ReadAllLinesAsync(path);
                 string pattern2 = @"\[(\d+)\] \[(\w+)\] \[(\w+)\] (.*)"; //паттерн для нахождения задач 
                 List<Tasks> resultTasks2 = new List<Tasks>();
+                List<Project> resultProjects = new List<Project>();
                 try
                 {
                     foreach (string line in lines)
@@ -157,7 +186,7 @@ public static  class ImportFilesAsync
                             Tasks tasks = new Tasks(result,
                                 afterReg.Groups[2].ToString().Replace("[", "").Replace("]", ""),
                                 afterReg.Groups[3].ToString().Replace("[", "").Replace("]", ""),
-                                afterReg.Groups[4].ToString().Replace("[", "").Replace("]", ""),DateTime.Now);
+                                afterReg.Groups[4].ToString().Replace("[", "").Replace("]", ""));
                             resultTasks2.Add(tasks);
                             //Console.WriteLine(task);
                         }
@@ -167,7 +196,14 @@ public static  class ImportFilesAsync
                         }
                     }
 
-                    return resultTasks2;
+                    Project pr = new Project("Задачи без проекта");
+                    foreach (Tasks task in resultTasks2)
+                    {
+                        pr.AddTaskInProject(task);
+                        task.InProject = pr.Name;
+                    }
+                    resultProjects.Add(pr);
+                    return resultProjects;
                 }
                 catch (IndexOutOfRangeException)
                 {

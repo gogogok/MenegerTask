@@ -13,8 +13,9 @@ public static class ShowTasks
     /// <summary>
     /// Выбор мечта вывода
     /// </summary>
+    /// <param name="projects">Список проектов</param>
     /// <param name="tasks">Список задач</param>
-    public static void Show(List<Tasks> tasks)
+    public static void Show(List<Project> projects,List<Tasks>tasks)
     {
         ConsoleKeyInfo key1;
         do
@@ -25,10 +26,10 @@ public static class ShowTasks
             {
                 case '1':
                     Console.Clear();
-                    ShowToConsole(tasks);
+                    ShowToConsole(projects);
                     break;
                 case '2':
-                    Table(tasks);
+                    Table(projects,tasks);
                     Console.Clear();
                     break;
             }
@@ -40,26 +41,30 @@ public static class ShowTasks
     /// <summary>
     /// Метод вывода в консоль
     /// </summary>
-    /// <param name="tasks">Список задач</param>
-    private static void ShowToConsole(List<Tasks> tasks)
+    /// <param name="projects">Список проектов</param>
+    private static void ShowToConsole(List<Project> projects)
     {
-        foreach (Tasks task in tasks)
+        foreach (Project project in projects)
         {
-            if (task.GetDeadLine() != default)
+            Console.WriteLine($"Проект: {project.Name}");
+            foreach (Tasks task in project)
             {
-                //Выделение порсроченных дедлайнов
-                if (task.GetDeadLine() < DateTime.Now)
+                if (task.GetDeadLine() != default)
                 {
-                    Console.ForegroundColor = ConsoleColor.Red;
+                    //Выделение просроченных дедлайнов
+                    if (task.GetDeadLine() < DateTime.Now)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.Green;
+                    }
                 }
-                else
-                {
-                    Console.ForegroundColor = ConsoleColor.Green;
-                }
+
+                Console.WriteLine(task);
+                Console.ResetColor();
             }
-            Console.WriteLine(task);
-            Console.ResetColor();
-            
         }
     }
 
@@ -67,10 +72,12 @@ public static class ShowTasks
     /// Метод для вывода таблицы
     /// </summary>
     /// <param name="tasks">Список задач</param>
-    private static void Table(List<Tasks> tasks)
+    /// <param name="projects">Список проектов</param>
+    /// 
+    private static void Table(List<Project> projects, List<Tasks> tasks)
     {
         Console.Clear();
-        FiltrAndSortForTable.FilterSort(tasks);
+        FiltrAndSortForTable.FilterSort(projects,tasks);
        
     }
 }

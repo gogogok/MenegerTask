@@ -8,7 +8,7 @@ public static class AddPersentComplete
     /// <summary>
     /// Метод для задания процента выполнения
     /// </summary>
-    /// <param name="tasks">Список задач</param>
+    /// /// <param name="tasks">Список задач</param>
     public static void AddPersent(List<Tasks> tasks)
     {
         int percent;
@@ -26,7 +26,7 @@ public static class AddPersentComplete
                 }
                 Tasks task = MethodsFindAndCheck.FindById(id, tasks);
                 task.PercentComplete =percent;
-                task.Updated = DateTime.Now.ToString("dd-MM-yy HH:mm");
+                task.Updated();
                 break;
             }
             catch (FormatException)

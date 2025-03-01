@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MenuLib")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3b057ae51bb24cc74ec12fb400c76120ba38d006")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8b6545aee24cd3ed90f961b9b8bfc1c1d36b662f")]
 [assembly: System.Reflection.AssemblyProductAttribute("MenuLib")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MenuLib")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

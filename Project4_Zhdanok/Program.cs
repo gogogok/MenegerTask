@@ -19,7 +19,8 @@ internal class Program
     {
         bool alreadyBotInUse = false;
         Console.CursorVisible = false;
-        List<Tasks> tasks = new List<Tasks>(); // список задач
+        List<Tasks> tasks = new List<Tasks>();
+        List<Project> projects = new List<Project>(); //список проектов
         Frame.PrintFrame(Frame.ForPrint(Texts.Description)); // меню приветствия
         Console.ReadKey(true);
         Console.Clear();
@@ -31,7 +32,7 @@ internal class Program
             {
                 Frame.PrintFrame(Frame.ForPrint(Texts.ChoosePoint)); // меню
                 CancellationTokenSource cts = new CancellationTokenSource();
-                Task deadlineCheckTask = Task.Run(() => DeadLines.CheckDeadLinesAsync(tasks, cts.Token));
+                Task deadlineCheckTask = Task.Run(() => DeadLines.CheckDeadLinesAsync(projects, cts.Token));
                 menuKey = Console.ReadKey(true);
                 Console.Clear();
                 switch (menuKey.KeyChar)
@@ -41,70 +42,82 @@ internal class Program
                         do
                         {
                             pathToFile = ImportFilesAsync.GetPass();
-                            tasks = await ImportFilesAsync.FileHandler(pathToFile);
-                        } while (tasks == null);
+                            projects = await ImportFilesAsync.FileHandler(pathToFile);
+                        } while (projects == null);
+                        foreach (Project project in projects)
+                        {
+                            foreach (Tasks task in project)
+                            {
+                                tasks.Add(task);
+                            }
+                        }
                         break;
                     
                     //Вывод задач
                     case '2':
-                        if (tasks.Count == 0)
-                            Console.WriteLine("Задачи не найдены");
+                        if (projects.Count == 0)
+                            Console.WriteLine("Проекты не найдены");
                         else
-                            ShowTasks.Show(tasks);
+                            ShowTasks.Show(projects,tasks);
                         break;
                     
                     //Добавление задач
                     case '3':
-                        tasks.Add(AddTask.AddTasks(tasks));
-                        WriteToFile.WriteBackToFile(ref pathToFile, tasks);
+                        AddTask.AddTasks(projects,tasks);
+                        WriteToFile.WriteBackToFile(ref pathToFile, projects);
                         break;
                     
                     //Изменение статуса
                     case '4':
-                        if (tasks.Count == 0)
-                            Console.WriteLine("Задачи не найдены");
+                        if (projects.Count == 0)
+                            Console.WriteLine("Проекты не найдены");
                         else
-                            ChangeStatusTask.Change(ref pathToFile, tasks);
+                            ChangeStatusTask.Change(ref pathToFile, projects,tasks);
                         break;
                     //Удаление задачи
                     case '5':
-                        if (tasks.Count == 0)
-                            Console.WriteLine("Задачи не найдены");
+                        if (projects.Count == 0)
+                            Console.WriteLine("Проекты не найдены");
                         else
-                            DeleteTask.Delete(ref pathToFile, tasks);
+                            DeleteTask.Delete(ref pathToFile, projects,tasks);
                         break;
                     
                     //управление зависимостями
                     case '6':
-                        if (tasks.Count == 0)
-                            Console.WriteLine("Задачи не найдены");
+                        if (projects.Count == 0)
+                            Console.WriteLine("Проекты не найдены");
                         else
-                            Dependence.ChooseDepAction(tasks);
+                            Dependence.ChooseDepAction(projects,tasks);
                         break;
                     
                     //управление дедлайнами
                     case '7':
-                        if (tasks.Count == 0)
-                            Console.WriteLine("Задачи не найдены");
+                        if (projects.Count == 0)
+                            Console.WriteLine("Проекты не найдены");
                         else
                         {
                             DeadLines.ChooseDeadLineAction(tasks);
-                            WriteToFile.WriteBackToFile(ref pathToFile, tasks);
+                            WriteToFile.WriteBackToFile(ref pathToFile, projects);
                         }
                         break;
                     
                     //Добавление процента выполнения
                     case '8':
-                        if (tasks.Count == 0)
+                        if (projects.Count == 0)
                             Console.WriteLine("Задачи не найдены");
                         else
                         {
                             AddPersentComplete.AddPersent(tasks);
-                            WriteToFile.WriteBackToFile(ref pathToFile, tasks);
+                            WriteToFile.WriteBackToFile(ref pathToFile,projects);
                         }
                         break;
-
-                    case '9': // Завершение программы
+                    
+                    //работа с проектами
+                    case '9':
+                        WorkWithProjects.ProjectsOptions(projects);
+                        break;
+                        
+                    case 'F': // Завершение программы
                         cts.Cancel(); // Останавливаем фоновую задачу
                         break;
 
@@ -113,7 +126,7 @@ internal class Program
                         break;
                 }
                 cts.Cancel();
-            } while (menuKey.Key != ConsoleKey.D9);
+            } while (menuKey.Key != ConsoleKey.F);
         
     }
 }

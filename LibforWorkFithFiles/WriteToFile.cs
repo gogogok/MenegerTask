@@ -14,11 +14,19 @@ public static class WriteToFile
     /// Метод, для записи данных в файл
     /// </summary>
     /// <param name="path">Ссылка на файл для записи</param>
-    /// <param name="tasks">Данные задач для записи</param>
-    public static void WriteBackToFile(ref string path,List<Tasks> tasks)
+    /// <param name="projects">Данные проектов для записи</param>
+    public static void WriteBackToFile(ref string path,List<Project> projects)
     {
+        List<Tasks> tasks = new List<Tasks>();
+        foreach (Project project in projects)
+        {
+            foreach (Tasks task in project)
+            {
+                tasks.Add(task);
+            }
+        }
         IOrderedEnumerable<Tasks> res;
-        res = from task in tasks orderby task.ID select task;
+        res = from task in tasks orderby task.Id select task;
         tasks = res.ToList(); //сортировка по ID для лучшего вида файла
         if (!File.Exists(path))
         {
@@ -92,7 +100,7 @@ public static class WriteToFile
         for(int i = 0; i < tasks.Count; i++)
         {
             str.AppendLine("\t{");
-            str.AppendLine($"\t\t\"ID\": {tasks[i].ID},");
+            str.AppendLine($"\t\t\"Id\": {tasks[i].Id},");
             str.AppendLine($"\t\t\"Status\": \"{tasks[i].Status}\",");
             str.AppendLine($"\t\t\"Priority\": \"{tasks[i].Priority}\",");
             str.AppendLine($"\t\t\"Desc\": \"{tasks[i].Desc}\",");
@@ -101,7 +109,7 @@ public static class WriteToFile
             {
                 str.AppendLine($"\t\t\"Updated\": \"{tasks[i].GetUpdatedAt():dd-MM-yy HH:mm}\",");
             }
-
+            str.AppendLine($"\t\t\"InProject\": \"{tasks[i].InProject}\",");
             if (tasks[i].GetDeadLine() != default)
             {
                 str.AppendLine($"\t\t\"DeadLine\": \"{tasks[i].GetDeadLine():dd-MM-yy HH:mm}\",");
@@ -130,17 +138,42 @@ public static class WriteToFile
     private static void WriteCsv(string path, List<Tasks> tasks)
     {
         List<string> lines = new List<string>();
-        lines.Add("ID,Status,Priority,Desc");
+        StringBuilder str = new StringBuilder();
+        str.Append("Id,");
+        str.Append("Status,");
+        str.Append("Priority,");
+        str.Append("Desc,");
+        str.Append("CreatedAt,");
+        str.Append("Updated,");
+        str.Append("InProject,");
+        str.Append("DeadLine");
+        lines.Add(str.ToString());
         foreach (Tasks task in tasks)
         {
+            str.Clear();
+            str.Append($"{task.Id},");
+            str.Append($"{task.Status},");
+            str.Append($"{task.Priority},");
             if (task.Desc.Contains(',')) //если есть запятая, добавляем кавычки
             {
-                lines.Add($"{task.ID},{task.Status},{task.Priority},\"{task.Desc}\"");
+                str.Append($"\"{task.Desc}\",");
             }
             else
             {
-                lines.Add($"{task.ID},{task.Status},{task.Priority},{task.Desc}");
+                str.Append($"{task.Desc},");
             }
+            str.Append($"{task.GetCreatedAt():dd-MM-yy HH:mm},");
+            str.Append($"{task.GetUpdatedAt():dd-MM-yy HH:mm},");
+            str.Append($"{task.InProject},");
+            if (task.GetDeadLine() != default)
+            {
+                str.Append($"{task.GetDeadLine():dd-MM-yy HH:mm}");
+            }
+            else
+            {
+                str.Append("-");
+            }
+            lines.Add(str.ToString());
         }
         File.WriteAllLines(path, lines);
     }
@@ -155,7 +188,7 @@ public static class WriteToFile
         List<string> lines = new List<string>();
         foreach (Tasks task in tasks)
         {
-            lines.Add($"[{task.ID}] [{task.Status}] [{task.Priority}] {task.Desc}");
+            lines.Add($"[{task.Id}] [{task.Status}] [{task.Priority}] {task.Desc}");
         }
         File.WriteAllLines(path, lines);
     }
