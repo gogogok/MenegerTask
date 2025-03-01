@@ -86,16 +86,16 @@ public static  class ImportFilesAsync
                                     task.PercentComplete = 0;
                                 }
                                 string prName = task.InProject;
-                                Project pr = new Project(prName);
-                                if (!projects.Contains(pr))
+                                Project? pr = MethodsFindAndCheck.FindByName(projects,prName);
+                                if (pr == null)
                                 {
-                                    projects.Add(pr);
-                                    pr.AddTaskInProject(task);
+                                    Project pr2 = new Project(prName);
+                                    pr2.AddTaskInProject(task);
+                                    projects.Add(pr2);
                                 }
                                 else
                                 {
-                                    Project? project = MethodsFindAndCheck.FindByName(projects,prName);
-                                    project.AddTaskInProject(task);
+                                    pr.AddTaskInProject(task);
                                 }
                             }
                             return projects;
@@ -104,7 +104,7 @@ public static  class ImportFilesAsync
                 }
                 catch (CsvHelperException)
                 {
-                    Console.WriteLine("Неверный формат CSV файла. (Если файл корректен, проверьте заменены ли пустые строки \"-\"");
+                    Console.WriteLine("Неверный формат CSV файла. (Если файл корректен, проверьте заменены ли пустые строки \"-\", проверьте также, не истекли ли дедлайны)");
                     return null;
                 }
                 catch (FormatException)

@@ -15,13 +15,6 @@ public static class FiltrAndSortForTable
        bool exitFlag = true;
        List<Action<List<Tasks>>> actions = new List<Action<List<Tasks>>>();
        List<string> parametrs = new List<string>();
-       foreach (Project project in projects)
-       {
-           foreach (Tasks task in project)
-           {
-               tasks.Add(task);
-           }
-       }
        do
        {
             Console.Clear();
@@ -258,7 +251,7 @@ public static class FiltrAndSortForTable
                     foreach (Tasks task in filteredTasks)
                     {
                         Project prod = MethodsFindAndCheck.FindByName(projects, task.InProject);
-                        if (!projects2.Contains(prod))
+                        if (MethodsFindAndCheck.FindByName(projects2, task.InProject) == null)
                         {
                             if (prod != null)
                             {
@@ -289,7 +282,6 @@ public static class FiltrAndSortForTable
                     
                     foreach (Project project in projects2)
                     {
-                        int f = project.TasksCount();
                         foreach (Tasks task in project)
                         {
                             string bar = ProgressBar.Progress(task.PercentComplete);
