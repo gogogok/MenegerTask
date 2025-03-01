@@ -110,12 +110,12 @@ public static class MethodsFindAndCheck
         inStack.Remove(taskId); //выход из рекурсии
         return false;
     }
-    
+
     /// <summary>
     /// Проверка на наличие противоречащих зависимостей, но не отслеживающий цикличность
     /// </summary>
-    /// <param name="tasksDepFrom>Задача, которая должна зависеть от другой</param>
-    /// <param name="tasksThisDep>Задача, от которой должно зависеть</param>
+    /// <param name="tasksThisDep">Задача, от которой должно зависеть</param>
+    /// <param name="tasksDepFrom">Задача, которая должна зависеть от другой</param>
     public static void CheckDependencyNotCircled(Tasks tasksDepFrom, Tasks tasksThisDep)
     {
         if (tasksThisDep.GetDependency().Count!= 0)
@@ -170,11 +170,11 @@ public static class MethodsFindAndCheck
             }
             catch (FormatException)
             {
-                Console.WriteLine("Число не было введено. Повторите ввод");
+                Console.WriteLine("Название проекта не было введено. Повторите ввод");
             }
             catch (IndexOutOfRangeException)
             {
-                Console.WriteLine("Задачи с таким ID не существует. Повторите ввод");
+                Console.WriteLine("Проекта с таким названием не существует. Повторите ввод");
             }
         }
         return projectName;

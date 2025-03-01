@@ -20,16 +20,14 @@ public static class AddTask
         bool notInList = false;
         do
         {
+            notInList = false;
             string? desc = Console.ReadLine();
-            foreach (Project project in projects)
+            foreach (Tasks task in tasks)
             {
-                foreach (Tasks task in project)
+                if (task.Desc == desc)
                 {
-                    if (task.Desc == desc)
-                    {
-                        notInList = true;
-                        break; 
-                    }
+                    notInList = true;
+                    break; 
                 }
             }
             
@@ -61,6 +59,7 @@ public static class AddTask
                 Project? project = MethodsFindAndCheck.FindByName(projects, name);
                 tasks = tasks.OrderBy(t => t.Id).ToList();
                 Tasks task = new Tasks(UniqueId(tasks), "TODO", priority, desc);
+                task.InProject = project.Name;
                 tasks.Add(task);
                 project.AddTaskInProject(task);
             }

@@ -114,7 +114,8 @@ public static class WriteToFile
             {
                 str.AppendLine($"\t\t\"DeadLine\": \"{tasks[i].GetDeadLine():dd-MM-yy HH:mm}\",");
             }
-            str.AppendLine($"\t\t\"PercentComplete\": {tasks[i].PercentComplete}");
+            str.AppendLine($"\t\t\"PercentComplete\": {tasks[i].PercentComplete},");
+            str.AppendLine($"\t\t\"InProject\": \"{tasks[i].InProject}\"");
             if (i < tasks.Count - 1)
             {
                 str.AppendLine("\t},");
@@ -145,8 +146,8 @@ public static class WriteToFile
         str.Append("Desc,");
         str.Append("CreatedAt,");
         str.Append("Updated,");
-        str.Append("InProject,");
-        str.Append("DeadLine");
+        str.Append("DeadLine,");
+        str.Append("InProject");
         lines.Add(str.ToString());
         foreach (Tasks task in tasks)
         {
@@ -164,15 +165,15 @@ public static class WriteToFile
             }
             str.Append($"{task.GetCreatedAt():dd-MM-yy HH:mm},");
             str.Append($"{task.GetUpdatedAt():dd-MM-yy HH:mm},");
-            str.Append($"{task.InProject},");
             if (task.GetDeadLine() != default)
             {
-                str.Append($"{task.GetDeadLine():dd-MM-yy HH:mm}");
+                str.Append($"{task.GetDeadLine():dd-MM-yy HH:mm},");
             }
             else
             {
-                str.Append("-");
+                str.Append("-,");
             }
+            str.Append($"{task.InProject}");
             lines.Add(str.ToString());
         }
         File.WriteAllLines(path, lines);
