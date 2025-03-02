@@ -299,6 +299,7 @@ namespace LibWorkWithFiles
         /// <param name="tasksCount">Количество задач всего</param>
         private static void TableShow(List<Project> projects2, int nowPage, int onOnePage, int tasksCount)
         {
+            Console.Clear();
             Table table = new Table();
             table.AddColumn("Проект").Centered();
             table.AddColumn("ID").Centered();
@@ -397,7 +398,7 @@ namespace LibWorkWithFiles
                 {
                     countPages--;
                 }
-
+    
                 TableShow(projects, pageNow, onOnePage, countTasks);
 
                 AnsiConsole.MarkupLine($"[green]Страница {pageNow + 1} из {countPages}[/]");

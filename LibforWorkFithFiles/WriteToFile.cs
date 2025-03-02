@@ -139,7 +139,7 @@ namespace LibWorkWithFiles
                 str.AppendLine($"\t\t\"PercentComplete\": {tasks[i].PercentComplete},");
                 if (tasks[i].GetDependency().Count != 0)
                 {
-                    str.AppendLine($"\t\t\"DependencyFromThis\": \"{tasks[i].DependencyFromThis}\"");
+                    str.AppendLine($"\t\t\"DependencyFromThis\": \"{tasks[i].DependencyFromThis}\",");
                 }
                 str.AppendLine($"\t\t\"InProject\": \"{tasks[i].InProject}\"");
                 if (i < tasks.Count - 1)

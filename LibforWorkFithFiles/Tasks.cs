@@ -346,23 +346,7 @@ namespace LibWorkWithFiles
         {
             return _dependenciesIdFromThis;
         }
-        // /// <summary>
-        // /// ID задач, от которых зависит эта задача
-        // /// </summary>
-        // /// <returns>Список ID</returns>
-        // public List<int> GetDependencyThisFrom()
-        // {
-        //     return _dependenciesIdThisDep;
-        // }
-
-        // /// <summary>
-        // /// Добавление задач, от которых зависит данная
-        // /// </summary>
-        // /// <param name="taskID">Задача, от которой зависит данная</param>
-        // public void SetDependenciesIdThisFrom(int taskID)
-        // {
-        //     _dependenciesIdThisDep.Add(taskID);
-        // }
+        
 
         public void DeleteDeadLine()
         {
