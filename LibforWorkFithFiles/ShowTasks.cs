@@ -46,7 +46,10 @@ public static class ShowTasks
     {
         foreach (Project project in projects)
         {
+            Console.ForegroundColor = ConsoleColor.Magenta;
             Console.WriteLine($"Проект: {project.Name}");
+            Console.ResetColor();
+            Console.WriteLine();
             foreach (Tasks task in project)
             {
                 if (task.GetDeadLine() != default)

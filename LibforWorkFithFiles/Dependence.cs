@@ -125,7 +125,7 @@ public static class Dependence
             }
             catch (ArgumentException)
             {
-                Console.WriteLine("Зависимость уже существует или задача 2 окончена. Процесс прерван.");
+                Console.WriteLine($"Зависимость уже существует или задача {idSecond} окончена. Процесс прерван.");
             }
             catch (TimeoutException)
             {

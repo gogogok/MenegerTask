@@ -63,7 +63,8 @@ internal class Program
                     
                     //Добавление задач
                     case '3':
-                        AddTask.AddTasks(projects,tasks);
+                        Tasks taskNew = AddTask.AddTasks(projects,tasks);
+                        tasks.Add(taskNew);
                         WriteToFile.WriteBackToFile(ref pathToFile, projects);
                         break;
                     
@@ -118,7 +119,7 @@ internal class Program
                     
                     //работа с проектами
                     case '9':
-                        WorkWithProjects.ProjectsOptions(projects);
+                        WorkWithProjects.ProjectsOptions(projects,tasks,ref pathToFile);
                         break;
                         
                     case 'F': // Завершение программы

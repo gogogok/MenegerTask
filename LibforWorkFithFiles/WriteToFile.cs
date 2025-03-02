@@ -115,7 +115,6 @@ public static class WriteToFile
                 str.AppendLine($"\t\t\"DeadLine\": \"{tasks[i].GetDeadLine():dd-MM-yy HH:mm}\",");
             }
             str.AppendLine($"\t\t\"PercentComplete\": {tasks[i].PercentComplete},");
-            str.AppendLine($"\t\t\"InProject\": \"{tasks[i].InProject}\"");
             if (tasks[i].GetDependency().Count != 0)
             {
                 str.AppendLine($"\t\t\"DependencyFromThis\": \"{tasks[i].DependencyFromThis}\"");
@@ -151,6 +150,7 @@ public static class WriteToFile
         str.Append("CreatedAt,");
         str.Append("Updated,");
         str.Append("InProject,");
+        str.Append("DependencyFromThis,");
         str.Append("DeadLine");
         lines.Add(str.ToString());
         foreach (Tasks task in tasks)
@@ -176,7 +176,7 @@ public static class WriteToFile
             }
             else
             {
-                str.Append($"-,");
+                str.Append("-,");
             }
             if (task.GetDeadLine() != default)
             {

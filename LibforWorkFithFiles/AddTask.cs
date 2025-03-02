@@ -13,7 +13,7 @@ public static class AddTask
     /// <param name="tasks">Список, к которому будет добавлена задача</param>
     /// <param name="projects">Список проектов, в котором лежит проект, к которому будет добавлена задача</param>
     /// <returns>Новую задачу</returns>
-    public static void AddTasks(List<Project> projects, List<Tasks> tasks)
+    public static Tasks AddTasks(List<Project> projects, List<Tasks> tasks)
     {
         Console.WriteLine("Добавление задачи");
         Console.WriteLine("Введите название задачи:");
@@ -60,14 +60,15 @@ public static class AddTask
                 tasks = tasks.OrderBy(t => t.Id).ToList();
                 Tasks task = new Tasks(UniqueId(tasks), "TODO", priority, desc);
                 task.InProject = project.Name;
-                tasks.Add(task);
                 project.AddTaskInProject(task);
+                return task;
             }
             else
             {
                 Console.WriteLine("Задача с таким названием уже существует.");
             }
         } while (notInList);
+        return null;
     }
 
     /// <summary>

@@ -266,86 +266,7 @@ public static class FiltrAndSortForTable
                             pr.AddTaskInProject(task);
                         }
                     }
-
-                    // Вывести таблицу
-                    Table table = new Table();
-                    table.AddColumn("Проект").Centered();
-                    table.AddColumn("ID").Centered();
-                    table.AddColumn("Статус").Centered();
-                    table.AddColumn("Приоритет").Centered();
-                    table.AddColumn("Описание").Centered();
-                    table.AddColumn("Время создания").Centered();
-                    table.AddColumn("Время изменения").Centered();
-                    table.AddColumn("Дедлайн").Centered();
-                    table.AddColumn("Шкала прогресса").Centered();
-                    
-                    
-                    foreach (Project project in projects2)
-                    {
-                        foreach (Tasks task in project)
-                        {
-                            string bar = ProgressBar.Progress(task.PercentComplete);
-                            if (task.GetCreatedAt().Second != task.GetUpdatedAt().Second &
-                                task.GetDeadLine() == default)
-                            {
-                                table.AddRow(task.InProject,task.Id.ToString(), task.Status, task.Priority, task.Desc,
-                                    $"{task.GetCreatedAt():dd-MM-yy HH:mm}",
-                                    $"{task.GetUpdatedAt():dd-MM-yy HH:mm}", "Нет дедлайна", bar);
-                            }
-                            else if (task.GetCreatedAt().Second != task.GetUpdatedAt().Second &
-                                     task.GetDeadLine() != default)
-                            {
-                                if (task.GetDeadLine() < DateTime.Now)
-                                {
-                                    table.AddRow(task.InProject,$"[red]{task.Id.ToString()}[/]", $"[red]{task.Status}[/]",
-                                        $"[red]{task.Priority}[/]", $"[red]{task.Desc}[/]",
-                                        $"[red]{task.GetCreatedAt():dd-MM-yy HH:mm}[/]",
-                                        $"[red]{task.GetUpdatedAt():dd-MM-yy HH:mm}[/]",
-                                        $"[red]{task.GetDeadLine():dd-MM-yy HH:mm}[/]", bar);
-                                }
-                                else
-                                {
-                                    table.AddRow(task.InProject,$"[green]{task.Id.ToString()}[/]", $"[green]{task.Status}[/]",
-                                        $"[green]{task.Priority}[/]", $"[green]{task.Desc}[/]",
-                                        $"[green]{task.GetCreatedAt():dd-MM-yy HH:mm}[/]",
-                                        $"[green]{task.GetUpdatedAt():dd-MM-yy HH:mm}[/]",
-                                        $"[green]{task.GetDeadLine():dd-MM-yy HH:mm}[/]", bar);
-                                }
-                            }
-                            else if (task.GetCreatedAt().Second == task.GetUpdatedAt().Second &
-                                     task.GetDeadLine() == default)
-                            {
-                                table.AddRow(task.InProject,task.Id.ToString(), task.Status, task.Priority, task.Desc,
-                                    $"{task.GetCreatedAt():dd-MM-yy HH:mm}",
-                                    "Задача не изменялась", "Нет дедлайна", bar);
-                            }
-                            else if (task.GetCreatedAt().Second == task.GetUpdatedAt().Second &
-                                     task.GetDeadLine() != default)
-                            {
-                                if (task.GetDeadLine() < DateTime.Now)
-                                {
-                                    table.AddRow(task.InProject,$"[red]{task.Id.ToString()}[/]", $"[red]{task.Status}[/]",
-                                        $"[red]{task.Priority}[/]", $"[red]{task.Desc}[/]",
-                                        $"[red]{task.GetCreatedAt():dd-MM-yy HH:mm}[/]",
-                                        "[red]Задача не изменялась[/]", $"[red]{task.GetDeadLine():dd-MM-yy HH:mm}[/]",
-                                        bar);
-                                }
-                                else
-                                {
-                                    table.AddRow(task.InProject,$"[green]{task.Id.ToString()}[/]", $"[green]{task.Status}[/]",
-                                        $"[green]{task.Priority}[/]", $"[green]{task.Desc}[/]",
-                                        $"[green]{task.GetCreatedAt():dd-MM-yy HH:mm}[/]",
-                                        "[green]Задача не изменялась[/]",
-                                        $"[green]{task.GetDeadLine():dd-MM-yy HH:mm}[/]", bar);
-                                }
-                            }
-                        }
-                    }
-
-                    table.Border(TableBorder.Rounded);
-                    AnsiConsole.Write(table);
-                    Console.WriteLine("Нажмите любую кнопку, чтобы снова вернуться в меню выбора");
-                    Console.ReadKey();
+                    ChoosePage(projects2);
                     break;
                 
                 case "Вернуться в меню ":
@@ -353,5 +274,127 @@ public static class FiltrAndSortForTable
                     break;
             }
        }while(exitFlag);
+    }
+
+    private static void TableShow(List<Project> projects2, int nowPage, int onOnePage, int tasksCount)
+    {
+        Table table = new Table();
+        table.AddColumn("Проект").Centered();
+        table.AddColumn("ID").Centered();
+        table.AddColumn("Статус").Centered();
+        table.AddColumn("Приоритет").Centered();
+        table.AddColumn("Описание").Centered(); 
+        table.AddColumn("Время создания").Centered();
+        table.AddColumn("Время изменения").Centered();
+        table.AddColumn("Дедлайн").Centered();
+        table.AddColumn("Шкала прогресса").Centered();
+        
+        int startInd = nowPage * onOnePage; //расчёт, с какой задачи начинать
+        int endInd = Math.Min(startInd + onOnePage, tasksCount); //проверка на переполнение
+        IEnumerable<Tasks> tasksToDisp = projects2.SelectMany(p => p.Tasks).Skip(startInd).Take(endInd - startInd);
+        foreach (Tasks task in tasksToDisp)
+        {
+            string bar = ProgressBar.Progress(task.PercentComplete);
+            if (task.GetCreatedAt().Second != task.GetUpdatedAt().Second & task.GetDeadLine() == default)
+            {
+                table.AddRow(task.InProject,task.Id.ToString(), task.Status, task.Priority, task.Desc,
+                    $"{task.GetCreatedAt():dd-MM-yy HH:mm}",
+                    $"{task.GetUpdatedAt():dd-MM-yy HH:mm}", "Нет дедлайна", bar);
+            }
+            else if (task.GetCreatedAt().Second != task.GetUpdatedAt().Second & task.GetDeadLine() != default)
+            {
+                if (task.GetDeadLine() < DateTime.Now)
+                {
+                    table.AddRow(task.InProject,$"[red]{task.Id.ToString()}[/]", $"[red]{task.Status}[/]",
+                        $"[red]{task.Priority}[/]", $"[red]{task.Desc}[/]",
+                        $"[red]{task.GetCreatedAt():dd-MM-yy HH:mm}[/]",
+                        $"[red]{task.GetUpdatedAt():dd-MM-yy HH:mm}[/]",
+                        $"[red]{task.GetDeadLine():dd-MM-yy HH:mm}[/]", bar);
+                }
+                else
+                {
+                    table.AddRow(task.InProject,$"[green]{task.Id.ToString()}[/]", $"[green]{task.Status}[/]",
+                        $"[green]{task.Priority}[/]", $"[green]{task.Desc}[/]",
+                        $"[green]{task.GetCreatedAt():dd-MM-yy HH:mm}[/]",
+                        $"[green]{task.GetUpdatedAt():dd-MM-yy HH:mm}[/]",
+                        $"[green]{task.GetDeadLine():dd-MM-yy HH:mm}[/]", bar);
+                }
+            }
+            else if (task.GetCreatedAt().Second == task.GetUpdatedAt().Second & task.GetDeadLine() == default)
+            {
+                table.AddRow(task.InProject,task.Id.ToString(), task.Status, task.Priority, task.Desc,
+                    $"{task.GetCreatedAt():dd-MM-yy HH:mm}",
+                    "Задача не изменялась", "Нет дедлайна", bar);
+            }
+            else if (task.GetCreatedAt().Second == task.GetUpdatedAt().Second & task.GetDeadLine() != default)
+            {
+                if (task.GetDeadLine() < DateTime.Now)
+                {
+                    table.AddRow(task.InProject,$"[red]{task.Id.ToString()}[/]", $"[red]{task.Status}[/]",
+                        $"[red]{task.Priority}[/]", $"[red]{task.Desc}[/]",
+                        $"[red]{task.GetCreatedAt():dd-MM-yy HH:mm}[/]",
+                        "[red]Задача не изменялась[/]", $"[red]{task.GetDeadLine():dd-MM-yy HH:mm}[/]", bar);
+                }
+                else
+                {
+                    table.AddRow(task.InProject,$"[green]{task.Id.ToString()}[/]", $"[green]{task.Status}[/]",
+                        $"[green]{task.Priority}[/]", $"[green]{task.Desc}[/]",
+                        $"[green]{task.GetCreatedAt():dd-MM-yy HH:mm}[/]",
+                        "[green]Задача не изменялась[/]",
+                        $"[green]{task.GetDeadLine():dd-MM-yy HH:mm}[/]", bar); 
+                }
+            }
+        }
+
+        table.Border(TableBorder.Rounded);
+        AnsiConsole.Write(table);
+    }
+
+    private static void ChoosePage(List<Project> projects)
+    {
+        int onOnePage = 10; 
+        int pageNow = 0;
+        bool exitFlag = true;
+
+        while (exitFlag)
+        {
+            Console.Clear();
+            int countTasks = 0;
+            foreach (Project project in projects)
+            {
+                countTasks+=project.TasksCount();
+            }
+            int countPages = countTasks / onOnePage +1;
+            if (countTasks % 10 == 0)
+            {
+                countPages--;
+            }
+            TableShow(projects, pageNow, onOnePage, countTasks);
+            
+            AnsiConsole.MarkupLine($"[green]Страница {pageNow + 1} из {countPages}[/]");
+            
+            string choice = AnsiConsole.Prompt(
+                new SelectionPrompt<string>()
+                    .Title("[Magenta]Выберите действие[/]")
+                    .AddChoices("Следующая страница", "Предыдущая страница", "Выход"));
+            switch (choice)
+            {
+                case "Следующая страница":
+                    if (pageNow < countPages - 1)
+                    {
+                        pageNow++;
+                    }
+                    break;
+                case "Предыдущая страница":
+                    if (pageNow > 0)
+                    {
+                        pageNow--;
+                    }
+                    break;
+                case "Выход":
+                    exitFlag = false;
+                    break;
+            }
+        }
     }
 }

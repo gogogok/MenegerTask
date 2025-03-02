@@ -219,16 +219,16 @@ public static  class ImportFilesAsync
                         }
 
                         string prName = task.InProject;
-                        Project pr = new Project(prName);
-                        if (!projects3.Contains(pr))
+                        Project? pr = MethodsFindAndCheck.FindByName(projects3, prName);
+                        if (pr == null)
                         {
-                            projects3.Add(pr);
-                            pr.AddTaskInProject(task);
+                            Project pr2 = new Project(prName);
+                            pr2.AddTaskInProject(task);
+                            projects3.Add(pr2);
                         }
                         else
                         {
-                            Project? project = MethodsFindAndCheck.FindByName(projects3, prName);
-                            project.AddTaskInProject(task);
+                            pr.AddTaskInProject(task);
                         }
                     }
 

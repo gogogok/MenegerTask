@@ -120,31 +120,31 @@ public static class DeadLines
                         if (DateTime.Now > task.GetDeadLine() & DateTime.Now.Minute - task.GetDeadLine().Minute < 2)
                         {
                             Console.ForegroundColor = ConsoleColor.DarkRed;
-                            Console.WriteLine($"Дедлайн задачи {task.Id} проекта {task.InProject} просрочен.");
-                            await TelegramBot.NotificationAcync($"Дедлайн задачи \n\n {task.Id}. {task.Desc} проекта {task.InProject}\n\n просрочен.");
+                            Console.WriteLine($"Дедлайн задачи {task.Id} (проекта {task.InProject}) просрочен.");
+                            await TelegramBot.NotificationAcync($"Дедлайн задачи \n\n {task.Id}. {task.Desc} (проекта {task.InProject})\n\n просрочен.");
                         }
                         else if (DateTime.Now.Year == task.GetDeadLine().Year & DateTime.Now.Month == task.GetDeadLine().Month & DateTime.Now.Day == task.GetDeadLine().Day & task.GetDeadLine().Hour - DateTime.Now.Hour == 1 & time  == 1)
                         {
                             Console.ForegroundColor = ConsoleColor.Yellow;
-                            Console.WriteLine($"До конца дедлайна задачи {task.Id}  проекта {task.InProject} меньше одного часа!");
-                            await TelegramBot.NotificationAcync($"До конца дедлайна задачи \n\n {task.Id}. {task.Desc}  проекта {task.InProject}\n\n меньше одного часа!");
+                            Console.WriteLine($"До конца дедлайна задачи {task.Id}  (проекта {task.InProject}) меньше одного часа!");
+                            await TelegramBot.NotificationAcync($"До конца дедлайна задачи \n\n {task.Id}. {task.Desc}  (проекта {task.InProject})\n\n меньше одного часа!");
                         }
                         else if (DateTime.Now.Year == task.GetDeadLine().Year & DateTime.Now.Month == task.GetDeadLine().Month & DateTime.Now.Day == task.GetDeadLine().Day & ((DateTime.Now.Hour == task.GetDeadLine().Hour  & time == 0) |(DateTime.Now.Hour - task.GetDeadLine().Hour == 1 & time <0)))
                         {
                             Console.ForegroundColor = ConsoleColor.Red;
-                            Console.WriteLine($"До конца дедлайна задачи {task.Id}  проекта {task.InProject} меньше 1 минуты, ОЧЕНЬ поторопитесь!");
-                            await TelegramBot.NotificationAcync($"До конца дедлайна задачи \n\n {task.Id}. {task.Desc} проекта {task.InProject}\n\n меньше 1 минуты, ОЧЕНЬ поторопитесь!");
+                            Console.WriteLine($"До конца дедлайна задачи {task.Id}  (проекта {task.InProject}) меньше 1 минуты, ОЧЕНЬ поторопитесь!");
+                            await TelegramBot.NotificationAcync($"До конца дедлайна задачи \n\n {task.Id}. {task.Desc} (проекта {task.InProject})\n\n меньше 1 минуты, ОЧЕНЬ поторопитесь!");
                         }
                         else if (DateTime.Now.Year == task.GetDeadLine().Year & DateTime.Now.Month == task.GetDeadLine().Month & DateTime.Now.Day == task.GetDeadLine().Day & ((DateTime.Now.Hour == task.GetDeadLine().Hour  & time == 4) |(DateTime.Now.Hour - task.GetDeadLine().Hour == 1 & time <0)))
                         {
                             Console.ForegroundColor = ConsoleColor.Red;
-                            Console.WriteLine($"До конца дедлайна задачи {task.Id} проекта {task.InProject} меньше 5 минут, поторопитесь!");
-                            await TelegramBot.NotificationAcync($"До конца дедлайна задачи \n\n {task.Id}. {task.Desc} проекта {task.InProject}\n\n меньше 5 минут, поторопитесь!");
+                            Console.WriteLine($"До конца дедлайна задачи {task.Id} (проекта {task.InProject}) меньше 5 минут, поторопитесь!");
+                            await TelegramBot.NotificationAcync($"До конца дедлайна задачи \n\n {task.Id}. {task.Desc} (проекта {task.InProject})\n\n меньше 5 минут, поторопитесь!");
                         }
                         else if (DateTime.Now.Year == task.GetDeadLine().Year & DateTime.Now.Month == task.GetDeadLine().Month & DateTime.Now.Day == task.GetDeadLine().Day & ((DateTime.Now.Hour == task.GetDeadLine().Hour  & time == 9) |(DateTime.Now.Hour - task.GetDeadLine().Hour == 1 & time <0)))
                         {
                             Console.ForegroundColor = ConsoleColor.Red;
-                            Console.WriteLine($"До конца дедлайна задачи {task.Id} проекта {task.InProject} меньше 10 минут, поторопитесь!");
+                            Console.WriteLine($"До конца дедлайна задачи {task.Id} (проекта {task.InProject}) меньше 10 минут, поторопитесь!");
                             await TelegramBot.NotificationAcync($"До конца дедлайна задачи \n\n {task.Id}. {task.Desc} проекта {task.InProject}\n\n меньше 10 минут, поторопитесь!");
                         }
                     }
