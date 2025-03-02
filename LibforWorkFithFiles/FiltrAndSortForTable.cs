@@ -276,6 +276,13 @@ public static class FiltrAndSortForTable
        }while(exitFlag);
     }
 
+    /// <summary>
+    /// Метод, выводящий страницу таблицы
+    /// </summary>
+    /// <param name="projects2">Список проектов</param>
+    /// <param name="nowPage">Страница, на которой пользователь находится до пролистывания</param>
+    /// <param name="onOnePage">Количество задач на страницу</param>
+    /// <param name="tasksCount">Количество задач всего</param>
     private static void TableShow(List<Project> projects2, int nowPage, int onOnePage, int tasksCount)
     {
         Table table = new Table();
@@ -350,6 +357,10 @@ public static class FiltrAndSortForTable
         AnsiConsole.Write(table);
     }
 
+    /// <summary>
+    /// Метод, который считывет, какую страницу еужно вывести
+    /// </summary>
+    /// <param name="projects">Список проектов</param>
     private static void ChoosePage(List<Project> projects)
     {
         int onOnePage = 10; 
@@ -360,10 +371,12 @@ public static class FiltrAndSortForTable
         {
             Console.Clear();
             int countTasks = 0;
+            //рассчёт количества задач в проектах
             foreach (Project project in projects)
             {
                 countTasks+=project.TasksCount();
             }
+            //рассчёт количества страниц
             int countPages = countTasks / onOnePage +1;
             if (countTasks % 10 == 0)
             {
