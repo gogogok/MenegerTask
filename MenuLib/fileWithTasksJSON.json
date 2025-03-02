@@ -1,103 +1,1615 @@
 [
 	{
 		"Id": 1,
+		"Status": "IN_PROGRESS",
+		"Priority": "Высокий",
+		"Desc": "аааа",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "02-03-25 23:59",
+		"PercentComplete": 50,
+		"InProject": "Задачи без проекта"
+	},
+	{
+		"Id": 1,
 		"Status": "TODO",
 		"Priority": "Низкий",
-		"Desc": "Написать отчет по проекту",
-		"CreatedAt": "02-03-25 13:30",
-		"Updated": "02-03-25 13:30",
-		"PercentComplete": 23,
-		"InProject": "АхалайМахалай"
+		"Desc": "Проверить корректность отчётности за январь",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "05-01-26 18:00",
+		"PercentComplete": 0,
+		"InProject": "Финансовый аудит"
+	},
+	{
+		"Id": 2,
+		"Status": "IN_PROGRESS",
+		"Priority": "Средний",
+		"Desc": "Задача 2",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "02-03-25 20:00",
+		"PercentComplete": 30,
+		"InProject": "Задачи без проекта"
 	},
 	{
 		"Id": 2,
 		"Status": "TODO",
 		"Priority": "Средний",
-		"Desc": "Провести встречу с командой",
-		"CreatedAt": "02-03-25 13:30",
-		"DeadLine": "02-10-25 12:59",
+		"Desc": "s",
+		"CreatedAt": "02-03-25 15:51",
 		"PercentComplete": 0,
-		"InProject": "Дела"
+		"InProject": "Задачи без проекта"
+	},
+	{
+		"Id": 2,
+		"Status": "IN_PROGRESS",
+		"Priority": "Средний",
+		"Desc": "Разработать макет новой формы отчёта",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "10-01-26 17:00",
+		"PercentComplete": 30,
+		"InProject": "Финансовый аудит"
+	},
+	{
+		"Id": 3,
+		"Status": "IN_PROGRESS",
+		"Priority": "Низкий",
+		"Desc": "Задача 3",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "02-03-25 22:30",
+		"PercentComplete": 70,
+		"InProject": "Задачи без проекта"
 	},
 	{
 		"Id": 3,
 		"Status": "TODO",
-		"Priority": "Низкий",
-		"Desc": "Ответить на письма",
-		"CreatedAt": "02-03-25 13:30",
+		"Priority": "Высокий",
+		"Desc": "Настроить систему резервного копирования",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "07-01-26 23:59",
 		"PercentComplete": 0,
-		"InProject": "АхалайМахалай"
+		"InProject": "IT-инфраструктура"
 	},
 	{
 		"Id": 4,
-		"Status": "TODO",
+		"Status": "IN_PROGRESS",
 		"Priority": "Высокий",
-		"Desc": "f",
-		"CreatedAt": "02-03-25 13:30",
-		"PercentComplete": 0,
-		"InProject": "АхалайМахалай"
+		"Desc": "Задача 4",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "02-03-25 21:15",
+		"PercentComplete": 90,
+		"InProject": "Задачи без проекта"
+	},
+	{
+		"Id": 4,
+		"Status": "IN_PROGRESS",
+		"Priority": "Высокий",
+		"Desc": "Провести тестирование мобильного приложения",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "10-01-26 20:00",
+		"PercentComplete": 50,
+		"InProject": "Мобильная разработка"
+	},
+	{
+		"Id": 5,
+		"Status": "IN_PROGRESS",
+		"Priority": "Средний",
+		"Desc": "Задача 5",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "02-03-25 23:00",
+		"PercentComplete": 60,
+		"InProject": "Задачи без проекта"
 	},
 	{
 		"Id": 5,
 		"Status": "TODO",
-		"Priority": "Средний",
-		"Desc": "захватить Беларусь",
-		"CreatedAt": "02-03-25 13:30",
+		"Priority": "Низкий",
+		"Desc": "Оформить документацию по новому API",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "20-01-26 18:00",
 		"PercentComplete": 0,
+		"InProject": "Документация"
+	},
+	{
+		"Id": 6,
+		"Status": "IN_PROGRESS",
+		"Priority": "Низкий",
+		"Desc": "Задача 6",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "02-03-25 18:00",
+		"PercentComplete": 40,
 		"InProject": "Задачи без проекта"
 	},
 	{
 		"Id": 6,
 		"Status": "TODO",
-		"Priority": "Высокий",
-		"Desc": "Подоить корову",
-		"CreatedAt": "02-03-25 13:30",
+		"Priority": "Средний",
+		"Desc": "Проверить совместимость с библиотеками сторонних разработчиков",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "25-01-26 18:00",
 		"PercentComplete": 0,
-		"InProject": "Дела"
+		"InProject": "Библиотеки и пакеты"
 	},
 	{
 		"Id": 7,
-		"Status": "TODO",
+		"Status": "IN_PROGRESS",
+		"Priority": "Высокий",
+		"Desc": "Задача 7",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "02-03-25 20:30",
+		"PercentComplete": 20,
+		"InProject": "Задачи без проекта"
+	},
+	{
+		"Id": 7,
+		"Status": "DONE",
 		"Priority": "Средний",
-		"Desc": "dfghgg",
-		"CreatedAt": "02-03-25 13:30",
-		"PercentComplete": 0,
-		"InProject": "Дела"
+		"Desc": "Подготовить презентацию для инвесторов",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "07-01-26 11:20",
+		"PercentComplete": 100,
+		"InProject": "Презентации"
+	},
+	{
+		"Id": 8,
+		"Status": "IN_PROGRESS",
+		"Priority": "Средний",
+		"Desc": "Задача 8",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "02-03-25 21:45",
+		"PercentComplete": 80,
+		"InProject": "Задачи без проекта"
 	},
 	{
 		"Id": 8,
 		"Status": "TODO",
-		"Priority": "Низкий",
-		"Desc": "d",
-		"CreatedAt": "02-03-25 13:30",
+		"Priority": "Высокий",
+		"Desc": "Реализовать поиск по таблице пользователей",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "15-01-26 23:59",
 		"PercentComplete": 0,
-		"InProject": "Дела"
+		"InProject": "CRM-система"
 	},
 	{
 		"Id": 9,
-		"Status": "TODO",
+		"Status": "IN_PROGRESS",
 		"Priority": "Низкий",
-		"Desc": "fh",
-		"CreatedAt": "02-03-25 13:30",
-		"PercentComplete": 0,
-		"InProject": "Дела"
+		"Desc": "Задача 9",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "02-03-25 17:00",
+		"PercentComplete": 10,
+		"InProject": "Задачи без проекта"
+	},
+	{
+		"Id": 9,
+		"Status": "IN_PROGRESS",
+		"Priority": "Высокий",
+		"Desc": "Оптимизировать базу данных для быстрого поиска",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "20-01-26 18:00",
+		"PercentComplete": 45,
+		"InProject": "CRM-система"
+	},
+	{
+		"Id": 10,
+		"Status": "IN_PROGRESS",
+		"Priority": "Высокий",
+		"Desc": "Задача 10",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "02-03-25 23:59",
+		"PercentComplete": 50,
+		"InProject": "Задачи без проекта"
 	},
 	{
 		"Id": 10,
 		"Status": "TODO",
-		"Priority": "Средний",
-		"Desc": "ойойой",
-		"CreatedAt": "02-03-25 13:30",
+		"Priority": "Низкий",
+		"Desc": "Разработать шаблоны HTML-писем для рассылки",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "30-01-26 18:00",
 		"PercentComplete": 0,
-		"InProject": "Задачи без проекта"
+		"InProject": "Email-маркетинг"
 	},
 	{
 		"Id": 11,
 		"Status": "IN_PROGRESS",
 		"Priority": "Высокий",
 		"Desc": "аааа",
-		"CreatedAt": "02-03-25 13:30",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "02-03-25 23:59",
 		"PercentComplete": 50,
 		"InProject": "Задачи без проекта"
+	},
+	{
+		"Id": 11,
+		"Status": "IN_PROGRESS",
+		"Priority": "Высокий",
+		"Desc": "Настроить систему управления версиями проекта",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "25-01-26 19:00",
+		"PercentComplete": 20,
+		"InProject": "DevOps"
+	},
+	{
+		"Id": 12,
+		"Status": "IN_PROGRESS",
+		"Priority": "Средний",
+		"Desc": "Задача 12",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "02-03-25 20:00",
+		"PercentComplete": 25,
+		"InProject": "Задачи без проекта"
+	},
+	{
+		"Id": 12,
+		"Status": "IN_PROGRESS",
+		"Priority": "Низкий",
+		"Desc": "Анализ рынка для нового продукта",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "25-01-26 14:00",
+		"PercentComplete": 60,
+		"InProject": "Маркетинг"
+	},
+	{
+		"Id": 13,
+		"Status": "IN_PROGRESS",
+		"Priority": "Низкий",
+		"Desc": "Задача 13",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "02-03-25 22:00",
+		"PercentComplete": 55,
+		"InProject": "Задачи без проекта"
+	},
+	{
+		"Id": 13,
+		"Status": "TODO",
+		"Priority": "Высокий",
+		"Desc": "Исправить критическую уязвимость в системе логирования",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "13-01-26 23:59",
+		"PercentComplete": 0,
+		"InProject": "IT-безопасность"
+	},
+	{
+		"Id": 14,
+		"Status": "IN_PROGRESS",
+		"Priority": "Высокий",
+		"Desc": "Задача 14",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "02-03-25 21:30",
+		"PercentComplete": 65,
+		"InProject": "Задачи без проекта"
+	},
+	{
+		"Id": 14,
+		"Status": "IN_PROGRESS",
+		"Priority": "Средний",
+		"Desc": "Создать обучающие материалы для новых сотрудников",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "14-02-26 12:00",
+		"PercentComplete": 40,
+		"InProject": "HR-процессы"
+	},
+	{
+		"Id": 15,
+		"Status": "IN_PROGRESS",
+		"Priority": "Средний",
+		"Desc": "Задача 15",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "02-03-25 19:00",
+		"PercentComplete": 35,
+		"InProject": "Задачи без проекта"
+	},
+	{
+		"Id": 15,
+		"Status": "TODO",
+		"Priority": "Высокий",
+		"Desc": "Организовать корпоративный портал для обмена информацией",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "01-02-26 17:00",
+		"PercentComplete": 0,
+		"InProject": "Корпоративный портал"
+	},
+	{
+		"Id": 16,
+		"Status": "IN_PROGRESS",
+		"Priority": "Низкий",
+		"Desc": "Задача 16",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "02-03-25 22:45",
+		"PercentComplete": 75,
+		"InProject": "Задачи без проекта"
+	},
+	{
+		"Id": 16,
+		"Status": "TODO",
+		"Priority": "Средний",
+		"Desc": "Исследовать инструменты автоматизации тестирования",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "16-02-26 18:00",
+		"PercentComplete": 0,
+		"InProject": "Тестирование"
+	},
+	{
+		"Id": 17,
+		"Status": "IN_PROGRESS",
+		"Priority": "Высокий",
+		"Desc": "Задача 17",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "02-03-25 23:59",
+		"PercentComplete": 50,
+		"DependencyFromThis": "1 3",
+		"InProject": "Задачи без проекта"
+	},
+	{
+		"Id": 17,
+		"Status": "TODO",
+		"Priority": "Высокий",
+		"Desc": "Провести совещание по планам развития отдела",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "17-01-26 15:00",
+		"PercentComplete": 0,
+		"InProject": "Управление персоналом"
+	},
+	{
+		"Id": 18,
+		"Status": "IN_PROGRESS",
+		"Priority": "Средний",
+		"Desc": "Задача 18",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "02-03-25 23:00",
+		"PercentComplete": 90,
+		"InProject": "Задачи без проекта"
+	},
+	{
+		"Id": 18,
+		"Status": "DONE",
+		"Priority": "Низкий",
+		"Desc": "Проверить оплату счетов за прошлый месяц",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "18-01-26 10:25",
+		"PercentComplete": 100,
+		"InProject": "Финансы"
+	},
+	{
+		"Id": 19,
+		"Status": "IN_PROGRESS",
+		"Priority": "Низкий",
+		"Desc": "Задача 19",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "02-03-25 21:00",
+		"PercentComplete": 60,
+		"InProject": "Задачи без проекта"
+	},
+	{
+		"Id": 19,
+		"Status": "IN_PROGRESS",
+		"Priority": "Высокий",
+		"Desc": "Настроить балансировку нагрузки на сервере",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "25-01-26 23:59",
+		"PercentComplete": 70,
+		"InProject": "Инфраструктура"
+	},
+	{
+		"Id": 20,
+		"Status": "IN_PROGRESS",
+		"Priority": "Высокий",
+		"Desc": "Задача 20",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "02-03-25 23:50",
+		"PercentComplete": 40,
+		"InProject": "Задачи без проекта"
+	},
+	{
+		"Id": 20,
+		"Status": "TODO",
+		"Priority": "Средний",
+		"Desc": "Разработать скрипты миграции данных",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "10-02-26 18:00",
+		"PercentComplete": 0,
+		"InProject": "База данных"
+	},
+	{
+		"Id": 21,
+		"Status": "IN_PROGRESS",
+		"Priority": "Средний",
+		"Desc": "Задача 21",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "02-03-25 17:30",
+		"PercentComplete": 25,
+		"InProject": "Задачи без проекта"
+	},
+	{
+		"Id": 21,
+		"Status": "TODO",
+		"Priority": "Высокий",
+		"Desc": "Внедрить двухфакторную аутентификацию для пользователей",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "05-02-26 23:59",
+		"PercentComplete": 0,
+		"InProject": "IT-безопасность"
+	},
+	{
+		"Id": 22,
+		"Status": "IN_PROGRESS",
+		"Priority": "Низкий",
+		"Desc": "Задача 22",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "02-03-25 21:45",
+		"PercentComplete": 55,
+		"InProject": "Задачи без проекта"
+	},
+	{
+		"Id": 22,
+		"Status": "IN_PROGRESS",
+		"Priority": "Высокий",
+		"Desc": "Устранить утечки памяти в микросервисах",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "30-01-26 20:00",
+		"PercentComplete": 35,
+		"InProject": "Микросервисная архитектура"
+	},
+	{
+		"Id": 23,
+		"Status": "IN_PROGRESS",
+		"Priority": "Высокий",
+		"Desc": "Задача 23",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "02-03-25 22:30",
+		"PercentComplete": 70,
+		"InProject": "Задачи без проекта"
+	},
+	{
+		"Id": 23,
+		"Status": "DONE",
+		"Priority": "Средний",
+		"Desc": "Обновить информацию о компании на сайте",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "23-01-26 14:20",
+		"PercentComplete": 100,
+		"InProject": "Веб-сайт"
+	},
+	{
+		"Id": 24,
+		"Status": "IN_PROGRESS",
+		"Priority": "Средний",
+		"Desc": "Задача 24",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "02-03-25 20:00",
+		"PercentComplete": 40,
+		"InProject": "Задачи без проекта"
+	},
+	{
+		"Id": 24,
+		"Status": "TODO",
+		"Priority": "Низкий",
+		"Desc": "Создать рекламный баннер для нового продукта",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "15-02-26 12:00",
+		"PercentComplete": 0,
+		"InProject": "Маркетинг"
+	},
+	{
+		"Id": 25,
+		"Status": "IN_PROGRESS",
+		"Priority": "Низкий",
+		"Desc": "Задача 25",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "02-03-25 23:30",
+		"PercentComplete": 90,
+		"InProject": "Задачи без проекта"
+	},
+	{
+		"Id": 25,
+		"Status": "IN_PROGRESS",
+		"Priority": "Средний",
+		"Desc": "Проанализировать трафик на сайте и улучшить SEO",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "28-01-26 17:00",
+		"PercentComplete": 60,
+		"InProject": "Веб-сайт"
+	},
+	{
+		"Id": 26,
+		"Status": "IN_PROGRESS",
+		"Priority": "Высокий",
+		"Desc": "Задача 26",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "02-03-25 21:15",
+		"PercentComplete": 60,
+		"InProject": "Задачи без проекта"
+	},
+	{
+		"Id": 26,
+		"Status": "TODO",
+		"Priority": "Высокий",
+		"Desc": "Разработать мобильную версию корпоративного портала",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "10-02-26 18:00",
+		"PercentComplete": 0,
+		"InProject": "Корпоративный портал"
+	},
+	{
+		"Id": 27,
+		"Status": "IN_PROGRESS",
+		"Priority": "Средний",
+		"Desc": "Задача 27",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "02-03-25 18:30",
+		"PercentComplete": 20,
+		"InProject": "Задачи без проекта"
+	},
+	{
+		"Id": 27,
+		"Status": "IN_PROGRESS",
+		"Priority": "Низкий",
+		"Desc": "Собрать статистику по использованию приложения",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "15-02-26 20:00",
+		"PercentComplete": 50,
+		"InProject": "Аналитика"
+	},
+	{
+		"Id": 28,
+		"Status": "IN_PROGRESS",
+		"Priority": "Низкий",
+		"Desc": "Задача 28",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "02-03-25 19:30",
+		"PercentComplete": 30,
+		"InProject": "Задачи без проекта"
+	},
+	{
+		"Id": 28,
+		"Status": "DONE",
+		"Priority": "Высокий",
+		"Desc": "Настроить Docker-контейнеры для микросервисов",
+		"CreatedAt": "02-03-25 15:50",
+		"Updated": "02-03-25 15:52",
+		"DeadLine": "28-01-26 09:45",
+		"PercentComplete": 100,
+		"InProject": "DevOps"
+	},
+	{
+		"Id": 29,
+		"Status": "IN_PROGRESS",
+		"Priority": "Высокий",
+		"Desc": "Задача 29",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "02-03-25 22:00",
+		"PercentComplete": 50,
+		"InProject": "Задачи без проекта"
+	},
+	{
+		"Id": 29,
+		"Status": "TODO",
+		"Priority": "Средний",
+		"Desc": "Разработать прототип чата техподдержки",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "10-02-26 18:00",
+		"PercentComplete": 0,
+		"InProject": "Техподдержка"
+	},
+	{
+		"Id": 30,
+		"Status": "IN_PROGRESS",
+		"Priority": "Средний",
+		"Desc": "Задача 30",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "02-03-25 23:00",
+		"PercentComplete": 80,
+		"InProject": "Задачи без проекта"
+	},
+	{
+		"Id": 30,
+		"Status": "IN_PROGRESS",
+		"Priority": "Высокий",
+		"Desc": "Диагностика проблем производительности при пиковых нагрузках",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "03-02-26 23:59",
+		"PercentComplete": 75,
+		"InProject": "Инфраструктура"
+	},
+	{
+		"Id": 31,
+		"Status": "IN_PROGRESS",
+		"Priority": "Низкий",
+		"Desc": "Задача 31",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "02-03-25 17:00",
+		"PercentComplete": 10,
+		"InProject": "Задачи без проекта"
+	},
+	{
+		"Id": 31,
+		"Status": "TODO",
+		"Priority": "Низкий",
+		"Desc": "Разработка регламента ведения технической документации",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "15-02-26 18:00",
+		"PercentComplete": 0,
+		"InProject": "Документация"
+	},
+	{
+		"Id": 32,
+		"Status": "IN_PROGRESS",
+		"Priority": "Высокий",
+		"Desc": "Задача 32",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "02-03-25 21:45",
+		"PercentComplete": 65,
+		"InProject": "Задачи без проекта"
+	},
+	{
+		"Id": 32,
+		"Status": "TODO",
+		"Priority": "Высокий",
+		"Desc": "Внедрить чат-бот для обработки заявок клиентов",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "10-02-26 17:00",
+		"PercentComplete": 0,
+		"InProject": "Техподдержка"
+	},
+	{
+		"Id": 33,
+		"Status": "IN_PROGRESS",
+		"Priority": "Средний",
+		"Desc": "Задача 33",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "02-03-25 20:45",
+		"PercentComplete": 40,
+		"InProject": "Задачи без проекта"
+	},
+	{
+		"Id": 33,
+		"Status": "IN_PROGRESS",
+		"Priority": "Средний",
+		"Desc": "Создать систему отслеживания складских остатков",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "20-02-26 18:00",
+		"PercentComplete": 40,
+		"InProject": "Складской учёт"
+	},
+	{
+		"Id": 34,
+		"Status": "IN_PROGRESS",
+		"Priority": "Низкий",
+		"Desc": "Задача 34",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "02-03-25 22:30",
+		"PercentComplete": 55,
+		"InProject": "Задачи без проекта"
+	},
+	{
+		"Id": 34,
+		"Status": "IN_PROGRESS",
+		"Priority": "Высокий",
+		"Desc": "Интегрировать платежную систему в мобильное приложение",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "15-02-26 23:59",
+		"PercentComplete": 65,
+		"InProject": "Мобильная разработка"
+	},
+	{
+		"Id": 35,
+		"Status": "IN_PROGRESS",
+		"Priority": "Высокий",
+		"Desc": "Задача 35",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "02-03-25 23:15",
+		"PercentComplete": 80,
+		"InProject": "Задачи без проекта"
+	},
+	{
+		"Id": 35,
+		"Status": "TODO",
+		"Priority": "Низкий",
+		"Desc": "Обновить контакты в базе данных клиентов",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "28-02-26 17:00",
+		"PercentComplete": 0,
+		"InProject": "CRM-система"
+	},
+	{
+		"Id": 36,
+		"Status": "IN_PROGRESS",
+		"Priority": "Средний",
+		"Desc": "Задача 36",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "02-03-25 22:00",
+		"PercentComplete": 70,
+		"InProject": "Задачи без проекта"
+	},
+	{
+		"Id": 36,
+		"Status": "DONE",
+		"Priority": "Средний",
+		"Desc": "Добавить фильтры по датам в отчёте по продажам",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "05-02-26 13:40",
+		"PercentComplete": 100,
+		"InProject": "Продажи"
+	},
+	{
+		"Id": 37,
+		"Status": "IN_PROGRESS",
+		"Priority": "Низкий",
+		"Desc": "Задача 37",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "02-03-25 18:45",
+		"PercentComplete": 30,
+		"InProject": "Задачи без проекта"
+	},
+	{
+		"Id": 37,
+		"Status": "TODO",
+		"Priority": "Высокий",
+		"Desc": "Исправить ошибку авторизации пользователей после обновления",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "06-02-26 23:59",
+		"PercentComplete": 0,
+		"InProject": "Безопасность"
+	},
+	{
+		"Id": 38,
+		"Status": "IN_PROGRESS",
+		"Priority": "Высокий",
+		"Desc": "Задача 38",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "02-03-25 17:30",
+		"PercentComplete": 10,
+		"InProject": "Задачи без проекта"
+	},
+	{
+		"Id": 38,
+		"Status": "IN_PROGRESS",
+		"Priority": "Средний",
+		"Desc": "Оптимизировать процесс регистрации новых клиентов",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "15-02-26 18:00",
+		"PercentComplete": 30,
+		"InProject": "CRM-система"
+	},
+	{
+		"Id": 39,
+		"Status": "IN_PROGRESS",
+		"Priority": "Средний",
+		"Desc": "Задача 39",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "02-03-25 23:45",
+		"PercentComplete": 95,
+		"InProject": "Задачи без проекта"
+	},
+	{
+		"Id": 39,
+		"Status": "TODO",
+		"Priority": "Высокий",
+		"Desc": "Настроить отчёт о прибылях и убытках в реальном времени",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "25-02-26 19:00",
+		"PercentComplete": 0,
+		"InProject": "Финансы"
+	},
+	{
+		"Id": 40,
+		"Status": "IN_PROGRESS",
+		"Priority": "Низкий",
+		"Desc": "Задача 40",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "02-03-25 21:15",
+		"PercentComplete": 50,
+		"InProject": "Задачи без проекта"
+	},
+	{
+		"Id": 40,
+		"Status": "TODO",
+		"Priority": "Низкий",
+		"Desc": "Создать инструкцию по использованию корпоративной почты",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "20-02-26 17:00",
+		"PercentComplete": 0,
+		"InProject": "Документация"
+	},
+	{
+		"Id": 41,
+		"Status": "IN_PROGRESS",
+		"Priority": "Высокий",
+		"Desc": "Задача 41",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "02-03-25 23:30",
+		"PercentComplete": 45,
+		"InProject": "Задачи без проекта"
+	},
+	{
+		"Id": 41,
+		"Status": "DONE",
+		"Priority": "Средний",
+		"Desc": "Перенести старые файлы архива на новое хранилище",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "10-02-26 13:00",
+		"PercentComplete": 100,
+		"InProject": "Архив"
+	},
+	{
+		"Id": 42,
+		"Status": "IN_PROGRESS",
+		"Priority": "Средний",
+		"Desc": "Задача 42",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "02-03-25 22:15",
+		"PercentComplete": 60,
+		"InProject": "Задачи без проекта"
+	},
+	{
+		"Id": 42,
+		"Status": "IN_PROGRESS",
+		"Priority": "Высокий",
+		"Desc": "Разработать модуль контроля качества данных",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "25-02-26 23:59",
+		"PercentComplete": 55,
+		"InProject": "Аналитика"
+	},
+	{
+		"Id": 43,
+		"Status": "IN_PROGRESS",
+		"Priority": "Низкий",
+		"Desc": "Задача 43",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "02-03-25 18:15",
+		"PercentComplete": 15,
+		"InProject": "Задачи без проекта"
+	},
+	{
+		"Id": 43,
+		"Status": "TODO",
+		"Priority": "Низкий",
+		"Desc": "Улучшить дизайн регистрационной формы",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "20-02-26 18:00",
+		"PercentComplete": 0,
+		"InProject": "Веб-сайт"
+	},
+	{
+		"Id": 44,
+		"Status": "IN_PROGRESS",
+		"Priority": "Высокий",
+		"Desc": "Задача 44",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "02-03-25 22:30",
+		"PercentComplete": 80,
+		"InProject": "Задачи без проекта"
+	},
+	{
+		"Id": 44,
+		"Status": "TODO",
+		"Priority": "Средний",
+		"Desc": "Провести ревизию прав доступа в системе",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "28-02-26 18:00",
+		"PercentComplete": 0,
+		"InProject": "Безопасность"
+	},
+	{
+		"Id": 45,
+		"Status": "IN_PROGRESS",
+		"Priority": "Средний",
+		"Desc": "Задача 45",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "02-03-25 19:30",
+		"PercentComplete": 40,
+		"InProject": "Задачи без проекта"
+	},
+	{
+		"Id": 45,
+		"Status": "IN_PROGRESS",
+		"Priority": "Высокий",
+		"Desc": "Исправить сбои при обмене данными между сервисами",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "14-02-26 23:59",
+		"PercentComplete": 80,
+		"InProject": "Микросервисная архитектура"
+	},
+	{
+		"Id": 46,
+		"Status": "IN_PROGRESS",
+		"Priority": "Низкий",
+		"Desc": "Задача 46",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "02-03-25 21:00",
+		"PercentComplete": 55,
+		"InProject": "Задачи без проекта"
+	},
+	{
+		"Id": 46,
+		"Status": "TODO",
+		"Priority": "Низкий",
+		"Desc": "Актуализировать список поставщиков и контактов",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "28-02-26 12:00",
+		"PercentComplete": 0,
+		"InProject": "Снабжение"
+	},
+	{
+		"Id": 47,
+		"Status": "IN_PROGRESS",
+		"Priority": "Высокий",
+		"Desc": "Задача 47",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "02-03-25 17:45",
+		"PercentComplete": 20,
+		"InProject": "Задачи без проекта"
+	},
+	{
+		"Id": 47,
+		"Status": "IN_PROGRESS",
+		"Priority": "Средний",
+		"Desc": "Разработать отчёт о продажах в формате PDF",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "01-03-26 17:00",
+		"PercentComplete": 50,
+		"InProject": "Продажи"
+	},
+	{
+		"Id": 48,
+		"Status": "IN_PROGRESS",
+		"Priority": "Средний",
+		"Desc": "Задача 48",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "02-03-25 22:45",
+		"PercentComplete": 75,
+		"InProject": "Задачи без проекта"
+	},
+	{
+		"Id": 48,
+		"Status": "TODO",
+		"Priority": "Высокий",
+		"Desc": "Запустить рекламную кампанию в социальных сетях",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "28-02-26 23:59",
+		"PercentComplete": 0,
+		"InProject": "Маркетинг"
+	},
+	{
+		"Id": 49,
+		"Status": "IN_PROGRESS",
+		"Priority": "Низкий",
+		"Desc": "Задача 49",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "02-03-25 20:30",
+		"PercentComplete": 50,
+		"InProject": "Задачи без проекта"
+	},
+	{
+		"Id": 49,
+		"Status": "IN_PROGRESS",
+		"Priority": "Высокий",
+		"Desc": "Реализовать систему напоминаний о просроченных задачах",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "05-03-26 23:59",
+		"PercentComplete": 40,
+		"InProject": "Управление задачами"
+	},
+	{
+		"Id": 50,
+		"Status": "IN_PROGRESS",
+		"Priority": "Высокий",
+		"Desc": "Задача 50",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "02-03-25 23:15",
+		"PercentComplete": 60,
+		"InProject": "Задачи без проекта"
+	},
+	{
+		"Id": 50,
+		"Status": "TODO",
+		"Priority": "Высокий",
+		"Desc": "Устранить сбой при загрузке крупных файлов на сервер",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "20-02-26 23:59",
+		"PercentComplete": 0,
+		"InProject": "Инфраструктура"
+	},
+	{
+		"Id": 51,
+		"Status": "IN_PROGRESS",
+		"Priority": "Средний",
+		"Desc": "Задача 51",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "02-03-26 21:30",
+		"PercentComplete": 65,
+		"InProject": "Задачи без проекта"
+	},
+	{
+		"Id": 51,
+		"Status": "TODO",
+		"Priority": "Низкий",
+		"Desc": "Проверить шаблоны писем для автоматической рассылки",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "05-03-26 18:00",
+		"PercentComplete": 0,
+		"InProject": "Email-маркетинг"
+	},
+	{
+		"Id": 52,
+		"Status": "IN_PROGRESS",
+		"Priority": "Низкий",
+		"Desc": "Задача 52",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "02-03-26 19:00",
+		"PercentComplete": 30,
+		"InProject": "Задачи без проекта"
+	},
+	{
+		"Id": 52,
+		"Status": "IN_PROGRESS",
+		"Priority": "Средний",
+		"Desc": "Разработать пользовательское соглашение для нового сервиса",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "15-03-26 17:00",
+		"PercentComplete": 20,
+		"InProject": "Юридические документы"
+	},
+	{
+		"Id": 53,
+		"Status": "IN_PROGRESS",
+		"Priority": "Высокий",
+		"Desc": "Задача 53",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "02-03-26 18:30",
+		"PercentComplete": 25,
+		"InProject": "Задачи без проекта"
+	},
+	{
+		"Id": 53,
+		"Status": "TODO",
+		"Priority": "Высокий",
+		"Desc": "Создать механизм бэкапа для базы данных пользователей",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "07-03-26 23:59",
+		"PercentComplete": 0,
+		"InProject": "IT-инфраструктура"
+	},
+	{
+		"Id": 54,
+		"Status": "IN_PROGRESS",
+		"Priority": "Средний",
+		"Desc": "Задача 54",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "02-03-26 22:00",
+		"PercentComplete": 50,
+		"InProject": "Задачи без проекта"
+	},
+	{
+		"Id": 54,
+		"Status": "DONE",
+		"Priority": "Высокий",
+		"Desc": "Провести финальное тестирование мобильного API",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "04-03-26 12:00",
+		"PercentComplete": 100,
+		"InProject": "Мобильная разработка"
+	},
+	{
+		"Id": 55,
+		"Status": "IN_PROGRESS",
+		"Priority": "Низкий",
+		"Desc": "Задача 55",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "02-03-26 23:00",
+		"PercentComplete": 85,
+		"InProject": "Задачи без проекта"
+	},
+	{
+		"Id": 55,
+		"Status": "TODO",
+		"Priority": "Низкий",
+		"Desc": "Подготовить статьи для корпоративного блога",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "20-03-26 18:00",
+		"PercentComplete": 0,
+		"InProject": "Контент-маркетинг"
+	},
+	{
+		"Id": 56,
+		"Status": "IN_PROGRESS",
+		"Priority": "Высокий",
+		"Desc": "Задача 56",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "02-03-26 22:45",
+		"PercentComplete": 60,
+		"InProject": "Задачи без проекта"
+	},
+	{
+		"Id": 56,
+		"Status": "TODO",
+		"Priority": "Средний",
+		"Desc": "Настроить интеграцию чата техподдержки с CRM",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "25-03-26 18:00",
+		"PercentComplete": 0,
+		"InProject": "Техподдержка"
+	},
+	{
+		"Id": 57,
+		"Status": "IN_PROGRESS",
+		"Priority": "Средний",
+		"Desc": "Задача 57",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "02-03-26 23:15",
+		"PercentComplete": 95,
+		"InProject": "Задачи без проекта"
+	},
+	{
+		"Id": 57,
+		"Status": "IN_PROGRESS",
+		"Priority": "Средний",
+		"Desc": "Разработать макеты отчётов для руководства",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "15-03-26 17:00",
+		"PercentComplete": 45,
+		"InProject": "Финансовая аналитика"
+	},
+	{
+		"Id": 58,
+		"Status": "IN_PROGRESS",
+		"Priority": "Низкий",
+		"Desc": "Задача 58",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "02-03-26 20:45",
+		"PercentComplete": 45,
+		"InProject": "Задачи без проекта"
+	},
+	{
+		"Id": 58,
+		"Status": "DONE",
+		"Priority": "Высокий",
+		"Desc": "Выполнить рефакторинг модуля оплаты банковской картой",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "08-03-26 08:20",
+		"PercentComplete": 100,
+		"InProject": "Платёжная система"
+	},
+	{
+		"Id": 59,
+		"Status": "IN_PROGRESS",
+		"Priority": "Высокий",
+		"Desc": "Задача 59",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "02-03-26 19:30",
+		"PercentComplete": 35,
+		"InProject": "Задачи без проекта"
+	},
+	{
+		"Id": 59,
+		"Status": "TODO",
+		"Priority": "Высокий",
+		"Desc": "Устранить ошибку доступа к конфиденциальным данным в API",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "09-03-26 23:59",
+		"PercentComplete": 0,
+		"InProject": "IT-безопасность"
+	},
+	{
+		"Id": 60,
+		"Status": "IN_PROGRESS",
+		"Priority": "Средний",
+		"Desc": "Задача 60",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "02-03-26 18:00",
+		"PercentComplete": 20,
+		"InProject": "Задачи без проекта"
+	},
+	{
+		"Id": 60,
+		"Status": "IN_PROGRESS",
+		"Priority": "Высокий",
+		"Desc": "Оптимизировать сервис уведомлений для снижения задержек",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "20-03-26 18:00",
+		"PercentComplete": 30,
+		"InProject": "Микросервисная архитектура"
+	},
+	{
+		"Id": 61,
+		"Status": "IN_PROGRESS",
+		"Priority": "Низкий",
+		"Desc": "Задача 61",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "02-03-26 22:30",
+		"PercentComplete": 50,
+		"InProject": "Задачи без проекта"
+	},
+	{
+		"Id": 61,
+		"Status": "TODO",
+		"Priority": "Низкий",
+		"Desc": "Добавить новые поля в форму регистрации партнёров",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "30-03-26 18:00",
+		"PercentComplete": 0,
+		"InProject": "Партнёрская программа"
+	},
+	{
+		"Id": 62,
+		"Status": "IN_PROGRESS",
+		"Priority": "Высокий",
+		"Desc": "Развернуть окружение для интеграционных тестов",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "25-03-26 19:00",
+		"PercentComplete": 25,
+		"InProject": "DevOps"
+	},
+	{
+		"Id": 63,
+		"Status": "IN_PROGRESS",
+		"Priority": "Низкий",
+		"Desc": "Исследовать варианты хостинга для медиафайлов",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "25-03-26 14:00",
+		"PercentComplete": 50,
+		"InProject": "Инфраструктура"
+	},
+	{
+		"Id": 64,
+		"Status": "TODO",
+		"Priority": "Высокий",
+		"Desc": "Исправить сбой в работе кэша при больших нагрузках",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "14-03-26 23:59",
+		"PercentComplete": 0,
+		"InProject": "Оптимизация"
+	},
+	{
+		"Id": 65,
+		"Status": "IN_PROGRESS",
+		"Priority": "Средний",
+		"Desc": "Настроить систему статистики по обращениям в поддержку",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "14-04-26 12:00",
+		"PercentComplete": 40,
+		"InProject": "Техподдержка"
+	},
+	{
+		"Id": 66,
+		"Status": "TODO",
+		"Priority": "Высокий",
+		"Desc": "Организовать пилотный проект голосовой аналитики",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "01-04-26 17:00",
+		"PercentComplete": 0,
+		"InProject": "R&D"
+	},
+	{
+		"Id": 67,
+		"Status": "TODO",
+		"Priority": "Средний",
+		"Desc": "Проверить совместимость сервиса с новыми протоколами шифрования",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "16-04-26 18:00",
+		"PercentComplete": 0,
+		"InProject": "Безопасность"
+	},
+	{
+		"Id": 68,
+		"Status": "TODO",
+		"Priority": "Высокий",
+		"Desc": "Провести внутренний семинар по новым стандартам кодирования",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "18-03-26 15:00",
+		"PercentComplete": 0,
+		"InProject": "Обучение персонала"
+	},
+	{
+		"Id": 69,
+		"Status": "DONE",
+		"Priority": "Низкий",
+		"Desc": "Обновить контактную информацию отдела маркетинга",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "19-03-26 10:25",
+		"PercentComplete": 100,
+		"InProject": "Административные задачи"
+	},
+	{
+		"Id": 70,
+		"Status": "IN_PROGRESS",
+		"Priority": "Высокий",
+		"Desc": "Внедрить мониторинг производительности микросервисов",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "25-03-26 23:59",
+		"PercentComplete": 70,
+		"InProject": "Инфраструктура"
+	},
+	{
+		"Id": 71,
+		"Status": "TODO",
+		"Priority": "Средний",
+		"Desc": "Разработать стратегию по миграции на новый API поставщика",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "10-04-26 18:00",
+		"PercentComplete": 0,
+		"InProject": "Интеграции"
+	},
+	{
+		"Id": 72,
+		"Status": "TODO",
+		"Priority": "Высокий",
+		"Desc": "Настроить антивирусное ПО на серверах разработки",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "05-04-26 23:59",
+		"PercentComplete": 0,
+		"InProject": "IT-безопасность"
+	},
+	{
+		"Id": 73,
+		"Status": "IN_PROGRESS",
+		"Priority": "Высокий",
+		"Desc": "Оптимизировать маршрутизацию запросов в микросервисах",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "30-03-26 20:00",
+		"PercentComplete": 35,
+		"InProject": "Микросервисная архитектура"
+	},
+	{
+		"Id": 74,
+		"Status": "DONE",
+		"Priority": "Средний",
+		"Desc": "Обновить сведения о сотрудниках в справочнике компании",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "24-03-26 14:20",
+		"PercentComplete": 100,
+		"InProject": "HR-процессы"
+	},
+	{
+		"Id": 75,
+		"Status": "TODO",
+		"Priority": "Низкий",
+		"Desc": "Создать визуальную схему данных в базе клиентов",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "15-04-26 12:00",
+		"PercentComplete": 0,
+		"InProject": "CRM-система"
+	},
+	{
+		"Id": 76,
+		"Status": "IN_PROGRESS",
+		"Priority": "Средний",
+		"Desc": "Собрать пользовательские отзывы и анализировать тренды",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "28-03-26 17:00",
+		"PercentComplete": 60,
+		"InProject": "Маркетинговый анализ"
+	},
+	{
+		"Id": 77,
+		"Status": "TODO",
+		"Priority": "Высокий",
+		"Desc": "Перенести систему аутентификации на централизованный сервер",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "10-04-26 18:00",
+		"PercentComplete": 0,
+		"InProject": "IT-безопасность"
+	},
+	{
+		"Id": 78,
+		"Status": "IN_PROGRESS",
+		"Priority": "Низкий",
+		"Desc": "Составить регулярный отчёт по онлайн-продажам",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "15-04-26 20:00",
+		"PercentComplete": 50,
+		"InProject": "Продажи"
+	},
+	{
+		"Id": 79,
+		"Status": "DONE",
+		"Priority": "Высокий",
+		"Desc": "Настроить виртуальные машины для тестовых окружений",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "29-03-26 09:45",
+		"PercentComplete": 100,
+		"InProject": "DevOps"
+	},
+	{
+		"Id": 80,
+		"Status": "TODO",
+		"Priority": "Средний",
+		"Desc": "Разработать обучающее видео по работе с внутренней системой",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "10-04-26 18:00",
+		"PercentComplete": 0,
+		"InProject": "Обучение персонала"
+	},
+	{
+		"Id": 81,
+		"Status": "IN_PROGRESS",
+		"Priority": "Высокий",
+		"Desc": "Проверить механизм обработки больших объёмов данных в реальном времени",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "03-04-26 23:59",
+		"PercentComplete": 75,
+		"InProject": "Аналитика"
+	},
+	{
+		"Id": 83,
+		"Status": "TODO",
+		"Priority": "Высокий",
+		"Desc": "Реализовать одноразовые токены для подтверждения операций",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "10-04-26 17:00",
+		"PercentComplete": 0,
+		"InProject": "Безопасность"
+	},
+	{
+		"Id": 84,
+		"Status": "IN_PROGRESS",
+		"Priority": "Средний",
+		"Desc": "Создать сервис динамического формирования документов",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "20-04-26 18:00",
+		"PercentComplete": 40,
+		"InProject": "Документооборот"
+	},
+	{
+		"Id": 85,
+		"Status": "IN_PROGRESS",
+		"Priority": "Высокий",
+		"Desc": "Оптимизировать скорость загрузки ресурсов на сайте",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "15-04-26 23:59",
+		"PercentComplete": 65,
+		"InProject": "Веб-сайт"
+	},
+	{
+		"Id": 86,
+		"Status": "TODO",
+		"Priority": "Низкий",
+		"Desc": "Актуализировать список клиентов в региональной базе данных",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "28-04-26 17:00",
+		"PercentComplete": 0,
+		"InProject": "CRM-система"
+	},
+	{
+		"Id": 87,
+		"Status": "DONE",
+		"Priority": "Средний",
+		"Desc": "Добавить возможность экспорта отчётов в формат CSV",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "06-04-26 13:40",
+		"PercentComplete": 100,
+		"InProject": "Отчёты"
+	},
+	{
+		"Id": 88,
+		"Status": "TODO",
+		"Priority": "Высокий",
+		"Desc": "Исправить критическую ошибку при авторизации через социальные сети",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "07-04-26 23:59",
+		"PercentComplete": 0,
+		"InProject": "Безопасность"
+	},
+	{
+		"Id": 89,
+		"Status": "IN_PROGRESS",
+		"Priority": "Средний",
+		"Desc": "Обновить процесс онбординга для новых партнёров",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "15-04-26 18:00",
+		"PercentComplete": 30,
+		"InProject": "Партнёрская программа"
+	},
+	{
+		"Id": 90,
+		"Status": "TODO",
+		"Priority": "Высокий",
+		"Desc": "Добавить аналитику по отказам в заявках клиентов",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "25-04-26 19:00",
+		"PercentComplete": 0,
+		"InProject": "Аналитика"
+	},
+	{
+		"Id": 91,
+		"Status": "TODO",
+		"Priority": "Низкий",
+		"Desc": "Составить инструкцию по настройке внутренних сервисов компании",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "20-04-26 17:00",
+		"PercentComplete": 0,
+		"InProject": "Документация"
+	},
+	{
+		"Id": 92,
+		"Status": "DONE",
+		"Priority": "Средний",
+		"Desc": "Перенести тестовые логи в отдельное хранилище",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "11-04-26 13:00",
+		"PercentComplete": 100,
+		"InProject": "Логирование"
+	},
+	{
+		"Id": 93,
+		"Status": "IN_PROGRESS",
+		"Priority": "Высокий",
+		"Desc": "Создать систему авторизации с использованием SSO",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "25-04-26 23:59",
+		"PercentComplete": 55,
+		"InProject": "Управление доступом"
+	},
+	{
+		"Id": 94,
+		"Status": "TODO",
+		"Priority": "Низкий",
+		"Desc": "Реорганизовать структуру папок в репозитории",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "20-04-26 18:00",
+		"PercentComplete": 0,
+		"InProject": "DevOps"
+	},
+	{
+		"Id": 95,
+		"Status": "TODO",
+		"Priority": "Средний",
+		"Desc": "Провести аудит логов доступа в административную панель",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "28-04-26 18:00",
+		"PercentComplete": 0,
+		"InProject": "Безопасность"
+	},
+	{
+		"Id": 96,
+		"Status": "IN_PROGRESS",
+		"Priority": "Высокий",
+		"Desc": "Исправить ошибки при билде проекта на CI-сервере",
+		"CreatedAt": "02-03-25 15:50",
+		"Updated": "02-03-25 15:52",
+		"DeadLine": "15-04-26 23:59",
+		"PercentComplete": 80,
+		"DependencyFromThis": "28",
+		"InProject": "DevOps"
+	},
+	{
+		"Id": 97,
+		"Status": "TODO",
+		"Priority": "Низкий",
+		"Desc": "Добавить новые категории поставщиков в справочник",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "28-04-26 12:00",
+		"PercentComplete": 0,
+		"InProject": "Снабжение"
+	},
+	{
+		"Id": 98,
+		"Status": "IN_PROGRESS",
+		"Priority": "Средний",
+		"Desc": "Подготовить отчёт о продажах за первый квартал",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "01-05-26 17:00",
+		"PercentComplete": 50,
+		"InProject": "Финансы"
+	},
+	{
+		"Id": 99,
+		"Status": "TODO",
+		"Priority": "Высокий",
+		"Desc": "Собрать аналитику использования видеоконференций",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "30-04-26 23:59",
+		"PercentComplete": 0,
+		"InProject": "IT-инфраструктура"
+	},
+	{
+		"Id": 100,
+		"Status": "IN_PROGRESS",
+		"Priority": "Высокий",
+		"Desc": "Реализовать дашборд с метриками в режиме реального времени",
+		"CreatedAt": "02-03-25 15:50",
+		"DeadLine": "05-05-26 23:59",
+		"PercentComplete": 40,
+		"InProject": "Управление задачами"
 	}
 ]

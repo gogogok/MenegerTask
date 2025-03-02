@@ -10,7 +10,7 @@ namespace LibWorkWithFiles
         /// <summary>
         /// Токен бота
         /// </summary>
-        private static readonly string BotToken = "7661409563:AAE8_0rj5Ya3Lx_Kq-WImJ3GxFj0NQBAd_A";
+        private static readonly string BotToken = "Nonono mistr fish";
 
         /// <summary>
         /// Клиент/пользователь бота
