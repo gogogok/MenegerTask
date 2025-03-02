@@ -111,8 +111,6 @@ namespace LibWorkWithFiles
                 {
                     str.AppendLine($"\t\t\"Updated\": \"{tasks[i].GetUpdatedAt():dd-MM-yy HH:mm}\",");
                 }
-
-                str.AppendLine($"\t\t\"InProject\": \"{tasks[i].InProject}\",");
                 if (tasks[i].GetDeadLine() != default)
                 {
                     str.AppendLine($"\t\t\"DeadLine\": \"{tasks[i].GetDeadLine():dd-MM-yy HH:mm}\",");
@@ -123,7 +121,7 @@ namespace LibWorkWithFiles
                 {
                     str.AppendLine($"\t\t\"DependencyFromThis\": \"{tasks[i].DependencyFromThis}\"");
                 }
-
+                str.AppendLine($"\t\t\"InProject\": \"{tasks[i].InProject}\"");
                 if (i < tasks.Count - 1)
                 {
                     str.AppendLine("\t},");

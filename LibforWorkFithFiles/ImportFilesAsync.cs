@@ -173,6 +173,14 @@ namespace LibWorkWithFiles
                         //проверка на сущестование предмета с таким Id
                         foreach (Tasks task in resultTasks3)
                         {
+                            if (task.Id == 0)
+                            {
+                                throw new FormatException();
+                            }
+                            if (task.Desc == default)
+                            {
+                                throw new FormatException();
+                            }
                             foreach (int indDep in task.GetDependency())
                             {
                                 Tasks task2 = MethodsFindAndCheck.FindById(indDep, resultTasks3);

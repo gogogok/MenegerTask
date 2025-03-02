@@ -32,6 +32,18 @@ namespace LibWorkWithFiles
                         Console.Clear();
                         Frame.PrintFrame(Frame.ForPrint(Texts.ChooseStatus));
                         key = Console.ReadKey(true);
+                        Tasks taskInPr = new Tasks();
+                        foreach (Project project in projects)
+                        {
+                            foreach (Tasks task1 in project)
+                            {
+                                if (task1.Id == task.Id)
+                                {
+                                    taskInPr = task1;
+                                    break;
+                                }
+                            }
+                        }
                         switch (key.KeyChar)
                         {
                             case '1':
@@ -39,6 +51,7 @@ namespace LibWorkWithFiles
                                 task.Status = status;
                                 task.Updated();
                                 task.PercentComplete = 0;
+                                taskInPr.PercentComplete = 0;
 
                                 break;
                             case '2':
@@ -46,6 +59,7 @@ namespace LibWorkWithFiles
                                 task.Status = status;
                                 task.Updated();
                                 task.PercentComplete = 50;
+                                taskInPr.PercentComplete = 50;
 
                                 break;
                             case '3':
@@ -67,6 +81,7 @@ namespace LibWorkWithFiles
                                 task.Status = status;
                                 task.Updated();
                                 task.PercentComplete = 100;
+                                taskInPr.PercentComplete = 100;
                                 break;
                         }
                     } while (key.Key != ConsoleKey.D1 && key.Key != ConsoleKey.D2 && key.Key != ConsoleKey.D3);

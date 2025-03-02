@@ -12,8 +12,9 @@ namespace LibWorkWithFiles
         /// <summary>
         /// Меню для выбора действия с дедлайном
         /// </summary>
-        /// /// <param name="tasks">Список задач</param>
-        public static void ChooseDeadLineAction(List<Tasks> tasks)
+        /// <param name="tasks">Список задач</param>
+        /// <param name="projects">Список проектов</param>
+        public static void ChooseDeadLineAction(List<Tasks> tasks,List<Project> projects)
         {
             ConsoleKeyInfo key;
             if (tasks.Count > 0)
@@ -26,7 +27,7 @@ namespace LibWorkWithFiles
                     switch (key.KeyChar)
                     {
                         case '1':
-                            AddDeadLine(tasks);
+                            AddDeadLine(tasks,projects);
                             break;
                         case '2':
                             DeleteDeadLines(tasks);
@@ -44,7 +45,8 @@ namespace LibWorkWithFiles
         /// Метод для добавления нового дедлайна
         /// </summary>
         /// <param name="tasks">Список задач</param>
-        private static void AddDeadLine(List<Tasks> tasks)
+        /// /// <param name="projects">Список проектов</param>
+        private static void AddDeadLine(List<Tasks> tasks,List<Project> projects)
         {
             Console.WriteLine("Введите ID задачи, для которой желаете установить дедлайн");
             int id = MethodsFindAndCheck.CheckId(tasks);
@@ -60,6 +62,16 @@ namespace LibWorkWithFiles
                     {
                         Tasks task = MethodsFindAndCheck.FindById(id, tasks);
                         task.DeadLine = date;
+                        foreach (Project project in projects)
+                        {
+                            foreach (Tasks task1 in project)
+                            {
+                                if (task1.Id == task.Id)
+                                {
+                                    task1.DeadLine = date;
+                                }
+                            }
+                        }
                         task.Updated(); //запись изменения задачи
                         break;
                     }

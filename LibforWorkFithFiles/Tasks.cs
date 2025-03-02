@@ -39,7 +39,7 @@ namespace LibWorkWithFiles
         /// <summary>
         /// Приоритет задачи
         /// </summary>
-        private Prioritys _priority;
+        private Prioritys _priority = Prioritys.Low;
 
         /// <summary>
         /// Статус задачи

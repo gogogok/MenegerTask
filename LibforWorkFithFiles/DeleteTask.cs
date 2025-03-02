@@ -27,6 +27,17 @@ namespace LibWorkWithFiles
                     }
                 }
 
+                foreach (Project project in projects)
+                {
+                    foreach (Tasks task in project)
+                    {
+                        if (task.Id == id)
+                        {
+                            project.RemoveFromPr(task);
+                            break;
+                        }
+                    }
+                }
                 WriteToFile.WriteBackToFile(ref path, projects);
             }
             else

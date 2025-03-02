@@ -123,7 +123,7 @@ namespace Project4_Zhdanok
                         }
                         else
                         {
-                            DeadLines.ChooseDeadLineAction(tasks);
+                            DeadLines.ChooseDeadLineAction(tasks, projects);
                             WriteToFile.WriteBackToFile(ref pathToFile, projects);
                         }
 
@@ -137,7 +137,7 @@ namespace Project4_Zhdanok
                         }
                         else
                         {
-                            AddPersentComplete.AddPersent(tasks);
+                            AddPersentComplete.AddPersent(tasks,projects);
                             WriteToFile.WriteBackToFile(ref pathToFile, projects);
                         }
 
