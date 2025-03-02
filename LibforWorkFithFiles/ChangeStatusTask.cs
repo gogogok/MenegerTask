@@ -85,8 +85,7 @@ namespace LibWorkWithFiles
                                 break;
                         }
                     } while (key.Key != ConsoleKey.D1 && key.Key != ConsoleKey.D2 && key.Key != ConsoleKey.D3);
-
-
+                    
                     WriteToFile.WriteBackToFile(ref path, projects);
                     Console.Clear();
                     Console.WriteLine("Статус задачи изменён");

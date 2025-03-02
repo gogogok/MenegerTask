@@ -18,74 +18,94 @@ namespace LibWorkWithFiles
         /// <param name="projects">Данные проектов для записи</param>
         public static void WriteBackToFile(ref string path, List<Project> projects)
         {
-            List<Tasks> tasks = new List<Tasks>();
-            foreach (Project project in projects)
+            Console.WriteLine("Вы уверены, что хотите перезаписать файл?\n 1 - Да \n 2 - Нет");
+            ConsoleKeyInfo keyInfo = Console.ReadKey(true);
+            bool shure = true;
+            do
             {
-                foreach (Tasks task in project)
+                switch (keyInfo.KeyChar)
                 {
-                    tasks.Add(task);
+                    case '1':
+                        shure = true;
+                        break;
+                    case '2':
+                        shure = false;
+                        break;
+                        
                 }
-            }
+            }while (keyInfo.Key != ConsoleKey.D1 && keyInfo.Key != ConsoleKey.D2);
 
-            IOrderedEnumerable<Tasks> res;
-            res = from task in tasks orderby task.Id select task;
-            tasks = res.ToList(); //сортировка по ID для лучшего вида файла
-            if (!File.Exists(path))
+            if (shure)
             {
-                ConsoleKeyInfo key;
-                Console.WriteLine("Файла для записи задач не существует. Если хотите его создать, нажмите 1");
-                key = Console.ReadKey(true);
-                if (key.Key == ConsoleKey.D1)
+                List<Tasks> tasks = new List<Tasks>();
+                foreach (Project project in projects)
                 {
-                    Console.WriteLine("Введите путь к файлу: ");
-                    do
+                    foreach (Tasks task in project)
                     {
-                        string path1 = Console.ReadLine();
-                        if (File.Exists(path1))
+                        tasks.Add(task);
+                    }
+                }
+
+                IOrderedEnumerable<Tasks> res;
+                res = from task in tasks orderby task.Id select task;
+                tasks = res.ToList(); //сортировка по ID для лучшего вида файла
+                if (!File.Exists(path))
+                {
+                    ConsoleKeyInfo key;
+                    Console.WriteLine("Файла для записи задач не существует. Если хотите добавить свой, нажмите 1");
+                    key = Console.ReadKey(true);
+                    if (key.Key == ConsoleKey.D1)
+                    {
+                        Console.WriteLine("Введите путь к файлу: ");
+                        do
                         {
-                            //в зависимости от формата, свой метод записи
-                            if (Path.GetExtension(path1) == ".json")
+                            string path1 = Console.ReadLine();
+                            if (File.Exists(path1))
                             {
-                                WriteJson(path1, tasks);
-                                path = path1;
-                            }
-                            else if (Path.GetExtension(path1) == ".txt")
-                            {
-                                WriteTxt(path1, tasks);
-                                path = path1;
-                            }
-                            else if (Path.GetExtension(path1) == ".csv")
-                            {
-                                WriteCsv(path1, tasks);
-                                path = path1;
+                                //в зависимости от формата, свой метод записи
+                                if (Path.GetExtension(path1) == ".json")
+                                {
+                                    WriteJson(path1, tasks);
+                                    path = path1;
+                                }
+                                else if (Path.GetExtension(path1) == ".txt")
+                                {
+                                    WriteTxt(path1, tasks);
+                                    path = path1;
+                                }
+                                else if (Path.GetExtension(path1) == ".csv")
+                                {
+                                    WriteCsv(path1, tasks);
+                                    path = path1;
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Данный формат файла не поддерживается.");
+                                }
                             }
                             else
                             {
-                                Console.WriteLine("Данный формат файла не поддерживается.");
+                                Console.WriteLine("Файла не существует. Попробуйте снова");
                             }
-                        }
-                        else
-                        {
-                            Console.WriteLine("Файла не существует. Попробуйте снова");
-                        }
-                    } while (!File.Exists(path));
+                        } while (!File.Exists(path));
+                    }
                 }
-            }
-            else
-            {
-                //в зависимости от формата, свой метод записи
-                string ext = Path.GetExtension(path);
-                switch (ext)
+                else
                 {
-                    case ".json":
-                        WriteJson(path, tasks);
-                        break;
-                    case ".csv":
-                        WriteCsv(path, tasks);
-                        break;
-                    case ".txt":
-                        WriteTxt(path, tasks);
-                        break;
+                    //в зависимости от формата, свой метод записи
+                    string ext = Path.GetExtension(path);
+                    switch (ext)
+                    {
+                        case ".json":
+                            WriteJson(path, tasks);
+                            break;
+                        case ".csv":
+                            WriteCsv(path, tasks);
+                            break;
+                        case ".txt":
+                            WriteTxt(path, tasks);
+                            break;
+                    }
                 }
             }
         }
