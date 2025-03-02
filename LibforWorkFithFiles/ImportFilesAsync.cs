@@ -4,350 +4,360 @@ using System.Text.RegularExpressions;
 using CsvHelper;
 using CsvHelper.Configuration;
 
-namespace LibWorkWithFiles;
-
-/// <summary>
-/// Класс, отвечающий за обработку файла
-/// </summary>
-public static  class ImportFilesAsync
+namespace LibWorkWithFiles
 {
 
     /// <summary>
-    /// Метод, получающий правильный путь к файлу
+    /// Класс, отвечающий за обработку файла
     /// </summary>
-    /// <returns></returns>
-    public static string GetPass()
+    public static class ImportFilesAsync
     {
-        Console.WriteLine("Введите путь до файла ");
-        string path = string.Empty;
-        bool notExist = true;
-        do
-        {
-            path = Console.ReadLine();
-            if (File.Exists(path))
-            {
-                notExist = false;
-                
-            }
-            else
-            {
-                Console.WriteLine("Такого файла не существует, введи корректный путь до файла.");
-                notExist = true;
-            }
-        }while(notExist);
-        return path;
-    }
 
-    /// <summary>
-    /// Метод, обрабатывающий файл
-    /// </summary>
-    /// <param name="path">Ссылка на файл, который нужно обработать</param>
-    /// <returns>Список задач, полученный из этого файла </returns>
-    public static async Task<List<Project>> FileHandler(string path)
-    {
-        string extension = Path.GetExtension(path);
-        switch (extension) //определение расширения файла
+        /// <summary>
+        /// Метод, получающий правильный путь к файлу
+        /// </summary>
+        /// <returns></returns>
+        public static string GetPass()
         {
-            case ".csv":
-                List<Tasks> resultTasks = new List<Tasks>();
-                List<Project> projects = new List<Project>();
-                try
+            Console.WriteLine("Введите путь до файла ");
+            string path = string.Empty;
+            bool notExist = true;
+            do
+            {
+                path = Console.ReadLine();
+                if (File.Exists(path))
                 {
-                    using (StreamReader reader = new StreamReader(path))
+                    notExist = false;
+
+                }
+                else
+                {
+                    Console.WriteLine("Такого файла не существует, введи корректный путь до файла.");
+                    notExist = true;
+                }
+            } while (notExist);
+
+            return path;
+        }
+
+        /// <summary>
+        /// Метод, обрабатывающий файл
+        /// </summary>
+        /// <param name="path">Ссылка на файл, который нужно обработать</param>
+        /// <returns>Список задач, полученный из этого файла </returns>
+        public static async Task<List<Project>> FileHandler(string path)
+        {
+            string extension = Path.GetExtension(path);
+            switch (extension) //определение расширения файла
+            {
+                case ".csv":
+                    List<Tasks> resultTasks = new List<Tasks>();
+                    List<Project> projects = new List<Project>();
+                    try
                     {
-
-                        CsvConfiguration config = new CsvConfiguration(CultureInfo.InvariantCulture)
+                        using (StreamReader reader = new StreamReader(path))
                         {
-                            MissingFieldFound = null, //конфигуратор для обработки отсутствия столбцов
-                            IgnoreBlankLines = true //конфигуратор для обработки пустых строк
 
-                        };
-                        using (CsvReader csv = new CsvReader(reader, config))
-                        {
-                            //асинхронная операция чтения файла
-                            IEnumerable<Tasks> tasks = await Task.Run(() => csv.GetRecords<Tasks>().ToList());
-                            foreach (Tasks task in tasks)
+                            CsvConfiguration config = new CsvConfiguration(CultureInfo.InvariantCulture)
                             {
-                                resultTasks.Add(task);
-                                //проверка на сущестование предмета с таким Id
-                                foreach (int indDep in task.GetDependency())
+                                MissingFieldFound = null, //конфигуратор для обработки отсутствия столбцов
+                                IgnoreBlankLines = true //конфигуратор для обработки пустых строк
+
+                            };
+                            using (CsvReader csv = new CsvReader(reader, config))
+                            {
+                                //асинхронная операция чтения файла
+                                IEnumerable<Tasks> tasks = await Task.Run(() => csv.GetRecords<Tasks>().ToList());
+                                foreach (Tasks task in tasks)
                                 {
-                                    Tasks task2 = MethodsFindAndCheck.FindById(indDep, tasks.ToList());
-                                    if (task2 == null)
+                                    resultTasks.Add(task);
+                                    //проверка на сущестование предмета с таким Id
+                                    foreach (int indDep in task.GetDependency())
+                                    {
+                                        Tasks task2 = MethodsFindAndCheck.FindById(indDep, tasks.ToList());
+                                        if (task2 == null)
+                                        {
+                                            throw new IndexOutOfRangeException();
+                                        }
+                                    }
+                                }
+
+
+                                foreach (Tasks task in resultTasks)
+                                {
+                                    //проверка повторяющихся значений в зависимостях
+                                    bool flagRepeats = task.GetDependency().Count !=
+                                                       task.GetDependency().Distinct().Count();
+                                    if (flagRepeats)
                                     {
                                         throw new IndexOutOfRangeException();
                                     }
+
+                                    //проверка циклической зависимости
+                                    bool circle = MethodsFindAndCheck.IsCircled(task.Id, resultTasks);
+                                    if (circle)
+                                    {
+                                        throw new TimeoutException();
+                                    }
+
+                                    //установление прогресса в зависимости от статуса
+                                    if (task.Status == "DONE")
+                                    {
+                                        task.PercentComplete = 100;
+                                    }
+                                    else if ((task.Status == "IN_PROGRESS") & (task.PercentComplete == 0))
+                                    {
+                                        task.PercentComplete = 50;
+                                    }
+                                    else if (task.Status == "TODO")
+                                    {
+                                        task.PercentComplete = 0;
+                                    }
+
+                                    string prName = task.InProject;
+                                    //добавление проектов в зависисмости от принадлежности к ним задачам
+                                    Project? pr = MethodsFindAndCheck.FindByName(projects, prName);
+                                    if (pr == null)
+                                    {
+                                        Project pr2 = new Project(prName);
+                                        pr2.AddTaskInProject(task);
+                                        projects.Add(pr2);
+                                    }
+                                    else
+                                    {
+                                        pr.AddTaskInProject(task);
+                                    }
                                 }
+
+                                return projects;
                             }
-                            
-                            
-                            foreach (Tasks task in resultTasks)
+                        }
+                    }
+                    catch (CsvHelperException)
+                    {
+                        Console.WriteLine(
+                            "Неверный формат CSV файла. (Если файл корректен, проверьте заменены ли пустые строки \"-\", проверьте также, не истекли ли дедлайны)");
+                        return null;
+                    }
+                    catch (FormatException)
+                    {
+                        Console.WriteLine("Данные CSV файла некорректны");
+                        return null;
+                    }
+                    catch (IndexOutOfRangeException)
+                    {
+                        Console.WriteLine(
+                            "В зависимостях указано Id, которого не существует или повторяющиеся значения.");
+                        return null;
+                    }
+                    catch (TimeoutException)
+                    {
+                        Console.WriteLine("Зависимость одной из задач циклична");
+                        return null;
+                    }
+
+                case ".json":
+                    //асинхронная операция чтения файла
+                    string[] lines2 = await File.ReadAllLinesAsync(path);
+                    List<string> resultListJson = BetweenStaples(string.Join(" ", lines2));
+                    List<Tasks> resultTasks3 = new List<Tasks>();
+                    List<Project> projects3 = new List<Project>();
+                    try
+                    {
+                        foreach (string line in resultListJson)
+                        {
+                            Tasks tasks = JsonSerializer.Deserialize<Tasks>(line);
+                            resultTasks3.Add(tasks);
+                        }
+
+                        //проверка на сущестование предмета с таким Id
+                        foreach (Tasks task in resultTasks3)
+                        {
+                            foreach (int indDep in task.GetDependency())
                             {
-                                //проверка повторяющихся значений в зависимостях
-                                bool flagRepeats = task.GetDependency().Count != task.GetDependency().Distinct().Count();
-                                if (flagRepeats)
+                                Tasks task2 = MethodsFindAndCheck.FindById(indDep, resultTasks3);
+                                if (task2 == null)
                                 {
                                     throw new IndexOutOfRangeException();
                                 }
-                                //проверка циклической зависимости
-                                bool circle = MethodsFindAndCheck.IsCircled(task.Id, resultTasks);
-                                if (circle)
-                                {
-                                    throw new TimeoutException();
-                                }
-                                
-                                //установление прогресса в зависимости от статуса
-                                if (task.Status == "DONE")
-                                {
-                                    task.PercentComplete = 100;
-                                }
-                                else if (task.Status == "IN_PROGRESS" & task.PercentComplete == 0)
-                                {
-                                    task.PercentComplete = 50;
-                                }
-                                else if (task.Status == "TODO")
-                                {
-                                    task.PercentComplete = 0;
-                                }
+                            }
+                        }
 
-                                string prName = task.InProject;
-                                //добавление проектов в зависисмости от принадлежности к ним задачам
-                                Project? pr = MethodsFindAndCheck.FindByName(projects, prName);
-                                if (pr == null)
+                        foreach (Tasks task in resultTasks3)
+                        {
+                            //проверка
+                            bool flagRepeats = task.GetDependency().Count != task.GetDependency().Distinct().Count();
+                            if (flagRepeats)
+                            {
+                                throw new IndexOutOfRangeException();
+                            }
+
+                            //проверка существования задач с данным Id
+                            foreach (int indDep in task.GetDependency())
+                            {
+                                Tasks task2 = MethodsFindAndCheck.FindById(indDep, resultTasks3);
+                                if (task2 == null)
                                 {
-                                    Project pr2 = new Project(prName);
-                                    pr2.AddTaskInProject(task);
-                                    projects.Add(pr2);
-                                }
-                                else
-                                {
-                                    pr.AddTaskInProject(task);
+                                    throw new IndexOutOfRangeException();
                                 }
                             }
 
-                            return projects;
+                            //проверка циклической зависимости
+                            bool circle = MethodsFindAndCheck.IsCircled(task.Id, resultTasks3);
+                            if (circle)
+                            {
+                                throw new TimeoutException();
+                            }
+
+                            //установление прогресса в зависимости от статуса
+                            if (task.Status == "DONE")
+                            {
+                                task.PercentComplete = 100;
+                            }
+                            else if ((task.Status == "IN_PROGRESS") & (task.PercentComplete == 0))
+                            {
+                                task.PercentComplete = 50;
+                            }
+                            else if (task.Status == "TODO")
+                            {
+                                task.PercentComplete = 0;
+                            }
+
+                            string prName = task.InProject;
+                            Project? pr = MethodsFindAndCheck.FindByName(projects3, prName);
+                            if (pr == null)
+                            {
+                                Project pr2 = new Project(prName);
+                                pr2.AddTaskInProject(task);
+                                projects3.Add(pr2);
+                            }
+                            else
+                            {
+                                pr.AddTaskInProject(task);
+                            }
                         }
+
+                        return projects3;
+
                     }
-                }
-                catch (CsvHelperException)
-                {
-                    Console.WriteLine(
-                        "Неверный формат CSV файла. (Если файл корректен, проверьте заменены ли пустые строки \"-\", проверьте также, не истекли ли дедлайны)");
-                    return null;
-                }
-                catch (FormatException)
-                {
-                    Console.WriteLine("Данные CSV файла некорректны");
-                    return null;
-                }
-                catch (IndexOutOfRangeException)
-                {
-                    Console.WriteLine("В зависимостях указано Id, которого не существует или повторяющиеся значения.");
-                    return null;
-                }
-                catch (TimeoutException)
-                {
-                    Console.WriteLine("Зависимость одной из задач циклична");
-                    return null;
-                }
-            
-            case ".json":
-                //асинхронная операция чтения файла
-                string[] lines2 = await File.ReadAllLinesAsync(path);
-                List<string> resultListJson = BetweenStaples(string.Join(" ", lines2));
-                List<Tasks> resultTasks3 = new List<Tasks>();
-                List<Project> projects3 = new List<Project>();
-                try
-                {
-                    foreach (string line in resultListJson)
+                    catch (JsonException)
                     {
-                        Tasks tasks = JsonSerializer.Deserialize<Tasks>(line);
-                        resultTasks3.Add(tasks);
+                        Console.WriteLine("JSON файл не корректен. Попробуйте другой файл.");
+                        return null;
                     }
-                    
-                    //проверка на сущестование предмета с таким Id
-                    foreach (Tasks task in resultTasks3)
+                    catch (FormatException)
                     {
-                        foreach (int indDep in task.GetDependency())
+                        Console.WriteLine("Данные файла некорректны, повторите попытку");
+                        return null;
+                    }
+                    catch (IndexOutOfRangeException)
+                    {
+                        Console.WriteLine(
+                            "В зависимостях указано Id, которого не существует или Id повторяются или повторяющиеся Id");
+                        return null;
+                    }
+                    catch (TimeoutException)
+                    {
+                        Console.WriteLine("Зависимость одной из задач циклична");
+                        return null;
+                    }
+                case ".txt":
+                    //асинхронная операция чтения файла
+                    string[] lines = await File.ReadAllLinesAsync(path);
+                    string pattern2 = @"\[(\d+)\] \[(\w+)\] \[(\w+)\] (.*)"; //паттерн для нахождения задач 
+                    List<Tasks> resultTasks2 = new List<Tasks>();
+                    List<Project> resultProjects = new List<Project>();
+                    try
+                    {
+                        foreach (string line in lines)
                         {
-                            Tasks task2 = MethodsFindAndCheck.FindById(indDep, resultTasks3);
-                            if (task2 == null)
+                            Match afterReg = Regex.Match(line, pattern2);
+                            if (afterReg.Groups.Count == 5)
+                            {
+                                int result = int.Parse(afterReg.Groups[1].Value);
+                                Tasks tasks = new Tasks(result,
+                                    afterReg.Groups[2].ToString().Replace("[", "").Replace("]", ""),
+                                    afterReg.Groups[3].ToString().Replace("[", "").Replace("]", ""),
+                                    afterReg.Groups[4].ToString().Replace("[", "").Replace("]", ""));
+                                resultTasks2.Add(tasks);
+                                //Console.WriteLine(task);
+                            }
+                            else
                             {
                                 throw new IndexOutOfRangeException();
                             }
                         }
-                    }
 
-                    foreach (Tasks task in resultTasks3)
-                    {
-                        //проверка
-                        bool flagRepeats = task.GetDependency().Count != task.GetDependency().Distinct().Count();
-                        if (flagRepeats)
+                        Project pr = new Project("Задачи без проекта");
+                        foreach (Tasks task in resultTasks2)
                         {
-                            throw new IndexOutOfRangeException();
-                        }
-                        
-                        //проверка существования задач с данным Id
-                        foreach (int indDep in task.GetDependency())
-                        {
-                            Tasks task2 = MethodsFindAndCheck.FindById(indDep, resultTasks3);
-                            if (task2 == null)
-                            {
-                                throw new IndexOutOfRangeException();
-                            }
-                        }
-                        
-                        //проверка циклической зависимости
-                        bool circle = MethodsFindAndCheck.IsCircled(task.Id, resultTasks3);
-                        if (circle)
-                        {
-                            throw new TimeoutException();
-                        }
-                        
-                        //установление прогресса в зависимости от статуса
-                        if (task.Status == "DONE")
-                        {
-                            task.PercentComplete = 100;
-                        }
-                        else if (task.Status == "IN_PROGRESS" & task.PercentComplete == 0)
-                        {
-                            task.PercentComplete = 50;
-                        }
-                        else if (task.Status == "TODO")
-                        {
-                            task.PercentComplete = 0;
-                        }
 
-                        string prName = task.InProject;
-                        Project? pr = MethodsFindAndCheck.FindByName(projects3, prName);
-                        if (pr == null)
-                        {
-                            Project pr2 = new Project(prName);
-                            pr2.AddTaskInProject(task);
-                            projects3.Add(pr2);
-                        }
-                        else
-                        {
                             pr.AddTaskInProject(task);
+                            task.InProject = pr.Name;
                         }
+
+                        resultProjects.Add(pr);
+                        return resultProjects;
                     }
-
-                    return projects3;
-
-                }
-                catch (JsonException)
-                {
-                    Console.WriteLine("JSON файл не корректен. Попробуйте другой файл.");
-                    return null;
-                }
-                catch (FormatException)
-                {
-                    Console.WriteLine("Данные файла некорректны, повторите попытку");
-                    return null;
-                }
-                catch (IndexOutOfRangeException)
-                {
-                    Console.WriteLine("В зависимостях указано Id, которого не существует или Id повторяются или повторяющиеся Id");
-                    return null;
-                }
-                catch (TimeoutException)
-                {
-                    Console.WriteLine("Зависимость одной из задач циклична");
-                    return null;
-                }
-            case ".txt":
-                //асинхронная операция чтения файла
-                string[] lines = await File.ReadAllLinesAsync(path);
-                string pattern2 = @"\[(\d+)\] \[(\w+)\] \[(\w+)\] (.*)"; //паттерн для нахождения задач 
-                List<Tasks> resultTasks2 = new List<Tasks>();
-                List<Project> resultProjects = new List<Project>();
-                try
-                {
-                    foreach (string line in lines)
+                    catch (IndexOutOfRangeException)
                     {
-                        Match afterReg = Regex.Match(line, pattern2);
-                        if (afterReg.Groups.Count == 5)
-                        {
-                            int result = int.Parse(afterReg.Groups[1].Value);
-                            Tasks tasks = new Tasks(result,
-                                afterReg.Groups[2].ToString().Replace("[", "").Replace("]", ""),
-                                afterReg.Groups[3].ToString().Replace("[", "").Replace("]", ""),
-                                afterReg.Groups[4].ToString().Replace("[", "").Replace("]", ""));
-                            resultTasks2.Add(tasks);
-                            //Console.WriteLine(task);
-                        }
-                        else
-                        {
-                            throw new IndexOutOfRangeException();
-                        }
+                        Console.WriteLine("Неверная структура файла, попробуйте снова.");
+                        return null;
                     }
-
-                    Project pr = new Project("Задачи без проекта");
-                    foreach (Tasks task in resultTasks2)
+                    catch (FormatException)
                     {
-                        
-                        pr.AddTaskInProject(task);
-                        task.InProject = pr.Name;
+                        Console.WriteLine("Неверная структура файла, попробуйте снова.");
+                        return null;
                     }
-                    resultProjects.Add(pr);
-                    return resultProjects;
-                }
-                catch (IndexOutOfRangeException)
-                {
-                    Console.WriteLine("Неверная структура файла, попробуйте снова.");
-                    return null;
-                }
-                catch (FormatException)
-                {
-                    Console.WriteLine("Неверная структура файла, попробуйте снова.");
-                    return null;
-                }
-            default:
-                Console.WriteLine("Неверное расширение файла. Повторите ввод");
-                Console.WriteLine();
-                break;
+                default:
+                    Console.WriteLine("Неверное расширение файла. Повторите ввод");
+                    Console.WriteLine();
+                    break;
+            }
+
+            return null;
         }
-        return null;
-    }
-    
-    /// <summary>
-    /// Метод, находящий значения между фигурными скобками
-    /// </summary>
-    /// <param name="text">Строка, в которой нужно найти все значения между '{' и '}'</param>
-    /// <returns> Список строк, находящихся между '{' и '}' </returns>
-    public static List<string> BetweenStaples(string text)
-    {
-        List<string> results = new List<string>();
-        int index = 0;
-        int start = 0;
 
-        for (int i = 1; i < text.Length - 1; i++)
+        /// <summary>
+        /// Метод, находящий значения между фигурными скобками
+        /// </summary>
+        /// <param name="text">Строка, в которой нужно найти все значения между '{' и '}'</param>
+        /// <returns> Список строк, находящихся между '{' и '}' </returns>
+        public static List<string> BetweenStaples(string text)
         {
-            if (text[i] == '{') //начало скобки
-            {
-                if (index == 0)
-                {
-                    start = i;
-                }
+            List<string> results = new List<string>();
+            int index = 0;
+            int start = 0;
 
-                index++;
-            }
-            else if (text[i] == '}')
+            for (int i = 1; i < text.Length - 1; i++)
             {
-                if (index > 0)
+                if (text[i] == '{') //начало скобки
                 {
-                    index -= 1;
-                    if (index == 0 && start != 0) //доходим до последней скобки и добавляем к результату информацию между ними
+                    if (index == 0)
                     {
-                        int end = i;
-                        results.Add(text[start..(end + 1)]);
-                        start = 0; // сбрасываем начало
-                        index = 0;
+                        start = i;
+                    }
+
+                    index++;
+                }
+                else if (text[i] == '}')
+                {
+                    if (index > 0)
+                    {
+                        index -= 1;
+                        if (index == 0 &&
+                            start != 0) //доходим до последней скобки и добавляем к результату информацию между ними
+                        {
+                            int end = i;
+                            results.Add(text[start..(end + 1)]);
+                            start = 0; // сбрасываем начало
+                            index = 0;
+                        }
                     }
                 }
             }
-        }
 
-        return results;
+            return results;
+        }
     }
 }

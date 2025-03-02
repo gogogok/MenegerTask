@@ -1,39 +1,42 @@
-namespace LibWorkWithFiles;
-
-/// <summary>
-/// Класс для добавления процента 
-/// </summary>
-public static class AddPersentComplete
+namespace LibWorkWithFiles
 {
+
     /// <summary>
-    /// Метод для задания процента выполнения
+    /// Класс для добавления процента 
     /// </summary>
-    /// /// <param name="tasks">Список задач</param>
-    public static void AddPersent(List<Tasks> tasks)
+    public static class AddPersentComplete
     {
-        int percent;
-        Console.WriteLine("Введите ID задачи, которой хотите установить процент выполнения");
-        int id = MethodsFindAndCheck.CheckId(tasks);
-        while (true)
+        /// <summary>
+        /// Метод для задания процента выполнения
+        /// </summary>
+        /// /// <param name="tasks">Список задач</param>
+        public static void AddPersent(List<Tasks> tasks)
         {
-            try
+            int percent;
+            Console.WriteLine("Введите ID задачи, которой хотите установить процент выполнения");
+            int id = MethodsFindAndCheck.CheckId(tasks);
+            while (true)
             {
-                Console.WriteLine("Введите новый процент выполнения");
-                percent = int.Parse(Console.ReadLine());
-                if (percent < 0 || percent > 100)
+                try
                 {
-                    throw new FormatException();
+                    Console.WriteLine("Введите новый процент выполнения");
+                    percent = int.Parse(Console.ReadLine());
+                    if (percent < 0 || percent > 100)
+                    {
+                        throw new FormatException();
+                    }
+
+                    Tasks task = MethodsFindAndCheck.FindById(id, tasks);
+                    task.PercentComplete = percent;
+                    task.Updated();
+                    break;
                 }
-                Tasks task = MethodsFindAndCheck.FindById(id, tasks);
-                task.PercentComplete =percent;
-                task.Updated();
-                break;
+                catch (FormatException)
+                {
+                    Console.WriteLine("Данные не могут быть записаны, как процент выполнения. Повторите ввод.");
+                }
             }
-            catch (FormatException)
-            {
-                Console.WriteLine("Данные не могут быть записаны, как процент выполнения. Повторите ввод.");
-            }
+
         }
-       
     }
 }
